@@ -58,7 +58,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Common Node Types</h3><ul><li><strong>Trigger Nodes:</strong> Start workflows based on events (e.g., Manual Trigger, Webhook)</li><li><strong>Action Nodes:</strong> Perform operations and transformations (e.g., HTTP Request, Edit Fields)</li><li><strong>Logic Nodes:</strong> Control workflow execution flow (e.g., IF, Switch)</li></ul>"
+          "value": "<h3>Common Node Types</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node Type</th><th style='padding: 12px; text-align: left;'>Key Question</th><th style='padding: 12px; text-align: left;'>Examples</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Trigger Node</strong></td><td style='padding: 12px;'><em>When does the workflow run?</em></td><td style='padding: 12px;'>Webhook, Schedule, Gmail Trigger, Manual Trigger</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Action Node</strong></td><td style='padding: 12px;'><em>What to do with the data?</em></td><td style='padding: 12px;'>Google Sheets, Slack, HTTP Request, Gmail Send, Edit Fields</td></tr><tr><td style='padding: 12px;'><strong>Logic Node</strong></td><td style='padding: 12px;'><em>How does data flow?</em></td><td style='padding: 12px;'>IF (branching), Merge (combine), Code (JS/Python)</td></tr></tbody></table>"
         },
         {
           "type": "text",
