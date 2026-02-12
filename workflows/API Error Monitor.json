@@ -71,7 +71,7 @@
     {
       "parameters": {
         "sendTo": "admin@company.com, team-lead@company.com",
-        "subject": "🔥 CRITICAL: Workflow Failure - {{ $json.failedNode }}",
+        "subject": "={{ '🔥 CRITICAL: Workflow Failure - ' + $json.failedNode }}",
         "emailType": "html",
         "message": "={{ \"<h1 style='color: red;'>🔥 Critical Workflow Failure</h1><h3>Execution Details:</h3><ul><li><strong>Workflow:</strong> \" + $json.workflowName + \"</li><li><strong>Failed Node:</strong> \" + $json.failedNode + \"</li><li><strong>Error:</strong> \" + $json.errorMessage + \"</li><li><strong>Execution ID:</strong> \" + $json.executionId + \"</li><li><strong>Time:</strong> \" + $json.timestamp + \"</li></ul><p style='padding: 10px; background-color: #fee; border-left: 4px solid red;'>⚠️ This is a critical error that requires immediate attention. The workflow could not recover using Continue on Fail.</p><hr><p><em>Error Trigger Workflow - Automated Monitoring</em></p>\" }}",
         "options": {}

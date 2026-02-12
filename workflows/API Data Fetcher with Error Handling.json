@@ -225,7 +225,7 @@
     {
       "parameters": {
         "sendTo": "admin@company.com",
-        "subject": "🚨 API Error Alert - {{ $json.failedAt }}",
+        "subject": "={{ '🚨 API Error Alert - ' + $json.failedAt }}",
         "emailType": "html",
         "message": "={{ \"<h2>🚨 API Call Failed</h2><p><strong>Error:</strong> \" + $json.errorMessage + \"</p><p><strong>HTTP Code:</strong> \" + $json.errorCode + \"</p><p><strong>Time:</strong> \" + $json.failedAt + \"</p><p><strong>Workflow:</strong> API Data Fetcher</p><hr><p><em>This is an automated alert from n8n. Please investigate immediately.</em></p>\" }}",
         "options": {}
