@@ -207,39 +207,12 @@
         },
         {
           "type": "text",
-          "value": "<h3>1. Previous Node Data</h3><p>The most common variable. Access data from the node directly before the current one:</p>"
+          "value": "<h3>Quick Examples</h3><p>Here's how to use each variable type:</p>"
         },
         {
           "type": "code",
           "language": "javascript",
-          "value": "// Simple field access\n{{ $json.name }}           // \"Alice\"\n{{ $json.email }}          // \"alice@test.com\"\n\n// Nested objects\n{{ $json.user.address.city }}  // \"San Francisco\"\n\n// Array access\n{{ $json.items[0] }}       // First item\n{{ $json.items.length }}   // Array length"
-        },
-        {
-          "type": "text",
-          "value": "<h3>2. Specific Node Data</h3><p>Access data from any node by its name. Useful when you need data from multiple sources:</p>"
-        },
-        {
-          "type": "code",
-          "language": "javascript",
-          "value": "// Reference a specific node\n{{ $('Create Sample Users').item.json.users }}\n\n// Compare data from two nodes\n{{ $('Node A').item.json.price - $('Node B').item.json.price }}\n\n// Use in conditionals\n{{ $('API Call').item.json.status === 'success' ? 'Proceed' : 'Stop' }}"
-        },
-        {
-          "type": "text",
-          "value": "<h3>3. System Time</h3><p>Access current date and time for timestamps, filtering, or date calculations:</p>"
-        },
-        {
-          "type": "code",
-          "language": "javascript",
-          "value": "// Current timestamp\n{{ $now }}                 // 2026-02-12T13:45:30.123Z\n\n// Format dates\n{{ $now.format('YYYY-MM-DD') }}        // \"2026-02-12\"\n{{ $now.format('HH:mm:ss') }}          // \"13:45:30\"\n{{ $today.format('dddd, MMMM D') }}    // \"Wednesday, February 12\"\n\n// Date calculations\n{{ $now.minus(7, 'days').format('YYYY-MM-DD') }}  // 7 days ago\n{{ $now.plus(1, 'month').toISO() }}               // 1 month from now"
-        },
-        {
-          "type": "text",
-          "value": "<h3>4. Current Input Data</h3><p>Access the current node's input. More advanced—used in loops or when processing multiple inputs:</p>"
-        },
-        {
-          "type": "code",
-          "language": "javascript",
-          "value": "// Access all input items\n{{ $input.all() }}         // All items from input\n\n// Get specific item by index\n{{ $input.item.json }}     // Current item being processed\n\n// Count input items\n{{ $input.all().length }}  // Number of items"
+          "value": "// $json - Previous node (most common)\n{{ $json.name }}                    // \"Alice\"\n{{ $json.email }}                   // \"alice@test.com\"\n{{ $json.items[0] }}                // Array access\n{{ $json.user.address.city }}       // Nested objects\n\n// $('Node Name') - Specific node\n{{ $('Create Sample Users').item.json.users }}\n{{ $('Node A').item.json.price - $('Node B').item.json.price }}\n{{ $('API Call').item.json.status === 'success' ? 'Proceed' : 'Stop' }}\n\n// $now / $today - System time\n{{ $now.format('YYYY-MM-DD') }}              // \"2026-02-12\"\n{{ $now.format('HH:mm:ss') }}                // \"13:45:30\"\n{{ $today.format('dddd, MMMM D') }}          // \"Wednesday, February 12\"\n{{ $now.minus(7, 'days').format('YYYY-MM-DD') }}  // 7 days ago\n{{ $now.plus(1, 'month').toISO() }}          // 1 month from now\n\n// $input - Current input (advanced)\n{{ $input.all() }}                  // All items from input\n{{ $input.item.json }}              // Current item being processed\n{{ $input.all().length }}           // Count items"
         },
         {
           "type": "text",
