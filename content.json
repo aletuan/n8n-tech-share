@@ -310,6 +310,17 @@
               ]
             },
             {
+              "id": "split-node",
+              "label": "Split Node",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/logic-split-node-detail.png",
+                  "alt": "Split Into Items node converting 1 array into 3 separate user items"
+                }
+              ]
+            },
+            {
               "id": "if-node",
               "label": "IF Node",
               "content": [
@@ -333,12 +344,23 @@
             },
             {
               "id": "gmail",
-              "label": "Gmail Summary",
+              "label": "Gmail Node",
               "content": [
                 {
                   "type": "image",
                   "src": "assets/images/logic-gmail-summary.png",
                   "alt": "Gmail node showing HTML message template and successful email sends for all 3 users"
+                }
+              ]
+            },
+            {
+              "id": "email-result",
+              "label": "Email Result",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/logic-email-result.png",
+                  "alt": "Actual Gmail inbox showing the User Access Summary Report with all 3 users listed with their access levels and badges"
                 }
               ]
             }
