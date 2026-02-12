@@ -338,15 +338,15 @@
       "content": [
         {
           "type": "text",
-          "value": "<p><strong>When Things Go Wrong</strong></p><p>Real workflows encounter errors: APIs fail, data is missing, network timeouts occur. The difference between a fragile workflow and a production-ready one is how it handles failures.</p><p><strong>Key Principle:</strong> Expect failures, handle them gracefully, and provide visibility when they happen.</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Production workflows handle errors gracefully.</strong> Use Continue on Fail, Error Triggers, and validation to catch failures and provide visibility.</div>"
         },
         {
           "type": "text",
-          "value": "<p><strong>Types of Errors</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Error Type</th><th style='padding: 12px; text-align: left;'>Example</th><th style='padding: 12px; text-align: left;'>Solution</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>API Failure</strong></td><td style='padding: 12px;'>External service returns 500 error</td><td style='padding: 12px;'>Retry logic, fallback data source</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Missing Data</strong></td><td style='padding: 12px;'>Expected field is undefined</td><td style='padding: 12px;'>Default values, validation checks</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Invalid Input</strong></td><td style='padding: 12px;'>Email format is incorrect</td><td style='padding: 12px;'>Validation before processing</td></tr><tr><td style='padding: 12px;'><strong>Timeout</strong></td><td style='padding: 12px;'>Request takes too long</td><td style='padding: 12px;'>Increase timeout, optimize query</td></tr></tbody></table>"
+          "value": "<p><strong>Error Types</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Error Type</th><th style='padding: 12px; text-align: left;'>Example</th><th style='padding: 12px; text-align: left;'>Solution</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>API Failure</td><td style='padding: 12px;'>External service returns 500 error</td><td style='padding: 12px;'>Retry logic, fallback data source</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Missing Data</td><td style='padding: 12px;'>Expected field is undefined</td><td style='padding: 12px;'>Default values, validation checks</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Invalid Input</td><td style='padding: 12px;'>Email format is incorrect</td><td style='padding: 12px;'>Validation before processing</td></tr><tr><td style='padding: 12px;'>Timeout</td><td style='padding: 12px;'>Request takes too long</td><td style='padding: 12px;'>Increase timeout, optimize query</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<p><strong>Error Trigger Node</strong></p><p>Automatically runs when any node in your workflow fails. Perfect for notifications and cleanup.</p>"
+          "value": "<p><strong>Error Trigger Node</strong> — Runs when any node fails</p>"
         },
         {
           "type": "code",
@@ -355,7 +355,7 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Continue on Fail</strong></p><p>Node-level setting that prevents one failure from stopping the entire workflow.</p><p><strong>When to use:</strong> Non-critical operations where you want the workflow to continue even if this step fails.</p>"
+          "value": "<p><strong>Continue on Fail</strong> — Node setting to prevent failure from stopping workflow</p>"
         },
         {
           "type": "code",
@@ -364,7 +364,7 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>IF Node for Validation</strong></p><p>Validate data before processing to catch issues early.</p>"
+          "value": "<p><strong>Validation with IF Node</strong></p>"
         },
         {
           "type": "code",
@@ -373,20 +373,16 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Debugging Techniques</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Technique</th><th style='padding: 12px; text-align: left;'>How To</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Inspect Node Output</strong></td><td style='padding: 12px;'>Click node → View output tab to see actual data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Pin Data</strong></td><td style='padding: 12px;'>Right-click node → Pin data to test with sample data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Execute Single Node</strong></td><td style='padding: 12px;'>Click node → Execute node to test in isolation</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Check Execution Log</strong></td><td style='padding: 12px;'>View execution history to see what went wrong</td></tr><tr><td style='padding: 12px;'><strong>Use Edit Fields to Log</strong></td><td style='padding: 12px;'>Add debug fields to see intermediate values</td></tr></tbody></table>"
+          "value": "<p><strong>Debugging Techniques</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Technique</th><th style='padding: 12px; text-align: left;'>How To</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Inspect Node Output</td><td style='padding: 12px;'>Click node → View output tab to see actual data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Pin Data</td><td style='padding: 12px;'>Right-click node → Pin data to test with sample data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Execute Single Node</td><td style='padding: 12px;'>Click node → Execute node to test in isolation</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Check Execution Log</td><td style='padding: 12px;'>View execution history to see what went wrong</td></tr><tr><td style='padding: 12px;'>Use Edit Fields to Log</td><td style='padding: 12px;'>Add debug fields to see intermediate values</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<p><strong>Error Handling Pattern</strong></p><p>A common pattern for production workflows:</p>"
+          "value": "<p><strong>Common Pattern</strong></p>"
         },
         {
           "type": "code",
           "language": "javascript",
           "value": "// Pattern: Validate → Try → Catch → Notify\n\n1. IF Node: Validate input\n   ├─ Valid → Continue to main workflow\n   └─ Invalid → Send to error handler\n\n2. Enable \"Continue On Fail\" on risky nodes\n   - API calls\n   - External integrations\n   - File operations\n\n3. Error Trigger workflow:\n   - Log error details\n   - Send notification (Slack/Email)\n   - Store failed items for retry\n\n4. IF Node: Check for errors\n   ├─ Success → Continue\n   └─ Failed → Fallback action or skip"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>Error Handling in Action: API Demo</strong></p><p>See how the workflow handles both success and failure scenarios:</p>"
         },
         {
           "type": "tabs",
@@ -439,19 +435,19 @@
       "content": [
         {
           "type": "text",
-          "value": "<p><strong>Working with AI</strong></p><p>Now that you can build reliable workflows, let's add intelligence. AI APIs let you analyze, generate, and transform data using large language models (LLMs).</p><p><strong>The Key Concept:</strong> Send text in → Get intelligent response back. LLMs understand context, generate content, analyze sentiment, extract data, and more.</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>AI APIs let you analyze, generate, and transform data using LLMs.</strong> Send text in → Get intelligent response back.</div>"
         },
         {
           "type": "text",
-          "value": "<p><strong>Popular AI Providers</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Provider</th><th style='padding: 12px; text-align: left;'>Models</th><th style='padding: 12px; text-align: left;'>Best For</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>OpenAI</strong></td><td style='padding: 12px;'>GPT-4, GPT-3.5</td><td style='padding: 12px;'>General purpose, JSON mode, function calling</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Anthropic</strong></td><td style='padding: 12px;'>Claude 4</td><td style='padding: 12px;'>Long context, analysis, reasoning</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Google</strong></td><td style='padding: 12px;'>Gemini</td><td style='padding: 12px;'>Multimodal (text + images), fast</td></tr><tr><td style='padding: 12px;'><strong>Open Source</strong></td><td style='padding: 12px;'>Llama, Mistral</td><td style='padding: 12px;'>Self-hosted, cost control</td></tr></tbody></table>"
+          "value": "<p><strong>AI Providers</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Provider</th><th style='padding: 12px; text-align: left;'>Models</th><th style='padding: 12px; text-align: left;'>Best For</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>OpenAI</td><td style='padding: 12px;'>GPT-4, GPT-3.5</td><td style='padding: 12px;'>General purpose, JSON mode, function calling</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Anthropic</td><td style='padding: 12px;'>Claude 4</td><td style='padding: 12px;'>Long context, analysis, reasoning</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Google</td><td style='padding: 12px;'>Gemini</td><td style='padding: 12px;'>Multimodal (text + images), fast</td></tr><tr><td style='padding: 12px;'>Open Source</td><td style='padding: 12px;'>Llama, Mistral</td><td style='padding: 12px;'>Self-hosted, cost control</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<p><strong>Setting Up in n8n</strong></p><p>n8n has dedicated AI nodes for major providers:</p><ul><li><strong>OpenAI node</strong> — Built-in, easy setup</li><li><strong>HTTP Request node</strong> — For any AI API (Claude, Gemini, custom)</li><li><strong>Credentials</strong> — Store API keys securely in n8n</li></ul>"
+          "value": "<p><strong>Setup</strong></p><ul><li>OpenAI node — Built-in, easy setup</li><li>HTTP Request node — For any AI API (Claude, Gemini, custom)</li><li>Credentials — Store API keys securely in n8n</li></ul>"
         },
         {
           "type": "text",
-          "value": "<p><strong>Basic Text Generation</strong></p><p>The simplest AI workflow: send a prompt, get a response.</p>"
+          "value": "<p><strong>Text Generation</strong></p>"
         },
         {
           "type": "code",
@@ -460,11 +456,11 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Key Parameters</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Parameter</th><th style='padding: 12px; text-align: left;'>What It Does</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Model</strong></td><td style='padding: 12px;'>Which AI to use (gpt-4 = smart but slow, gpt-3.5 = fast but cheaper)</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Temperature</strong></td><td style='padding: 12px;'>Creativity (0 = consistent, 1 = creative). Use 0 for data extraction, 0.7 for writing.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Max Tokens</strong></td><td style='padding: 12px;'>Response length limit. 1 token ≈ 0.75 words. Limits cost.</td></tr><tr><td style='padding: 12px;'><strong>System Message</strong></td><td style='padding: 12px;'>Sets AI behavior (\"You are a helpful customer service agent\")</td></tr></tbody></table>"
+          "value": "<p><strong>Parameters</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Parameter</th><th style='padding: 12px; text-align: left;'>What It Does</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Model</td><td style='padding: 12px;'>Which AI to use (gpt-4 = smart but slow, gpt-3.5 = fast but cheaper)</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Temperature</td><td style='padding: 12px;'>Creativity (0 = consistent, 1 = creative). Use 0 for data extraction, 0.7 for writing.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Max Tokens</td><td style='padding: 12px;'>Response length limit. 1 token ≈ 0.75 words. Limits cost.</td></tr><tr><td style='padding: 12px;'>System Message</td><td style='padding: 12px;'>Sets AI behavior (\"You are a helpful customer service agent\")</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<p><strong>Chat vs Completion</strong></p><p>Two ways to interact with AI:</p>"
+          "value": "<p><strong>Chat vs Completion</strong></p>"
         },
         {
           "type": "code",
@@ -473,16 +469,12 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Response Handling</strong></p><p>AI responses are JSON. Extract what you need:</p>"
+          "value": "<p><strong>Response Handling</strong></p>"
         },
         {
           "type": "code",
           "language": "javascript",
           "value": "// OpenAI Response Structure\n{\n  \"choices\": [\n    {\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"This is the AI's response\"\n      }\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 20,\n    \"completion_tokens\": 50,\n    \"total_tokens\": 70\n  }\n}\n\n// Access the response:\n{{ $json.choices[0].message.content }}\n\n// Access token usage (for cost tracking):\n{{ $json.usage.total_tokens }}\n\n// With JSON mode (structured output):\nPrompt: \"Extract: name, email, phone from this text\"\nResponse: {\"name\": \"John\", \"email\": \"john@test.com\", \"phone\": \"555-1234\"}"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>Smart Email Responder Demo</strong></p><p>A practical workflow showing AI in action:</p>"
         },
         {
           "type": "tabs",
