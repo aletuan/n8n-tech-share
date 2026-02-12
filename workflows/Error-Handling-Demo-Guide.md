@@ -5,7 +5,25 @@ This guide explains how to import, configure, and test the error handling demo w
 ## 📦 Workflows Included
 
 1. **API Data Fetcher with Error Handling.json** - Main workflow demonstrating error handling
-2. **API Error Monitor.json** - Error Trigger workflow for critical failures
+2. **API Error Monitor.json** - **REUSABLE** Error Trigger workflow that monitors ALL workflows
+
+### Why Two Workflows?
+
+**Integrated Error Handling (Workflow #1):**
+- Handles EXPECTED errors (API fails, validation fails)
+- Uses Continue on Fail + IF node
+- Custom error handling per workflow
+- Part of normal workflow logic
+
+**Separate Error Trigger (Workflow #2):**
+- Handles UNEXPECTED crashes (network fails, critical errors)
+- **Monitors ALL workflows** (or specific ones you choose)
+- Global safety net - set up once, protects everything
+- Activates when "Continue on Fail" can't save the workflow
+
+**Think of it like:**
+- Integrated = Airbags in your car (per car)
+- Error Trigger = Emergency services (citywide, shared)
 
 ---
 
@@ -29,7 +47,17 @@ Both workflows use Gmail to send alerts. You need to set up Gmail credentials:
    - Main workflow: `admin@company.com` → your email
    - Error Monitor: `admin@company.com, team-lead@company.com` → your emails
 
-### Step 3: Activate Error Monitor
+### Step 3: Configure Error Monitor (Optional)
+
+The Error Monitor is configured to watch **ALL workflows** by default.
+
+**To monitor specific workflows only:**
+1. Open `API Error Monitor` workflow
+2. Click on the **Error Trigger** node
+3. In the **Workflows** field, select specific workflows to monitor
+4. Leave empty to monitor ALL workflows (recommended)
+
+### Step 4: Activate Error Monitor
 
 ⚠️ **Important:** The Error Trigger workflow must be **ACTIVE** to catch errors.
 
@@ -256,6 +284,50 @@ For step 7 tutorial, capture these screenshots:
 5. **Error Alert Email** - Gmail showing received alert
 6. **Error Trigger Workflow** - Separate monitoring workflow
 7. **Critical Alert Email** - Gmail showing critical alert
+
+---
+
+## 🔄 Reusing Error Trigger Across Multiple Workflows
+
+The **API Error Monitor** workflow is designed to be shared! Here's how:
+
+### Setup Once, Protect Everything:
+
+1. **Keep Error Monitor Active** - One workflow monitors all others
+2. **Add More Workflows** - They automatically get monitored
+3. **Customize Alerts** - Update one place, affects all workflows
+
+### Example: Monitor 3 Different Workflows
+
+```
+API Error Monitor (ACTIVE)
+    ↓ Monitors ↓
+├─ API Data Fetcher
+├─ User Processing Pipeline
+└─ Email Campaign Sender
+
+All 3 workflows protected by ONE Error Trigger!
+```
+
+### Configuration Options:
+
+**Option 1: Monitor ALL workflows** (Recommended)
+- Leave "Workflows" field empty in Error Trigger node
+- Any workflow that crashes sends alert
+- Set up once, forget about it
+
+**Option 2: Monitor Specific workflows**
+- Select specific workflows in Error Trigger node
+- Only chosen workflows send critical alerts
+- Use for production-critical workflows only
+
+### Cost-Benefit:
+
+❌ **Without shared Error Trigger:**
+- 10 workflows = 10 error handlers = lots of duplication
+
+✅ **With shared Error Trigger:**
+- 10 workflows = 1 error monitor = centralized monitoring
 
 ---
 

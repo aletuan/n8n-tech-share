@@ -2,9 +2,7 @@
   "name": "API Error Monitor",
   "nodes": [
     {
-      "parameters": {
-        "workflowIds": "={{ [\"API Data Fetcher with Error Handling\"] }}"
-      },
+      "parameters": {},
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
       "position": [0, 0],
