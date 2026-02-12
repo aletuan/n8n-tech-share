@@ -1,0 +1,293 @@
+{
+  "name": "User Role Router",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0],
+      "id": "manual-trigger",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "users-array",
+              "name": "users",
+              "value": "={{ [{\"name\": \"Alice\", \"role\": \"admin\", \"email\": \"alice@company.com\"}, {\"name\": \"Bob\", \"role\": \"user\", \"email\": \"bob@company.com\"}, {\"name\": \"Charlie\", \"role\": \"admin\", \"email\": \"charlie@company.com\"}] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [220, 0],
+      "id": "create-users",
+      "name": "Create Sample Users"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "users",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [440, 0],
+      "id": "split-items",
+      "name": "Split Into Items"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "is-admin",
+              "leftValue": "={{ $json.role }}",
+              "rightValue": "admin",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [660, 0],
+      "id": "if-admin",
+      "name": "IF: Is Admin?"
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "preserve-name",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-role",
+              "name": "role",
+              "value": "={{ $json.role }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-email",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "access-level",
+              "name": "accessLevel",
+              "value": "Full Access",
+              "type": "string"
+            },
+            {
+              "id": "badge",
+              "name": "badge",
+              "value": "👑 Admin",
+              "type": "string"
+            },
+            {
+              "id": "message",
+              "name": "message",
+              "value": "={{ $json.name + ' has admin privileges' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [880, -100],
+      "id": "admin-actions",
+      "name": "Admin Actions"
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "preserve-name",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-role",
+              "name": "role",
+              "value": "={{ $json.role }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-email",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "access-level",
+              "name": "accessLevel",
+              "value": "Limited Access",
+              "type": "string"
+            },
+            {
+              "id": "badge",
+              "name": "badge",
+              "value": "👤 User",
+              "type": "string"
+            },
+            {
+              "id": "message",
+              "name": "message",
+              "value": "={{ $json.name + ' has user privileges' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [880, 100],
+      "id": "user-actions",
+      "name": "User Actions"
+    },
+    {
+      "parameters": {
+        "mode": "append"
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [1100, 0],
+      "id": "merge-node",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "sendTo": "your-email@example.com",
+        "subject": "User Access Summary Report",
+        "emailType": "html",
+        "message": "={{ \"<h2>User Access Summary</h2><p>Processed \" + $input.all().length + \" users:</p><ul>\" + $input.all().map(item => \"<li><strong>\" + item.json.name + \"</strong> (\" + item.json.role + \") - \" + item.json.accessLevel + \" - \" + item.json.badge + \"<br/>\" + item.json.message + \"</li>\").join(\"\") + \"</ul><p><em>Report generated at: \" + $now.format('YYYY-MM-DD HH:mm:ss') + \"</em></p>\" }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1320, 0],
+      "id": "gmail-send",
+      "name": "Gmail Send Summary"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create Sample Users",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Sample Users": {
+      "main": [
+        [
+          {
+            "node": "Split Into Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Into Items": {
+      "main": [
+        [
+          {
+            "node": "IF: Is Admin?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Is Admin?": {
+      "main": [
+        [
+          {
+            "node": "Admin Actions",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "User Actions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Admin Actions": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "User Actions": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Gmail Send Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

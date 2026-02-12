@@ -247,6 +247,108 @@
           ]
         }
       ]
+    },
+    {
+      "id": 6,
+      "title": "Logic & Branching",
+      "content": [
+        {
+          "type": "text",
+          "value": "<h3>Making Decisions</h3><p>Now that you can access and transform data, it's time to control where it goes. Logic nodes let your workflow make decisions and route items down different paths.</p><p><strong>The Key Question:</strong> Based on the data, which path should this item take?</p>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>The IF Node</h3><p>Split your workflow into two paths: <strong>true</strong> or <strong>false</strong>. Use when you have a yes/no decision.</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Example conditions:\n{{ $json.role === 'admin' }}              // Is user an admin?\n{{ $json.age >= 18 }}                     // Is user 18 or older?\n{{ $json.price > 100 }}                   // Is price over $100?\n{{ $json.status === 'active' }}           // Is status active?\n{{ $json.email.includes('@company.com') }} // Is company email?"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Result:</strong> Items flow down the <code>true</code> path or <code>false</code> path based on your condition.</p>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>The Switch Node</h3><p>Route items to multiple paths based on a value. Use when you have 3+ possible outcomes.</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Route by order status:\nswitch ($json.status) {\n  case 'pending':   // → Path 1: Send reminder\n  case 'shipped':   // → Path 2: Track package  \n  case 'delivered': // → Path 3: Request review\n  default:          // → Path 4: Log error\n}"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Result:</strong> Each item goes to the matching output path. Unmatched items go to the default path.</p>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>The Merge Node</h3><p>Combine multiple paths back into one. Use after branching when you want to process all items together again.</p><p><strong>Example:</strong> Our demo workflow merges admin and user paths, then sends a single Gmail summary with all processed users.</p>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Quick Comparison</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node</th><th style='padding: 12px; text-align: left;'>Outputs</th><th style='padding: 12px; text-align: left;'>Use When</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>IF</strong></td><td style='padding: 12px;'>2 (true/false)</td><td style='padding: 12px;'>Binary decision — yes or no, include or exclude</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Switch</strong></td><td style='padding: 12px;'>Multiple</td><td style='padding: 12px;'>Route by value — status, category, type, etc.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Merge</strong></td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Combine paths back together after branching</td></tr><tr><td style='padding: 12px;'><strong>Filter</strong></td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Remove items that don't match condition</td></tr></tbody></table>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Logic in Action: User Role Router</h3><p>This workflow demonstrates the complete branching pattern: split paths based on conditions, process differently, merge back together, and send a unified result.</p>"
+        },
+        {
+          "type": "tabs",
+          "title": "User Role Router Workflow Demo",
+          "tabs": [
+            {
+              "id": "overview",
+              "label": "Workflow Overview",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/logic-workflow-overview.png",
+                  "alt": "Complete workflow showing branching, merging, and Gmail integration with 7 nodes"
+                }
+              ]
+            },
+            {
+              "id": "if-node",
+              "label": "IF Node",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/logic-if-node-detail.png",
+                  "alt": "IF node detail showing condition check and true/false branch outputs"
+                }
+              ]
+            },
+            {
+              "id": "merge-node",
+              "label": "Merge Node",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/logic-merge-node-detail.png",
+                  "alt": "Merge node showing append mode combining 2 admin items and 1 user item into 3 total items"
+                }
+              ]
+            },
+            {
+              "id": "gmail",
+              "label": "Gmail Summary",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/logic-gmail-summary.png",
+                  "alt": "Gmail node showing HTML message template and successful email sends for all 3 users"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "<h3>How It Works</h3><ol><li><strong>Create Sample Users</strong> — Generates 3 users (2 admins, 1 regular user)</li><li><strong>Split Into Items</strong> — Each user becomes a separate item</li><li><strong>IF: Is Admin?</strong> — Checks if <code>{{ $json.role === 'admin' }}</code></li><li><strong>True Path → Admin Actions</strong> — Admins get \"Full Access\" + 👑 badge</li><li><strong>False Path → User Actions</strong> — Regular users get \"Limited Access\" + 👤 badge</li><li><strong>Merge</strong> — Combines both paths back into one stream (3 items total)</li><li><strong>Gmail Send Summary</strong> — Sends one email with all users listed</li></ol><p><strong>Result:</strong> Alice and Charlie (admins) + Bob (user) all appear in a single summary email showing their access levels and badges.</p><p><strong>Note:</strong> To run this workflow, you'll need to configure Gmail credentials in n8n. Update the email address in the Gmail node to your own.</p>"
+        }
+      ]
     }
   ]
 }
