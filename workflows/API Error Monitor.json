@@ -1,0 +1,116 @@
+{
+  "name": "API Error Monitor",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowIds": "={{ [\"API Data Fetcher with Error Handling\"] }}"
+      },
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [0, 0],
+      "id": "error-trigger",
+      "name": "Error Trigger",
+      "webhookId": "error-monitor"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "alert-type",
+              "name": "alertType",
+              "value": "CRITICAL",
+              "type": "string"
+            },
+            {
+              "id": "failed-node",
+              "name": "failedNode",
+              "value": "={{ $json.error.node.name }}",
+              "type": "string"
+            },
+            {
+              "id": "error-message",
+              "name": "errorMessage",
+              "value": "={{ $json.error.message }}",
+              "type": "string"
+            },
+            {
+              "id": "execution-id",
+              "name": "executionId",
+              "value": "={{ $json.execution.id }}",
+              "type": "string"
+            },
+            {
+              "id": "workflow-name",
+              "name": "workflowName",
+              "value": "={{ $json.workflow.name }}",
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "value": "={{ $now.format('YYYY-MM-DD HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "critical-alert",
+              "name": "criticalAlert",
+              "value": "={{ \"🔥 CRITICAL: Workflow crashed at \" + $json.error.node.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [220, 0],
+      "id": "format-critical-error",
+      "name": "Format Critical Error"
+    },
+    {
+      "parameters": {
+        "sendTo": "admin@company.com, team-lead@company.com",
+        "subject": "🔥 CRITICAL: Workflow Failure - {{ $json.failedNode }}",
+        "emailType": "html",
+        "message": "={{ \"<h1 style='color: red;'>🔥 Critical Workflow Failure</h1><h3>Execution Details:</h3><ul><li><strong>Workflow:</strong> \" + $json.workflowName + \"</li><li><strong>Failed Node:</strong> \" + $json.failedNode + \"</li><li><strong>Error:</strong> \" + $json.errorMessage + \"</li><li><strong>Execution ID:</strong> \" + $json.executionId + \"</li><li><strong>Time:</strong> \" + $json.timestamp + \"</li></ul><p style='padding: 10px; background-color: #fee; border-left: 4px solid red;'>⚠️ This is a critical error that requires immediate attention. The workflow could not recover using Continue on Fail.</p><hr><p><em>Error Trigger Workflow - Automated Monitoring</em></p>\" }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [440, 0],
+      "id": "send-critical-email",
+      "name": "Send Critical Alert Email"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Format Critical Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Critical Error": {
+      "main": [
+        [
+          {
+            "node": "Send Critical Alert Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

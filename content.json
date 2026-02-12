@@ -371,6 +371,68 @@
           "value": "<h3>How It Works</h3><ol><li><strong>Create Sample Users</strong> — Generates 3 users (2 admins, 1 regular user)</li><li><strong>Split Into Items</strong> — Each user becomes a separate item</li><li><strong>IF: Is Admin?</strong> — Checks if <code>{{ $json.role === 'admin' }}</code></li><li><strong>True Path → Admin Actions</strong> — Admins get \"Full Access\" + 👑 badge</li><li><strong>False Path → User Actions</strong> — Regular users get \"Limited Access\" + 👤 badge</li><li><strong>Merge</strong> — Combines both paths back into one stream (3 items total)</li><li><strong>Gmail Send Summary</strong> — Sends one email with all users listed</li></ol><p><strong>Result:</strong> Alice and Charlie (admins) + Bob (user) all appear in a single summary email showing their access levels and badges.</p><p><strong>Note:</strong> To run this workflow, you'll need to configure Gmail credentials in n8n. Update the email address in the Gmail node to your own.</p>"
         }
       ]
+    },
+    {
+      "id": 7,
+      "title": "Error Handling & Debugging",
+      "content": [
+        {
+          "type": "text",
+          "value": "<h3>When Things Go Wrong</h3><p>Real workflows encounter errors: APIs fail, data is missing, network timeouts occur. The difference between a fragile workflow and a production-ready one is how it handles failures.</p><p><strong>Key Principle:</strong> Expect failures, handle them gracefully, and provide visibility when they happen.</p>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Types of Errors</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Error Type</th><th style='padding: 12px; text-align: left;'>Example</th><th style='padding: 12px; text-align: left;'>Solution</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>API Failure</strong></td><td style='padding: 12px;'>External service returns 500 error</td><td style='padding: 12px;'>Retry logic, fallback data source</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Missing Data</strong></td><td style='padding: 12px;'>Expected field is undefined</td><td style='padding: 12px;'>Default values, validation checks</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Invalid Input</strong></td><td style='padding: 12px;'>Email format is incorrect</td><td style='padding: 12px;'>Validation before processing</td></tr><tr><td style='padding: 12px;'><strong>Timeout</strong></td><td style='padding: 12px;'>Request takes too long</td><td style='padding: 12px;'>Increase timeout, optimize query</td></tr></tbody></table>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Error Trigger Node</h3><p>Automatically runs when any node in your workflow fails. Perfect for notifications and cleanup.</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Error Trigger gives you:\n{{ $json.error.message }}        // What went wrong\n{{ $json.error.node }}           // Which node failed\n{{ $json.error.timestamp }}      // When it happened\n{{ $json.execution.id }}         // Execution ID for tracking\n\n// Example: Send alert\nif ($json.error.node === 'API Call') {\n  'Critical: API integration failed'\n}"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Continue on Fail</h3><p>Node-level setting that prevents one failure from stopping the entire workflow.</p><p><strong>When to use:</strong> Non-critical operations where you want the workflow to continue even if this step fails.</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Enable in Node Settings → Continue On Fail\n\n// Use cases:\n- Optional notifications (Slack message fails? Continue anyway)\n- Secondary data enrichment (Nice to have, not required)\n- Logging operations (Don't stop workflow if log fails)\n\n// Access error info in next node:\n{{ $json.error }}  // Error details if the node failed"
+        },
+        {
+          "type": "text",
+          "value": "<h3>IF Node for Validation</h3><p>Validate data before processing to catch issues early.</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Validate email exists\n{{ $json.email !== undefined && $json.email !== '' }}\n\n// Validate email format\n{{ $json.email.includes('@') && $json.email.includes('.') }}\n\n// Validate number is positive\n{{ $json.price > 0 }}\n\n// Validate required fields\n{{ $json.name && $json.email && $json.role }}\n\n// True path = valid → Continue processing\n// False path = invalid → Send to error handler or skip"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Debugging Techniques</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Technique</th><th style='padding: 12px; text-align: left;'>How To</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Inspect Node Output</strong></td><td style='padding: 12px;'>Click node → View output tab to see actual data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Pin Data</strong></td><td style='padding: 12px;'>Right-click node → Pin data to test with sample data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Execute Single Node</strong></td><td style='padding: 12px;'>Click node → Execute node to test in isolation</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Check Execution Log</strong></td><td style='padding: 12px;'>View execution history to see what went wrong</td></tr><tr><td style='padding: 12px;'><strong>Use Edit Fields to Log</strong></td><td style='padding: 12px;'>Add debug fields to see intermediate values</td></tr></tbody></table>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Error Handling Pattern</h3><p>A common pattern for production workflows:</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Pattern: Validate → Try → Catch → Notify\n\n1. IF Node: Validate input\n   ├─ Valid → Continue to main workflow\n   └─ Invalid → Send to error handler\n\n2. Enable \"Continue On Fail\" on risky nodes\n   - API calls\n   - External integrations\n   - File operations\n\n3. Error Trigger workflow:\n   - Log error details\n   - Send notification (Slack/Email)\n   - Store failed items for retry\n\n4. IF Node: Check for errors\n   ├─ Success → Continue\n   └─ Failed → Fallback action or skip"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Quick Reference</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 35%;'>Scenario</th><th style='padding: 12px; text-align: left;'>Solution</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Get notified when workflow fails</td><td style='padding: 12px;'>Add Error Trigger workflow</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Node fails but workflow should continue</td><td style='padding: 12px;'>Enable \"Continue On Fail\" on that node</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Validate data before processing</td><td style='padding: 12px;'>Use IF node with validation expression</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>API sometimes fails</td><td style='padding: 12px;'>Enable retry in HTTP Request settings</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>See what data looks like at each step</td><td style='padding: 12px;'>Click node → View output tab</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Test with sample data</td><td style='padding: 12px;'>Right-click node → Pin data</td></tr><tr><td style='padding: 12px;'>Missing field causes error</td><td style='padding: 12px;'>Use <code>{{ $json.field || 'default' }}</code></td></tr></tbody></table>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Best Practices</h3><ul><li><strong>Fail fast</strong> — Validate input early, before expensive operations</li><li><strong>Be specific</strong> — Check for exact error conditions rather than catching all errors</li><li><strong>Provide context</strong> — Include useful info in error messages (execution ID, failed node, input data)</li><li><strong>Test failure paths</strong> — Don't just test the happy path; simulate failures</li><li><strong>Monitor & alert</strong> — Set up Error Trigger workflows for critical workflows</li></ul>"
+        }
+      ]
     }
   ]
 }

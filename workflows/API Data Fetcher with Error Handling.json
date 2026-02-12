@@ -1,0 +1,310 @@
+{
+  "name": "API Data Fetcher with Error Handling",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0],
+      "id": "manual-trigger",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://jsonplaceholder.typicode.com/users/1",
+        "options": {
+          "retry": {
+            "maxTries": 3,
+            "waitBetween": 1000
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0],
+      "id": "http-request",
+      "name": "HTTP Request - Get User Data",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-success-data",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "any",
+                "operation": "exists"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [440, 0],
+      "id": "if-success",
+      "name": "IF: Did API Call Succeed?"
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "status",
+              "name": "status",
+              "value": "success",
+              "type": "string"
+            },
+            {
+              "id": "user-name",
+              "name": "userName",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "user-email",
+              "name": "userEmail",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "user-phone",
+              "name": "userPhone",
+              "value": "={{ $json.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "processed-at",
+              "name": "processedAt",
+              "value": "={{ $now.format('YYYY-MM-DD HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "message",
+              "name": "message",
+              "value": "User data retrieved successfully",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [660, -100],
+      "id": "process-data",
+      "name": "Process Data"
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "preserve-status",
+              "name": "status",
+              "value": "={{ $json.status }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-userName",
+              "name": "userName",
+              "value": "={{ $json.userName }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-userEmail",
+              "name": "userEmail",
+              "value": "={{ $json.userEmail }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-userPhone",
+              "name": "userPhone",
+              "value": "={{ $json.userPhone }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-processedAt",
+              "name": "processedAt",
+              "value": "={{ $json.processedAt }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-message",
+              "name": "message",
+              "value": "={{ $json.message }}",
+              "type": "string"
+            },
+            {
+              "id": "final-status",
+              "name": "finalStatus",
+              "value": "✅ SUCCESS",
+              "type": "string"
+            },
+            {
+              "id": "summary",
+              "name": "summary",
+              "value": "={{ \"Retrieved data for \" + $json.userName }}",
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [880, -100],
+      "id": "display-success",
+      "name": "Display Success"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "status",
+              "name": "status",
+              "value": "failed",
+              "type": "string"
+            },
+            {
+              "id": "error-message",
+              "name": "errorMessage",
+              "value": "={{ $json.error.message || \"Unknown error occurred\" }}",
+              "type": "string"
+            },
+            {
+              "id": "error-code",
+              "name": "errorCode",
+              "value": "={{ $json.error.httpCode || \"N/A\" }}",
+              "type": "string"
+            },
+            {
+              "id": "failed-at",
+              "name": "failedAt",
+              "value": "={{ $now.format('YYYY-MM-DD HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "alert-message",
+              "name": "alertMessage",
+              "value": "={{ \"⚠️ API Call Failed: \" + ($json.error.message || \"Unknown error\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [660, 100],
+      "id": "format-error",
+      "name": "Format Error Details"
+    },
+    {
+      "parameters": {
+        "sendTo": "admin@company.com",
+        "subject": "🚨 API Error Alert - {{ $json.failedAt }}",
+        "emailType": "html",
+        "message": "={{ \"<h2>🚨 API Call Failed</h2><p><strong>Error:</strong> \" + $json.errorMessage + \"</p><p><strong>HTTP Code:</strong> \" + $json.errorCode + \"</p><p><strong>Time:</strong> \" + $json.failedAt + \"</p><p><strong>Workflow:</strong> API Data Fetcher</p><hr><p><em>This is an automated alert from n8n. Please investigate immediately.</em></p>\" }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [880, 100],
+      "id": "send-alert",
+      "name": "Send Error Alert"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Get User Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Get User Data": {
+      "main": [
+        [
+          {
+            "node": "IF: Did API Call Succeed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Did API Call Succeed?": {
+      "main": [
+        [
+          {
+            "node": "Process Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Error Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Data": {
+      "main": [
+        [
+          {
+            "node": "Display Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Error Details": {
+      "main": [
+        [
+          {
+            "node": "Send Error Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}
