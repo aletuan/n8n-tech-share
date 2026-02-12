@@ -13,6 +13,10 @@
         {
           "type": "text",
           "value": "<h3>What You'll Learn</h3><ul><li>Core n8n concepts and terminology</li><li>Creating and managing workflows</li><li>Working with nodes and connections</li><li>Handling data and expressions</li><li>Best practices for production workflows</li></ul>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>About This Tutorial</h3><p>This is a sample tutorial with placeholder content. To customize it for your team:</p><ol><li>Edit <code>content.json</code> to add your own steps and content</li><li>Add screenshots to <code>assets/images/</code></li><li>Update the tutorial title and description</li></ol><p>See <code>README.md</code> for detailed instructions on editing content.</p>"
         }
       ]
     },
