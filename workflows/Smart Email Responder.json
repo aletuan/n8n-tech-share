@@ -43,20 +43,22 @@
     },
     {
       "parameters": {
-        "resource": "chat",
+        "resource": "text",
         "operation": "message",
         "model": "gpt-3.5-turbo",
-        "messages": {
-          "values": [
-            {
-              "content": "={{ \"Analyze the sentiment of this email and respond with only one word (positive, negative, or neutral):\\n\\n\" + $json.body }}"
-            }
-          ]
-        },
         "options": {
           "temperature": 0.3,
           "maxTokens": 50
-        }
+        },
+        "messages": {
+          "values": [
+            {
+              "message": "={{ \"Analyze the sentiment of this email and respond with only one word (positive, negative, or neutral):\\n\\n\" + $json.body }}",
+              "role": "user"
+            }
+          ]
+        },
+        "simplifyOutput": true
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.4,
@@ -66,20 +68,26 @@
     },
     {
       "parameters": {
-        "resource": "chat",
+        "resource": "text",
         "operation": "message",
         "model": "gpt-3.5-turbo",
+        "options": {
+          "temperature": 0.7,
+          "maxTokens": 250
+        },
         "messages": {
           "values": [
             {
-              "content": "={{ \"You are a helpful customer service representative. The customer's email has a \" + $('Analyze Sentiment').first().json.message.content + \" sentiment.\\n\\nWrite a professional, empathetic response to this email:\\n\\nFrom: \" + $('Sample Email').first().json.from + \"\\nSubject: \" + $('Sample Email').first().json.subject + \"\\nBody: \" + $('Sample Email').first().json.body + \"\\n\\nResponse:\" }}"
+              "message": "You are a helpful customer service representative.",
+              "role": "system"
+            },
+            {
+              "message": "={{ \"The customer's email has a \" + $('Analyze Sentiment').first().json.message.content + \" sentiment.\\n\\nWrite a professional, empathetic response to this email:\\n\\nFrom: \" + $('Sample Email').first().json.from + \"\\nSubject: \" + $('Sample Email').first().json.subject + \"\\nBody: \" + $('Sample Email').first().json.body }}",
+              "role": "user"
             }
           ]
         },
-        "options": {
-          "temperature": 0.7,
-          "maxTokens": 200
-        }
+        "simplifyOutput": true
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.4,
@@ -118,7 +126,7 @@
             {
               "id": "ai-response",
               "name": "aiResponse",
-              "value": "={{ $json.message.content }}",
+              "value": "={{ $('Generate Response').first().json.message.content }}",
               "type": "string"
             },
             {
