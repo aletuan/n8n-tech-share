@@ -329,10 +329,6 @@
               ]
             }
           ]
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>How It Works</strong></p><ol><li><strong>Create Sample Users</strong> — Generates 3 users (2 admins, 1 regular user)</li><li><strong>Split Into Items</strong> — Each user becomes a separate item</li><li><strong>IF: Is Admin?</strong> — Checks if <code>{{ $json.role === 'admin' }}</code></li><li><strong>True Path → Admin Actions</strong> — Admins get \"Full Access\" + 👑 badge</li><li><strong>False Path → User Actions</strong> — Regular users get \"Limited Access\" + 👤 badge</li><li><strong>Merge</strong> — Combines both paths back into one stream (3 items total)</li><li><strong>Gmail Send Summary</strong> — Sends one email with all users listed</li></ol><p><strong>Result:</strong> Alice and Charlie (admins) + Bob (user) all appear in a single summary email showing their access levels and badges.</p><p><strong>Note:</strong> To run this workflow, you'll need to configure Gmail credentials in n8n. Update the email address in the Gmail node to your own.</p>"
         }
       ]
     },
