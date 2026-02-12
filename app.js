@@ -157,8 +157,8 @@ function renderCurrentStep() {
         return;
     }
 
-    // Update step title
-    elements.stepTitle.textContent = step.title;
+    // Update step title - removed to avoid redundancy with sidebar
+    // elements.stepTitle.textContent = step.title;
 
     // Render content blocks
     elements.stepContent.innerHTML = '';

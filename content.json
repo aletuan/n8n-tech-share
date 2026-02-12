@@ -8,19 +8,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>Introduction</h3><p>Welcome to the n8n training tutorial! This comprehensive guide will teach you everything you need to know about building powerful automation workflows.</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>n8n is an open-source workflow automation platform.</strong> Build workflows by connecting nodes in a visual editor. Each node performs an action (call API, transform data, send message), and data flows between nodes as JSON.</div>"
         },
         {
           "type": "text",
-          "value": "<h3>What is n8n?</h3><p><strong>The Core Problem:</strong> How can applications automatically talk to each other without a human acting as the middleman?</p><p><strong>The Answer:</strong> n8n is a workflow automation platform with a visual drag-and-drop interface. Build workflows by connecting nodes together.</p>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>Key Features</h3><ul><li><strong>Open-source & Self-host</strong> — Run on your own server, full data control</li><li><strong>No-code + Code</strong> — Drag & drop or write JS/Python</li><li><strong>400+ Integrations</strong> — Gmail, Slack, Sheets, Telegram, and more</li><li><strong>Data = JSON</strong> — Every node receives and returns JSON</li></ul>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>What You'll Learn</h3><ul><li>Core n8n concepts and terminology</li><li>Creating and managing workflows</li><li>Working with nodes and connections</li><li>Handling data and expressions</li><li>Best practices for production workflows</li></ul>"
+          "value": "<p><strong>Key Features</strong></p><ul><li>Data = JSON — Every node receives and returns JSON objects</li><li>Open-source & Self-host — Run on your server, full data control</li><li>No-code + Code — Visual editor or write JavaScript/Python</li><li>400+ Integrations — Gmail, Slack, HTTP, databases, and more</li></ul>"
         }
       ]
     },
@@ -30,7 +22,7 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>What is a Workflow?</h3><p>A workflow in n8n is a sequence of connected nodes that process data. Each node performs a specific action, and data flows between nodes.</p><p>Let's look at a simple \"Hello World\" workflow:</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>A workflow is a sequence of connected nodes that process data.</strong> Trigger starts execution → Data flows through connections → Each node transforms data → Output.</div>"
         },
         {
           "type": "tabs",
@@ -59,10 +51,6 @@
               ]
             }
           ]
-        },
-        {
-          "type": "text",
-          "value": "<p>This workflow has two nodes connected together:</p><ul><li><strong>Manual Trigger:</strong> Starts the workflow when you click 'Execute'</li><li><strong>Edit Fields:</strong> Sets a message variable with the value \"Hello from n8n!\"</li></ul><p>The <code>connections</code> section defines how data flows from the trigger to the Edit Fields node. After execution, you can see the output shows \"Hello from n8n!\" in the results panel.</p>"
         }
       ]
     },
@@ -72,15 +60,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>Node Basics</h3><p>Nodes are the building blocks of n8n workflows. Each node has inputs, outputs, and configuration parameters.</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Nodes are the building blocks of n8n workflows.</strong> Each node has inputs, outputs, and configuration parameters.</div>"
         },
         {
           "type": "text",
-          "value": "<h3>Common Node Types</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node Type</th><th style='padding: 12px; text-align: left;'>Key Question</th><th style='padding: 12px; text-align: left;'>Examples</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Trigger Node</strong></td><td style='padding: 12px;'><em>When does the workflow run?</em></td><td style='padding: 12px;'>Webhook, Schedule, Gmail Trigger, Manual Trigger</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Action Node</strong></td><td style='padding: 12px;'><em>What to do with the data?</em></td><td style='padding: 12px;'>Google Sheets, Slack, HTTP Request, Gmail Send, Edit Fields</td></tr><tr><td style='padding: 12px;'><strong>Logic Node</strong></td><td style='padding: 12px;'><em>How does data flow?</em></td><td style='padding: 12px;'>IF (branching), Merge (combine), Code (JS/Python)</td></tr></tbody></table>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>Example: Edit Fields Node</h3><p>Let's examine the Edit Fields node from our Hello World workflow:</p>"
+          "value": "<p><strong>Common Node Types</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node Type</th><th style='padding: 12px; text-align: left;'>Key Question</th><th style='padding: 12px; text-align: left;'>Examples</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Trigger Node</td><td style='padding: 12px;'><em>When does the workflow run?</em></td><td style='padding: 12px;'>Webhook, Schedule, Gmail Trigger, Manual Trigger</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Action Node</td><td style='padding: 12px;'><em>What to do with the data?</em></td><td style='padding: 12px;'>Google Sheets, Slack, HTTP Request, Gmail Send, Edit Fields</td></tr><tr><td style='padding: 12px;'>Logic Node</td><td style='padding: 12px;'><em>How does data flow?</em></td><td style='padding: 12px;'>IF (branching), Merge (combine), Code (JS/Python)</td></tr></tbody></table>"
         },
         {
           "type": "tabs",
@@ -112,7 +96,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Node Structure Explained</h3><ul><li><strong>name:</strong> Human-readable node name (\"Edit Fields\")</li><li><strong>type:</strong> Node type identifier (n8n-nodes-base.set)</li><li><strong>position:</strong> Visual placement on the canvas [x, y]</li><li><strong>parameters:</strong> Configuration settings for the node</li><li><strong>id:</strong> Unique identifier for the node</li></ul><p>In this example, the node creates a new field called \"message\" with the value \"Hello from n8n!\" The screenshot above shows how you configure this in the n8n interface - you can see the Parameters tab where the field is set, and the Output panel showing the resulting data.</p>"
+          "value": "<p><strong>Node Structure</strong></p><ul><li>name: Human-readable node name</li><li>type: Node type identifier (n8n-nodes-base.set)</li><li>position: Visual placement on canvas [x, y]</li><li>parameters: Configuration settings</li><li>id: Unique identifier</li></ul>"
         }
       ]
     },
@@ -122,7 +106,7 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>How Nodes Talk</h3><p>Now that you understand nodes, let's see how data flows between them. <strong>The core concept:</strong> Every node passes JSON to the next node. Connect nodes together and you create a data pipeline.</p><p>This workflow demonstrates the complete journey—from creating data to transforming it:</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Every node passes JSON to the next node.</strong> Connect nodes together and you create a data pipeline.</div>"
         },
         {
           "type": "tabs",
@@ -154,7 +138,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>The Data Journey</h3><p><strong>Create Sample Users</strong> → <strong>Split Into Items</strong> (1 array becomes 2 items) → <strong>Transform Data</strong> (add new fields to each item)</p><p>After splitting, each item flows through as a separate JSON object:</p>"
+          "value": "<p><strong>The Data Journey:</strong> Create Sample Users → Split Into Items (1 array becomes 2 items) → Transform Data (add new fields to each item)</p>"
         },
         {
           "type": "code",
@@ -163,7 +147,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Expressions in Action</h3><p>How the <strong>Transform Data</strong> node accesses and manipulates each item:</p>"
+          "value": "<p><strong>Expressions in Action</strong></p>"
         },
         {
           "type": "code",
@@ -172,7 +156,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>3 Rules to Remember</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Rule</th><th style='padding: 12px; text-align: left;'>Explanation</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>1 item = 1 JSON object</strong></td><td style='padding: 12px;'>Each object is processed separately through the workflow. If you have 100 items, the workflow runs 100 times internally.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Array = batch processing</strong></td><td style='padding: 12px;'>n8n loops through items automatically—no extra code needed. The <strong>Split Into Items</strong> node converts an array into individual items.</td></tr><tr><td style='padding: 12px;'><strong>Access with expressions</strong></td><td style='padding: 12px;'>Use <code>{{ $json.email }}</code> to get \"alice@test.com\" for the first item. The <code>$json</code> variable always refers to the current item being processed.</td></tr></tbody></table>"
+          "value": "<p><strong>3 Rules to Remember</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Rule</th><th style='padding: 12px; text-align: left;'>Explanation</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>1 item = 1 JSON object</strong></td><td style='padding: 12px;'>Each object is processed separately through the workflow. If you have 100 items, the workflow runs 100 times internally.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Array = batch processing</strong></td><td style='padding: 12px;'>n8n loops through items automatically—no extra code needed. The <strong>Split Into Items</strong> node converts an array into individual items.</td></tr><tr><td style='padding: 12px;'><strong>Access with expressions</strong></td><td style='padding: 12px;'>Use <code>{{ $json.email }}</code> to get \"alice@test.com\" for the first item. The <code>$json</code> variable always refers to the current item being processed.</td></tr></tbody></table>"
         }
       ]
     },
@@ -182,11 +166,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>The Language of Data</h3><p>Expressions are how you talk to your data in n8n. Think of them like an <strong>address system</strong> to find the right room in a building of JSON.</p><p>Building (Workflow) → Floor (Node) → Room (Field) → Value</p><p>In step 4, you saw <code>{{ $json.email }}</code> in action. Now let's understand the full expression system.</p>"
+          "value": "<p><strong>The Language of Data</strong></p><p>Expressions are how you talk to your data in n8n. Think of them like an <strong>address system</strong> to find the right room in a building of JSON.</p><p>Building (Workflow) → Floor (Node) → Room (Field) → Value</p><p>In step 4, you saw <code>{{ $json.email }}</code> in action. Now let's understand the full expression system.</p>"
         },
         {
           "type": "text",
-          "value": "<h3>Expression Syntax</h3><p>Wrap any expression in double curly braces with a space:</p>"
+          "value": "<p><strong>Expression Syntax</strong></p><p>Wrap any expression in double curly braces with a space:</p>"
         },
         {
           "type": "code",
@@ -199,7 +183,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>The 4 Variable Groups</h3><p>n8n provides 4 ways to access data. Each serves a different purpose:</p>"
+          "value": "<p><strong>The 4 Variable Groups</strong></p><p>n8n provides 4 ways to access data. Each serves a different purpose:</p>"
         },
         {
           "type": "text",
@@ -207,7 +191,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Quick Examples</h3><p>Here's how to use each variable type:</p>"
+          "value": "<p><strong>Quick Examples</strong></p><p>Here's how to use each variable type:</p>"
         },
         {
           "type": "code",
@@ -216,7 +200,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Expressions in Action: Live Demo</h3><p>Here's how all these expressions work together in a real workflow:</p>"
+          "value": "<p><strong>Expressions in Action: Live Demo</strong></p><p>Here's how all these expressions work together in a real workflow:</p>"
         },
         {
           "type": "tabs",
@@ -254,11 +238,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>Making Decisions</h3><p>Now that you can access and transform data, it's time to control where it goes. Logic nodes let your workflow make decisions and route items down different paths.</p><p><strong>The Key Question:</strong> Based on the data, which path should this item take?</p>"
+          "value": "<p><strong>Making Decisions</strong></p><p>Now that you can access and transform data, it's time to control where it goes. Logic nodes let your workflow make decisions and route items down different paths.</p><p><strong>The Key Question:</strong> Based on the data, which path should this item take?</p>"
         },
         {
           "type": "text",
-          "value": "<h3>The IF Node</h3><p>Split your workflow into two paths: <strong>true</strong> or <strong>false</strong>. Use when you have a yes/no decision.</p>"
+          "value": "<p><strong>The IF Node</strong></p><p>Split your workflow into two paths: <strong>true</strong> or <strong>false</strong>. Use when you have a yes/no decision.</p>"
         },
         {
           "type": "code",
@@ -271,7 +255,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>The Switch Node</h3><p>Route items to multiple paths based on a value. Use when you have 3+ possible outcomes.</p>"
+          "value": "<p><strong>The Switch Node</strong></p><p>Route items to multiple paths based on a value. Use when you have 3+ possible outcomes.</p>"
         },
         {
           "type": "code",
@@ -284,15 +268,15 @@
         },
         {
           "type": "text",
-          "value": "<h3>The Merge Node</h3><p>Combine multiple paths back into one. Use after branching when you want to process all items together again.</p><p><strong>Example:</strong> Our demo workflow merges admin and user paths, then sends a single Gmail summary with all processed users.</p>"
+          "value": "<p><strong>The Merge Node</strong></p><p>Combine multiple paths back into one. Use after branching when you want to process all items together again.</p><p><strong>Example:</strong> Our demo workflow merges admin and user paths, then sends a single Gmail summary with all processed users.</p>"
         },
         {
           "type": "text",
-          "value": "<h3>Quick Comparison</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node</th><th style='padding: 12px; text-align: left;'>Outputs</th><th style='padding: 12px; text-align: left;'>Use When</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>IF</strong></td><td style='padding: 12px;'>2 (true/false)</td><td style='padding: 12px;'>Binary decision — yes or no, include or exclude</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Switch</strong></td><td style='padding: 12px;'>Multiple</td><td style='padding: 12px;'>Route by value — status, category, type, etc.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Merge</strong></td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Combine paths back together after branching</td></tr><tr><td style='padding: 12px;'><strong>Filter</strong></td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Remove items that don't match condition</td></tr></tbody></table>"
+          "value": "<p><strong>Quick Comparison</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node</th><th style='padding: 12px; text-align: left;'>Outputs</th><th style='padding: 12px; text-align: left;'>Use When</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>IF</strong></td><td style='padding: 12px;'>2 (true/false)</td><td style='padding: 12px;'>Binary decision — yes or no, include or exclude</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Switch</strong></td><td style='padding: 12px;'>Multiple</td><td style='padding: 12px;'>Route by value — status, category, type, etc.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Merge</strong></td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Combine paths back together after branching</td></tr><tr><td style='padding: 12px;'><strong>Filter</strong></td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Remove items that don't match condition</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<h3>Logic in Action: User Role Router</h3><p>This workflow demonstrates the complete branching pattern: split paths based on conditions, process differently, merge back together, and send a unified result.</p>"
+          "value": "<p><strong>Logic in Action: User Role Router</strong></p><p>This workflow demonstrates the complete branching pattern: split paths based on conditions, process differently, merge back together, and send a unified result.</p>"
         },
         {
           "type": "tabs",
@@ -368,7 +352,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>How It Works</h3><ol><li><strong>Create Sample Users</strong> — Generates 3 users (2 admins, 1 regular user)</li><li><strong>Split Into Items</strong> — Each user becomes a separate item</li><li><strong>IF: Is Admin?</strong> — Checks if <code>{{ $json.role === 'admin' }}</code></li><li><strong>True Path → Admin Actions</strong> — Admins get \"Full Access\" + 👑 badge</li><li><strong>False Path → User Actions</strong> — Regular users get \"Limited Access\" + 👤 badge</li><li><strong>Merge</strong> — Combines both paths back into one stream (3 items total)</li><li><strong>Gmail Send Summary</strong> — Sends one email with all users listed</li></ol><p><strong>Result:</strong> Alice and Charlie (admins) + Bob (user) all appear in a single summary email showing their access levels and badges.</p><p><strong>Note:</strong> To run this workflow, you'll need to configure Gmail credentials in n8n. Update the email address in the Gmail node to your own.</p>"
+          "value": "<p><strong>How It Works</strong></p><ol><li><strong>Create Sample Users</strong> — Generates 3 users (2 admins, 1 regular user)</li><li><strong>Split Into Items</strong> — Each user becomes a separate item</li><li><strong>IF: Is Admin?</strong> — Checks if <code>{{ $json.role === 'admin' }}</code></li><li><strong>True Path → Admin Actions</strong> — Admins get \"Full Access\" + 👑 badge</li><li><strong>False Path → User Actions</strong> — Regular users get \"Limited Access\" + 👤 badge</li><li><strong>Merge</strong> — Combines both paths back into one stream (3 items total)</li><li><strong>Gmail Send Summary</strong> — Sends one email with all users listed</li></ol><p><strong>Result:</strong> Alice and Charlie (admins) + Bob (user) all appear in a single summary email showing their access levels and badges.</p><p><strong>Note:</strong> To run this workflow, you'll need to configure Gmail credentials in n8n. Update the email address in the Gmail node to your own.</p>"
         }
       ]
     },
@@ -378,15 +362,15 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>When Things Go Wrong</h3><p>Real workflows encounter errors: APIs fail, data is missing, network timeouts occur. The difference between a fragile workflow and a production-ready one is how it handles failures.</p><p><strong>Key Principle:</strong> Expect failures, handle them gracefully, and provide visibility when they happen.</p>"
+          "value": "<p><strong>When Things Go Wrong</strong></p><p>Real workflows encounter errors: APIs fail, data is missing, network timeouts occur. The difference between a fragile workflow and a production-ready one is how it handles failures.</p><p><strong>Key Principle:</strong> Expect failures, handle them gracefully, and provide visibility when they happen.</p>"
         },
         {
           "type": "text",
-          "value": "<h3>Types of Errors</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Error Type</th><th style='padding: 12px; text-align: left;'>Example</th><th style='padding: 12px; text-align: left;'>Solution</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>API Failure</strong></td><td style='padding: 12px;'>External service returns 500 error</td><td style='padding: 12px;'>Retry logic, fallback data source</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Missing Data</strong></td><td style='padding: 12px;'>Expected field is undefined</td><td style='padding: 12px;'>Default values, validation checks</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Invalid Input</strong></td><td style='padding: 12px;'>Email format is incorrect</td><td style='padding: 12px;'>Validation before processing</td></tr><tr><td style='padding: 12px;'><strong>Timeout</strong></td><td style='padding: 12px;'>Request takes too long</td><td style='padding: 12px;'>Increase timeout, optimize query</td></tr></tbody></table>"
+          "value": "<p><strong>Types of Errors</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Error Type</th><th style='padding: 12px; text-align: left;'>Example</th><th style='padding: 12px; text-align: left;'>Solution</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>API Failure</strong></td><td style='padding: 12px;'>External service returns 500 error</td><td style='padding: 12px;'>Retry logic, fallback data source</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Missing Data</strong></td><td style='padding: 12px;'>Expected field is undefined</td><td style='padding: 12px;'>Default values, validation checks</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Invalid Input</strong></td><td style='padding: 12px;'>Email format is incorrect</td><td style='padding: 12px;'>Validation before processing</td></tr><tr><td style='padding: 12px;'><strong>Timeout</strong></td><td style='padding: 12px;'>Request takes too long</td><td style='padding: 12px;'>Increase timeout, optimize query</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<h3>Error Trigger Node</h3><p>Automatically runs when any node in your workflow fails. Perfect for notifications and cleanup.</p>"
+          "value": "<p><strong>Error Trigger Node</strong></p><p>Automatically runs when any node in your workflow fails. Perfect for notifications and cleanup.</p>"
         },
         {
           "type": "code",
@@ -395,7 +379,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Continue on Fail</h3><p>Node-level setting that prevents one failure from stopping the entire workflow.</p><p><strong>When to use:</strong> Non-critical operations where you want the workflow to continue even if this step fails.</p>"
+          "value": "<p><strong>Continue on Fail</strong></p><p>Node-level setting that prevents one failure from stopping the entire workflow.</p><p><strong>When to use:</strong> Non-critical operations where you want the workflow to continue even if this step fails.</p>"
         },
         {
           "type": "code",
@@ -404,7 +388,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>IF Node for Validation</h3><p>Validate data before processing to catch issues early.</p>"
+          "value": "<p><strong>IF Node for Validation</strong></p><p>Validate data before processing to catch issues early.</p>"
         },
         {
           "type": "code",
@@ -413,11 +397,11 @@
         },
         {
           "type": "text",
-          "value": "<h3>Debugging Techniques</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Technique</th><th style='padding: 12px; text-align: left;'>How To</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Inspect Node Output</strong></td><td style='padding: 12px;'>Click node → View output tab to see actual data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Pin Data</strong></td><td style='padding: 12px;'>Right-click node → Pin data to test with sample data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Execute Single Node</strong></td><td style='padding: 12px;'>Click node → Execute node to test in isolation</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Check Execution Log</strong></td><td style='padding: 12px;'>View execution history to see what went wrong</td></tr><tr><td style='padding: 12px;'><strong>Use Edit Fields to Log</strong></td><td style='padding: 12px;'>Add debug fields to see intermediate values</td></tr></tbody></table>"
+          "value": "<p><strong>Debugging Techniques</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Technique</th><th style='padding: 12px; text-align: left;'>How To</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Inspect Node Output</strong></td><td style='padding: 12px;'>Click node → View output tab to see actual data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Pin Data</strong></td><td style='padding: 12px;'>Right-click node → Pin data to test with sample data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Execute Single Node</strong></td><td style='padding: 12px;'>Click node → Execute node to test in isolation</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Check Execution Log</strong></td><td style='padding: 12px;'>View execution history to see what went wrong</td></tr><tr><td style='padding: 12px;'><strong>Use Edit Fields to Log</strong></td><td style='padding: 12px;'>Add debug fields to see intermediate values</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<h3>Error Handling Pattern</h3><p>A common pattern for production workflows:</p>"
+          "value": "<p><strong>Error Handling Pattern</strong></p><p>A common pattern for production workflows:</p>"
         },
         {
           "type": "code",
@@ -426,7 +410,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Error Handling in Action: API Demo</h3><p>See how the workflow handles both success and failure scenarios:</p>"
+          "value": "<p><strong>Error Handling in Action: API Demo</strong></p><p>See how the workflow handles both success and failure scenarios:</p>"
         },
         {
           "type": "tabs",
@@ -469,7 +453,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Best Practices</h3><ul><li><strong>Fail fast</strong> — Validate input early, before expensive operations</li><li><strong>Be specific</strong> — Check for exact error conditions rather than catching all errors</li><li><strong>Provide context</strong> — Include useful info in error messages (execution ID, failed node, input data)</li><li><strong>Test failure paths</strong> — Don't just test the happy path; simulate failures</li><li><strong>Monitor & alert</strong> — Set up Error Trigger workflows for critical workflows</li></ul>"
+          "value": "<p><strong>Best Practices</strong></p><ul><li><strong>Fail fast</strong> — Validate input early, before expensive operations</li><li><strong>Be specific</strong> — Check for exact error conditions rather than catching all errors</li><li><strong>Provide context</strong> — Include useful info in error messages (execution ID, failed node, input data)</li><li><strong>Test failure paths</strong> — Don't just test the happy path; simulate failures</li><li><strong>Monitor & alert</strong> — Set up Error Trigger workflows for critical workflows</li></ul>"
         }
       ]
     },
@@ -479,19 +463,19 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>Working with AI</h3><p>Now that you can build reliable workflows, let's add intelligence. AI APIs let you analyze, generate, and transform data using large language models (LLMs).</p><p><strong>The Key Concept:</strong> Send text in → Get intelligent response back. LLMs understand context, generate content, analyze sentiment, extract data, and more.</p>"
+          "value": "<p><strong>Working with AI</strong></p><p>Now that you can build reliable workflows, let's add intelligence. AI APIs let you analyze, generate, and transform data using large language models (LLMs).</p><p><strong>The Key Concept:</strong> Send text in → Get intelligent response back. LLMs understand context, generate content, analyze sentiment, extract data, and more.</p>"
         },
         {
           "type": "text",
-          "value": "<h3>Popular AI Providers</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Provider</th><th style='padding: 12px; text-align: left;'>Models</th><th style='padding: 12px; text-align: left;'>Best For</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>OpenAI</strong></td><td style='padding: 12px;'>GPT-4, GPT-3.5</td><td style='padding: 12px;'>General purpose, JSON mode, function calling</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Anthropic</strong></td><td style='padding: 12px;'>Claude 4</td><td style='padding: 12px;'>Long context, analysis, reasoning</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Google</strong></td><td style='padding: 12px;'>Gemini</td><td style='padding: 12px;'>Multimodal (text + images), fast</td></tr><tr><td style='padding: 12px;'><strong>Open Source</strong></td><td style='padding: 12px;'>Llama, Mistral</td><td style='padding: 12px;'>Self-hosted, cost control</td></tr></tbody></table>"
+          "value": "<p><strong>Popular AI Providers</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Provider</th><th style='padding: 12px; text-align: left;'>Models</th><th style='padding: 12px; text-align: left;'>Best For</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>OpenAI</strong></td><td style='padding: 12px;'>GPT-4, GPT-3.5</td><td style='padding: 12px;'>General purpose, JSON mode, function calling</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Anthropic</strong></td><td style='padding: 12px;'>Claude 4</td><td style='padding: 12px;'>Long context, analysis, reasoning</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Google</strong></td><td style='padding: 12px;'>Gemini</td><td style='padding: 12px;'>Multimodal (text + images), fast</td></tr><tr><td style='padding: 12px;'><strong>Open Source</strong></td><td style='padding: 12px;'>Llama, Mistral</td><td style='padding: 12px;'>Self-hosted, cost control</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<h3>Setting Up in n8n</h3><p>n8n has dedicated AI nodes for major providers:</p><ul><li><strong>OpenAI node</strong> — Built-in, easy setup</li><li><strong>HTTP Request node</strong> — For any AI API (Claude, Gemini, custom)</li><li><strong>Credentials</strong> — Store API keys securely in n8n</li></ul>"
+          "value": "<p><strong>Setting Up in n8n</strong></p><p>n8n has dedicated AI nodes for major providers:</p><ul><li><strong>OpenAI node</strong> — Built-in, easy setup</li><li><strong>HTTP Request node</strong> — For any AI API (Claude, Gemini, custom)</li><li><strong>Credentials</strong> — Store API keys securely in n8n</li></ul>"
         },
         {
           "type": "text",
-          "value": "<h3>Basic Text Generation</h3><p>The simplest AI workflow: send a prompt, get a response.</p>"
+          "value": "<p><strong>Basic Text Generation</strong></p><p>The simplest AI workflow: send a prompt, get a response.</p>"
         },
         {
           "type": "code",
@@ -500,11 +484,11 @@
         },
         {
           "type": "text",
-          "value": "<h3>Key Parameters</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Parameter</th><th style='padding: 12px; text-align: left;'>What It Does</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Model</strong></td><td style='padding: 12px;'>Which AI to use (gpt-4 = smart but slow, gpt-3.5 = fast but cheaper)</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Temperature</strong></td><td style='padding: 12px;'>Creativity (0 = consistent, 1 = creative). Use 0 for data extraction, 0.7 for writing.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Max Tokens</strong></td><td style='padding: 12px;'>Response length limit. 1 token ≈ 0.75 words. Limits cost.</td></tr><tr><td style='padding: 12px;'><strong>System Message</strong></td><td style='padding: 12px;'>Sets AI behavior (\"You are a helpful customer service agent\")</td></tr></tbody></table>"
+          "value": "<p><strong>Key Parameters</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Parameter</th><th style='padding: 12px; text-align: left;'>What It Does</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Model</strong></td><td style='padding: 12px;'>Which AI to use (gpt-4 = smart but slow, gpt-3.5 = fast but cheaper)</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Temperature</strong></td><td style='padding: 12px;'>Creativity (0 = consistent, 1 = creative). Use 0 for data extraction, 0.7 for writing.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Max Tokens</strong></td><td style='padding: 12px;'>Response length limit. 1 token ≈ 0.75 words. Limits cost.</td></tr><tr><td style='padding: 12px;'><strong>System Message</strong></td><td style='padding: 12px;'>Sets AI behavior (\"You are a helpful customer service agent\")</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<h3>Chat vs Completion</h3><p>Two ways to interact with AI:</p>"
+          "value": "<p><strong>Chat vs Completion</strong></p><p>Two ways to interact with AI:</p>"
         },
         {
           "type": "code",
@@ -513,7 +497,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Response Handling</h3><p>AI responses are JSON. Extract what you need:</p>"
+          "value": "<p><strong>Response Handling</strong></p><p>AI responses are JSON. Extract what you need:</p>"
         },
         {
           "type": "code",
@@ -522,7 +506,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Smart Email Responder Demo</h3><p>A practical workflow showing AI in action:</p>"
+          "value": "<p><strong>Smart Email Responder Demo</strong></p><p>A practical workflow showing AI in action:</p>"
         },
         {
           "type": "tabs",
@@ -565,11 +549,11 @@
         },
         {
           "type": "text",
-          "value": "<h3>Cost Management</h3><p>AI APIs charge per token. Control costs:</p><ul><li><strong>Choose the right model</strong> — GPT-3.5 is 10x cheaper than GPT-4 for simple tasks</li><li><strong>Set max_tokens</strong> — Prevent runaway costs with response limits</li><li><strong>Use system messages</strong> — Guide AI to be concise: \"Answer in one sentence\"</li><li><strong>Cache when possible</strong> — Don't re-generate the same content</li><li><strong>Monitor usage</strong> — Track tokens in responses: <code>{{ $json.usage.total_tokens }}</code></li></ul>"
+          "value": "<p><strong>Cost Management</strong></p><p>AI APIs charge per token. Control costs:</p><ul><li><strong>Choose the right model</strong> — GPT-3.5 is 10x cheaper than GPT-4 for simple tasks</li><li><strong>Set max_tokens</strong> — Prevent runaway costs with response limits</li><li><strong>Use system messages</strong> — Guide AI to be concise: \"Answer in one sentence\"</li><li><strong>Cache when possible</strong> — Don't re-generate the same content</li><li><strong>Monitor usage</strong> — Track tokens in responses: <code>{{ $json.usage.total_tokens }}</code></li></ul>"
         },
         {
           "type": "text",
-          "value": "<h3>Common Patterns</h3>"
+          "value": "<p><strong>Common Patterns</strong></p>"
         },
         {
           "type": "code",
@@ -578,7 +562,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Best Practices</h3><ul><li><strong>Be specific</strong> — Clear prompts get better results</li><li><strong>Use examples</strong> — Show the AI what you want: \"Like: positive, negative\"</li><li><strong>Set temperature low</strong> — Use 0-0.3 for consistent, predictable outputs</li><li><strong>Handle errors</strong> — APIs can fail, rate limit, or timeout. Use Continue on Fail.</li><li><strong>Test with real data</strong> — AI behaves differently on real vs sample data</li><li><strong>Version your prompts</strong> — Track what works, iterate based on results</li></ul>"
+          "value": "<p><strong>Best Practices</strong></p><ul><li><strong>Be specific</strong> — Clear prompts get better results</li><li><strong>Use examples</strong> — Show the AI what you want: \"Like: positive, negative\"</li><li><strong>Set temperature low</strong> — Use 0-0.3 for consistent, predictable outputs</li><li><strong>Handle errors</strong> — APIs can fail, rate limit, or timeout. Use Continue on Fail.</li><li><strong>Test with real data</strong> — AI behaves differently on real vs sample data</li><li><strong>Version your prompts</strong> — Track what works, iterate based on results</li></ul>"
         }
       ]
     }
