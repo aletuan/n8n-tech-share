@@ -512,6 +512,60 @@
           ]
         }
       ]
+    },
+    {
+      "id": 9,
+      "title": "Embeddings & Vector Databases",
+      "content": [
+        {
+          "type": "text",
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Embeddings convert text into numbers (vectors) that capture meaning.</strong> Similar concepts have similar vectors, enabling semantic search beyond keyword matching.</div>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>How It Works</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Text → Embedding (vector)\n\"dog\" → [0.2, 0.8, 0.1, ...] (1536 dimensions)\n\"puppy\" → [0.3, 0.7, 0.2, ...] (similar vector)\n\"car\" → [-0.5, 0.1, 0.9, ...] (different vector)\n\n// Similarity measured by cosine distance\nsimilarity(\"dog\", \"puppy\") = 0.95  // Very similar\nsimilarity(\"dog\", \"car\") = 0.12     // Not similar\n\n// Use cases:\n- Semantic search: Find documents by meaning, not keywords\n- Similarity matching: Find similar products, articles, users\n- Clustering: Group related items automatically\n- Recommendation: Suggest based on semantic similarity"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Vector Databases</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Database</th><th style='padding: 12px; text-align: left;'>Best For</th><th style='padding: 12px; text-align: left;'>Notes</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Pinecone</td><td style='padding: 12px;'>Production, managed service</td><td style='padding: 12px;'>Fast, scalable, fully managed</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Weaviate</td><td style='padding: 12px;'>Self-hosted, open source</td><td style='padding: 12px;'>GraphQL API, hybrid search</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Qdrant</td><td style='padding: 12px;'>High performance, filtering</td><td style='padding: 12px;'>Fast, good for metadata filters</td></tr><tr><td style='padding: 12px;'>Supabase Vector</td><td style='padding: 12px;'>PostgreSQL extension</td><td style='padding: 12px;'>pgvector, familiar SQL interface</td></tr></tbody></table>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Creating Embeddings</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Using OpenAI Embeddings API\n{\n  \"model\": \"text-embedding-3-small\",\n  \"input\": \"Your text to embed\"\n}\n\n// Response:\n{\n  \"data\": [\n    {\n      \"embedding\": [0.2, 0.8, 0.1, ...],  // 1536 numbers\n      \"index\": 0\n    }\n  ]\n}\n\n// Access embedding:\n{{ $json.data[0].embedding }}\n\n// Cost: ~$0.02 per 1M tokens (very cheap)"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Semantic Search Pattern</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// 1. Index Phase (one time)\nDocument 1: \"How to reset password\" → embedding → store in vector DB\nDocument 2: \"Forgot login credentials\" → embedding → store in vector DB\nDocument 3: \"Shipping policy\" → embedding → store in vector DB\n\n// 2. Search Phase (every query)\nUser query: \"I can't log in\" → embedding → search vector DB\n\n// 3. Results (by similarity)\nTop match: Document 2 (0.87 similarity)\nSecond: Document 1 (0.79 similarity)\nNot matched: Document 3 (0.12 similarity)\n\n// Returns semantically similar results even with different words!"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Workflow Example</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Document Indexer Workflow:\nManual Trigger\n  → Load Documents (from file/API/database)\n  → Split Into Chunks (max 8000 tokens per chunk)\n  → For each chunk:\n      → Create Embedding (OpenAI)\n      → Store in Vector DB (Pinecone/Weaviate)\n\n// Semantic Search Workflow:\nManual Trigger / Webhook\n  → Get User Query\n  → Create Query Embedding (OpenAI)\n  → Search Vector DB (top 5 similar)\n  → Return Results\n\n// Advanced: Add to LLM context for RAG (Step 10)"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Key Concepts</strong></p><ul><li>Embedding dimension: Usually 1536 (OpenAI) or 768 (smaller models)</li><li>Chunking: Split large docs into smaller pieces before embedding</li><li>Metadata: Store additional fields (title, date, category) with vectors</li><li>Top-k search: Return k most similar results (typically 3-10)</li><li>Similarity threshold: Filter results below minimum similarity score</li></ul>"
+        }
+      ]
     }
   ]
 }
