@@ -443,10 +443,6 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Setup</strong></p><ul><li>OpenAI node — Built-in, easy setup</li><li>HTTP Request node — For any AI API (Claude, Gemini, custom)</li><li>Credentials — Store API keys securely in n8n</li></ul>"
-        },
-        {
-          "type": "text",
           "value": "<p><strong>Text Generation</strong></p>"
         },
         {
@@ -514,23 +510,6 @@
               ]
             }
           ]
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>Cost Management</strong></p><p>AI APIs charge per token. Control costs:</p><ul><li><strong>Choose the right model</strong> — GPT-3.5 is 10x cheaper than GPT-4 for simple tasks</li><li><strong>Set max_tokens</strong> — Prevent runaway costs with response limits</li><li><strong>Use system messages</strong> — Guide AI to be concise: \"Answer in one sentence\"</li><li><strong>Cache when possible</strong> — Don't re-generate the same content</li><li><strong>Monitor usage</strong> — Track tokens in responses: <code>{{ $json.usage.total_tokens }}</code></li></ul>"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>Common Patterns</strong></p>"
-        },
-        {
-          "type": "code",
-          "language": "javascript",
-          "value": "// Text Summarization\n\"Summarize this in 2 sentences: {{ $json.article }}\"\n\n// Sentiment Analysis\n\"Classify sentiment as positive/negative/neutral: {{ $json.review }}\"\n\n// Data Extraction\n\"Extract name, email, company from: {{ $json.text }}\nReturn as JSON.\"\n\n// Translation\n\"Translate to Spanish: {{ $json.english_text }}\"\n\n// Content Generation\n\"Write a professional email response to: {{ $json.customer_message }}\"\n\n// Classification\n\"Categorize this support ticket as: bug/feature/question\n{{ $json.ticket }}\"\n\n// Validation\n\"Is this a valid business email? Yes/No: {{ $json.email }}\""
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>Best Practices</strong></p><ul><li><strong>Be specific</strong> — Clear prompts get better results</li><li><strong>Use examples</strong> — Show the AI what you want: \"Like: positive, negative\"</li><li><strong>Set temperature low</strong> — Use 0-0.3 for consistent, predictable outputs</li><li><strong>Handle errors</strong> — APIs can fail, rate limit, or timeout. Use Continue on Fail.</li><li><strong>Test with real data</strong> — AI behaves differently on real vs sample data</li><li><strong>Version your prompts</strong> — Track what works, iterate based on results</li></ul>"
         }
       ]
     }
