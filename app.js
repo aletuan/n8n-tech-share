@@ -10,9 +10,11 @@ const elements = {
     progressText: null,
     stepTitle: null,
     stepContent: null,
-    stepIndicator: null,
+    stepNavigation: null,
     prevBtn: null,
-    nextBtn: null
+    nextBtn: null,
+    mobileMenuToggle: null,
+    sidebar: null
 };
 
 // Initialize app when DOM is ready
@@ -21,6 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadContent();
     initializeFromURL();
     setupEventListeners();
+    renderStepNavigation();
     renderCurrentStep();
 });
 
@@ -31,9 +34,11 @@ function initializeElements() {
     elements.progressText = document.getElementById('progress-text');
     elements.stepTitle = document.getElementById('step-title');
     elements.stepContent = document.getElementById('step-content');
-    elements.stepIndicator = document.getElementById('step-indicator');
+    elements.stepNavigation = document.getElementById('step-navigation');
     elements.prevBtn = document.getElementById('prev-btn');
     elements.nextBtn = document.getElementById('next-btn');
+    elements.mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    elements.sidebar = document.querySelector('.sidebar');
 }
 
 // Load content from JSON file
@@ -49,6 +54,9 @@ async function loadContent() {
         // Update tutorial title
         elements.tutorialTitle.textContent = tutorialData.title;
         document.title = tutorialData.title;
+
+        // Render step navigation after content is loaded
+        renderStepNavigation();
     } catch (error) {
         console.error('Error loading content:', error);
         elements.stepContent.innerHTML = '<p>Error loading tutorial content. Please refresh the page.</p>';
@@ -79,7 +87,21 @@ function setupEventListeners() {
     elements.nextBtn.addEventListener('click', goToNextStep);
     window.addEventListener('hashchange', handleHashChange);
 
-    // Optional: Keyboard navigation
+    // Mobile menu toggle
+    if (elements.mobileMenuToggle) {
+        elements.mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+    }
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+            if (!elements.sidebar.contains(e.target) && !elements.mobileMenuToggle.contains(e.target)) {
+                closeMobileMenu();
+            }
+        }
+    });
+
+    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft' && currentStep > 1) {
             goToPreviousStep();
@@ -157,6 +179,12 @@ function renderCurrentStep() {
 
     // Update navigation buttons
     updateNavigationButtons();
+
+    // Update step navigation
+    updateStepNavigation();
+
+    // Close mobile menu after navigation
+    closeMobileMenu();
 }
 
 // Render individual content block
@@ -222,7 +250,6 @@ function updateProgress() {
 
     const progressText = `Step ${currentStep} of ${totalSteps}`;
     elements.progressText.textContent = progressText;
-    elements.stepIndicator.textContent = progressText;
 }
 
 // Update navigation button states
@@ -237,4 +264,81 @@ function updateNavigationButtons() {
         elements.nextBtn.textContent = 'Next';
     }
     elements.nextBtn.disabled = false;
+}
+
+// Render step navigation in sidebar
+function renderStepNavigation() {
+    if (!tutorialData || !elements.stepNavigation) {
+        return;
+    }
+
+    elements.stepNavigation.innerHTML = '';
+
+    tutorialData.steps.forEach(step => {
+        const navItem = document.createElement('div');
+        navItem.className = 'step-nav-item';
+        navItem.dataset.stepId = step.id;
+
+        const number = document.createElement('div');
+        number.className = 'step-nav-number';
+        number.textContent = step.id;
+
+        const title = document.createElement('div');
+        title.className = 'step-nav-title';
+        title.textContent = step.title;
+
+        navItem.appendChild(number);
+        navItem.appendChild(title);
+
+        navItem.addEventListener('click', () => goToStep(step.id));
+
+        elements.stepNavigation.appendChild(navItem);
+    });
+
+    updateStepNavigation();
+}
+
+// Update step navigation active state
+function updateStepNavigation() {
+    if (!elements.stepNavigation) {
+        return;
+    }
+
+    const navItems = elements.stepNavigation.querySelectorAll('.step-nav-item');
+    navItems.forEach(item => {
+        const stepId = parseInt(item.dataset.stepId, 10);
+        item.classList.remove('active', 'completed');
+
+        if (stepId === currentStep) {
+            item.classList.add('active');
+        } else if (stepId < currentStep) {
+            item.classList.add('completed');
+        }
+    });
+}
+
+// Navigate to specific step
+function goToStep(stepId) {
+    if (stepId >= 1 && stepId <= totalSteps) {
+        currentStep = stepId;
+        updateURL();
+        renderCurrentStep();
+        scrollToTop();
+    }
+}
+
+// Toggle mobile menu
+function toggleMobileMenu() {
+    if (elements.sidebar && elements.mobileMenuToggle) {
+        elements.sidebar.classList.toggle('active');
+        elements.mobileMenuToggle.classList.toggle('active');
+    }
+}
+
+// Close mobile menu
+function closeMobileMenu() {
+    if (window.innerWidth <= 768 && elements.sidebar && elements.mobileMenuToggle) {
+        elements.sidebar.classList.remove('active');
+        elements.mobileMenuToggle.classList.remove('active');
+    }
 }

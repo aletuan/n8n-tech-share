@@ -8,15 +8,19 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>Introduction</h3><p>Welcome to the n8n training tutorial! This comprehensive guide will teach you everything you need to know about building powerful automation workflows.</p><p>n8n is a fair-code licensed workflow automation tool that allows you to connect different services and automate tasks.</p>"
+          "value": "<h3>Introduction</h3><p>Welcome to the n8n training tutorial! This comprehensive guide will teach you everything you need to know about building powerful automation workflows.</p>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>What is n8n?</h3><p><strong>The Core Problem:</strong> How can applications automatically talk to each other without a human acting as the middleman?</p><p><strong>The Answer:</strong> n8n is a workflow automation platform with a visual drag-and-drop interface. Build workflows by connecting nodes together.</p>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Key Features</h3><ul><li><strong>Open-source & Self-host</strong> — Run on your own server, full data control</li><li><strong>No-code + Code</strong> — Drag & drop or write JS/Python</li><li><strong>400+ Integrations</strong> — Gmail, Slack, Sheets, Telegram, and more</li><li><strong>Data = JSON</strong> — Every node receives and returns JSON</li></ul>"
         },
         {
           "type": "text",
           "value": "<h3>What You'll Learn</h3><ul><li>Core n8n concepts and terminology</li><li>Creating and managing workflows</li><li>Working with nodes and connections</li><li>Handling data and expressions</li><li>Best practices for production workflows</li></ul>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>About This Tutorial</h3><p>This is a sample tutorial with placeholder content. To customize it for your team:</p><ol><li>Edit <code>content.json</code> to add your own steps and content</li><li>Add screenshots to <code>assets/images/</code></li><li>Update the tutorial title and description</li></ol><p>See <code>README.md</code> for detailed instructions on editing content.</p>"
         }
       ]
     },
@@ -26,16 +30,21 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>What is a Workflow?</h3><p>A workflow in n8n is a sequence of connected nodes that process data. Each node performs a specific action, and data flows between nodes.</p>"
+          "value": "<h3>What is a Workflow?</h3><p>A workflow in n8n is a sequence of connected nodes that process data. Each node performs a specific action, and data flows between nodes.</p><p>Let's look at a simple \"Hello World\" workflow:</p>"
         },
         {
           "type": "code",
           "language": "json",
-          "value": "{\n  \"name\": \"My First Workflow\",\n  \"nodes\": [\n    {\n      \"name\": \"Start\",\n      \"type\": \"n8n-nodes-base.start\",\n      \"position\": [250, 300]\n    }\n  ],\n  \"connections\": {}\n}"
+          "value": "{\n  \"name\": \"Hello World\",\n  \"nodes\": [\n    {\n      \"name\": \"When clicking 'Execute workflow'\",\n      \"type\": \"n8n-nodes-base.manualTrigger\",\n      \"position\": [0, 0]\n    },\n    {\n      \"name\": \"Edit Fields\",\n      \"type\": \"n8n-nodes-base.set\",\n      \"position\": [208, 0],\n      \"parameters\": {\n        \"assignments\": {\n          \"assignments\": [\n            {\n              \"name\": \"message\",\n              \"value\": \"Hello from n8n!\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"connections\": {\n    \"When clicking 'Execute workflow'\": {\n      \"main\": [[{\n        \"node\": \"Edit Fields\",\n        \"type\": \"main\",\n        \"index\": 0\n      }]]\n    }\n  }\n}"
+        },
+        {
+          "type": "image",
+          "src": "assets/images/hello-world-workflow.png",
+          "alt": "Hello World workflow in n8n visual editor showing two connected nodes"
         },
         {
           "type": "text",
-          "value": "<p>This is a basic workflow structure in JSON format. As you progress through this tutorial, you'll learn how to build complex workflows.</p>"
+          "value": "<p>This workflow has two nodes connected together:</p><ul><li><strong>Manual Trigger:</strong> Starts the workflow when you click 'Execute'</li><li><strong>Edit Fields:</strong> Sets a message variable with the value \"Hello from n8n!\"</li></ul><p>The <code>connections</code> section defines how data flows from the trigger to the Edit Fields node. After execution, you can see the output shows \"Hello from n8n!\" in the results panel.</p>"
         }
       ]
     },
@@ -49,12 +58,25 @@
         },
         {
           "type": "text",
-          "value": "<h3>Common Node Types</h3><ul><li><strong>Trigger Nodes:</strong> Start workflows based on events</li><li><strong>Action Nodes:</strong> Perform operations and transformations</li><li><strong>Logic Nodes:</strong> Control workflow execution flow</li></ul>"
+          "value": "<h3>Common Node Types</h3><ul><li><strong>Trigger Nodes:</strong> Start workflows based on events (e.g., Manual Trigger, Webhook)</li><li><strong>Action Nodes:</strong> Perform operations and transformations (e.g., HTTP Request, Edit Fields)</li><li><strong>Logic Nodes:</strong> Control workflow execution flow (e.g., IF, Switch)</li></ul>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Example: Edit Fields Node</h3><p>Let's examine the Edit Fields node from our Hello World workflow:</p>"
         },
         {
           "type": "code",
           "language": "json",
-          "value": "{\n  \"name\": \"HTTP Request\",\n  \"type\": \"n8n-nodes-base.httpRequest\",\n  \"parameters\": {\n    \"url\": \"https://api.example.com/data\",\n    \"method\": \"GET\"\n  }\n}"
+          "value": "{\n  \"name\": \"Edit Fields\",\n  \"type\": \"n8n-nodes-base.set\",\n  \"typeVersion\": 3.4,\n  \"position\": [208, 0],\n  \"parameters\": {\n    \"assignments\": {\n      \"assignments\": [\n        {\n          \"id\": \"564315a9-5416-4a45-bd7b-435a84da0678\",\n          \"name\": \"message\",\n          \"value\": \"Hello from n8n!\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    \"options\": {}\n  },\n  \"id\": \"988de886-ad18-4c83-9ee2-af62ad98c8c4\"\n}"
+        },
+        {
+          "type": "image",
+          "src": "assets/images/edit-fields-node.png",
+          "alt": "Edit Fields node configuration panel in n8n showing parameters and output"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Node Structure Explained</h3><ul><li><strong>name:</strong> Human-readable node name (\"Edit Fields\")</li><li><strong>type:</strong> Node type identifier (n8n-nodes-base.set)</li><li><strong>position:</strong> Visual placement on the canvas [x, y]</li><li><strong>parameters:</strong> Configuration settings for the node</li><li><strong>id:</strong> Unique identifier for the node</li></ul><p>In this example, the node creates a new field called \"message\" with the value \"Hello from n8n!\" The screenshot above shows how you configure this in the n8n interface - you can see the Parameters tab where the field is set, and the Output panel showing the resulting data.</p>"
         }
       ]
     }

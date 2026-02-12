@@ -9,26 +9,41 @@
 </head>
 <body>
     <div id="app">
-        <header class="header">
-            <h1 id="tutorial-title">Loading...</h1>
-            <div class="progress-container">
-                <div class="progress-bar" id="progress-bar"></div>
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 id="tutorial-title">Loading...</h1>
+                <div class="sidebar-progress">
+                    <p class="progress-text" id="progress-text">Step 0 of 0</p>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                </div>
             </div>
-            <p class="progress-text" id="progress-text">Step 0 of 0</p>
-        </header>
+            <nav class="step-navigation" id="step-navigation">
+                <!-- Steps will be dynamically generated here -->
+            </nav>
+        </aside>
 
-        <main class="main-content">
-            <div id="content-container">
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <main class="main-content">
                 <h2 id="step-title">Loading...</h2>
                 <div id="step-content"></div>
-            </div>
-        </main>
 
-        <footer class="navigation-footer">
-            <button id="prev-btn" class="btn btn-secondary" disabled>Previous</button>
-            <span class="step-indicator" id="step-indicator">Step 0 of 0</span>
-            <button id="next-btn" class="btn btn-primary">Next</button>
-        </footer>
+                <footer class="navigation-footer">
+                    <button id="prev-btn" class="btn btn-secondary" disabled>Previous</button>
+                    <button id="next-btn" class="btn btn-primary">Next</button>
+                </footer>
+            </main>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1/prism.min.js"></script>
