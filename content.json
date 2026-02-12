@@ -472,6 +472,115 @@
           "value": "<h3>Best Practices</h3><ul><li><strong>Fail fast</strong> — Validate input early, before expensive operations</li><li><strong>Be specific</strong> — Check for exact error conditions rather than catching all errors</li><li><strong>Provide context</strong> — Include useful info in error messages (execution ID, failed node, input data)</li><li><strong>Test failure paths</strong> — Don't just test the happy path; simulate failures</li><li><strong>Monitor & alert</strong> — Set up Error Trigger workflows for critical workflows</li></ul>"
         }
       ]
+    },
+    {
+      "id": 8,
+      "title": "AI APIs & Language Models",
+      "content": [
+        {
+          "type": "text",
+          "value": "<h3>Working with AI</h3><p>Now that you can build reliable workflows, let's add intelligence. AI APIs let you analyze, generate, and transform data using large language models (LLMs).</p><p><strong>The Key Concept:</strong> Send text in → Get intelligent response back. LLMs understand context, generate content, analyze sentiment, extract data, and more.</p>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Popular AI Providers</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Provider</th><th style='padding: 12px; text-align: left;'>Models</th><th style='padding: 12px; text-align: left;'>Best For</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>OpenAI</strong></td><td style='padding: 12px;'>GPT-4, GPT-3.5</td><td style='padding: 12px;'>General purpose, JSON mode, function calling</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Anthropic</strong></td><td style='padding: 12px;'>Claude 4</td><td style='padding: 12px;'>Long context, analysis, reasoning</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Google</strong></td><td style='padding: 12px;'>Gemini</td><td style='padding: 12px;'>Multimodal (text + images), fast</td></tr><tr><td style='padding: 12px;'><strong>Open Source</strong></td><td style='padding: 12px;'>Llama, Mistral</td><td style='padding: 12px;'>Self-hosted, cost control</td></tr></tbody></table>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Setting Up in n8n</h3><p>n8n has dedicated AI nodes for major providers:</p><ul><li><strong>OpenAI node</strong> — Built-in, easy setup</li><li><strong>HTTP Request node</strong> — For any AI API (Claude, Gemini, custom)</li><li><strong>Credentials</strong> — Store API keys securely in n8n</li></ul>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Basic Text Generation</h3><p>The simplest AI workflow: send a prompt, get a response.</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Example prompt\n\"Summarize this email in one sentence: {{ $json.emailBody }}\"\n\n// AI Response\n\"Customer requesting refund for order #12345 due to late delivery.\"\n\n// Using in OpenAI node:\nModel: gpt-4\nPrompt: \"Analyze the sentiment of: {{ $json.review }}\"\nResponse: \"Positive - customer is satisfied with the product quality.\""
+        },
+        {
+          "type": "text",
+          "value": "<h3>Key Parameters</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Parameter</th><th style='padding: 12px; text-align: left;'>What It Does</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Model</strong></td><td style='padding: 12px;'>Which AI to use (gpt-4 = smart but slow, gpt-3.5 = fast but cheaper)</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Temperature</strong></td><td style='padding: 12px;'>Creativity (0 = consistent, 1 = creative). Use 0 for data extraction, 0.7 for writing.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Max Tokens</strong></td><td style='padding: 12px;'>Response length limit. 1 token ≈ 0.75 words. Limits cost.</td></tr><tr><td style='padding: 12px;'><strong>System Message</strong></td><td style='padding: 12px;'>Sets AI behavior (\"You are a helpful customer service agent\")</td></tr></tbody></table>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Chat vs Completion</h3><p>Two ways to interact with AI:</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Completion (simple, single prompt)\nPrompt: \"Write a subject line for this email\"\nResponse: \"Your Order #12345 Has Shipped\"\n\n// Chat (conversation with context)\nMessages: [\n  {role: \"system\", content: \"You are a helpful assistant\"},\n  {role: \"user\", content: \"What's the capital of France?\"},\n  {role: \"assistant\", content: \"Paris\"},\n  {role: \"user\", content: \"What's its population?\"}\n]\nResponse: \"Paris has approximately 2.2 million people.\"\n\n// Use Chat when:\n- Building conversational interfaces\n- Need context from previous messages\n- Want to set system behavior\n\n// Use Completion when:\n- One-off text generation\n- Simple transformations\n- No conversation needed"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Response Handling</h3><p>AI responses are JSON. Extract what you need:</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// OpenAI Response Structure\n{\n  \"choices\": [\n    {\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"This is the AI's response\"\n      }\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 20,\n    \"completion_tokens\": 50,\n    \"total_tokens\": 70\n  }\n}\n\n// Access the response:\n{{ $json.choices[0].message.content }}\n\n// Access token usage (for cost tracking):\n{{ $json.usage.total_tokens }}\n\n// With JSON mode (structured output):\nPrompt: \"Extract: name, email, phone from this text\"\nResponse: {\"name\": \"John\", \"email\": \"john@test.com\", \"phone\": \"555-1234\"}"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Smart Email Responder Demo</h3><p>A practical workflow showing AI in action:</p>"
+        },
+        {
+          "type": "tabs",
+          "title": "Smart Email Responder Workflow",
+          "tabs": [
+            {
+              "id": "overview",
+              "label": "Workflow",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/ai-email-responder-workflow.png",
+                  "alt": "Complete AI email responder workflow with 5 nodes: Manual Trigger, Sample Email, Analyze Sentiment, Generate Response, and Format Output"
+                }
+              ]
+            },
+            {
+              "id": "sentiment",
+              "label": "Analyze Sentiment",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/ai-analyze-sentiment-config.png",
+                  "alt": "Analyze Sentiment node showing OpenAI configuration with prompt to classify email sentiment as positive, negative, or neutral"
+                }
+              ]
+            },
+            {
+              "id": "response",
+              "label": "Generate Response",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/ai-generate-response-config.png",
+                  "alt": "Generate Response node with system message and user prompt, showing AI-generated professional customer service email response"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "<h3>Cost Management</h3><p>AI APIs charge per token. Control costs:</p><ul><li><strong>Choose the right model</strong> — GPT-3.5 is 10x cheaper than GPT-4 for simple tasks</li><li><strong>Set max_tokens</strong> — Prevent runaway costs with response limits</li><li><strong>Use system messages</strong> — Guide AI to be concise: \"Answer in one sentence\"</li><li><strong>Cache when possible</strong> — Don't re-generate the same content</li><li><strong>Monitor usage</strong> — Track tokens in responses: <code>{{ $json.usage.total_tokens }}</code></li></ul>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Common Patterns</h3>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Text Summarization\n\"Summarize this in 2 sentences: {{ $json.article }}\"\n\n// Sentiment Analysis\n\"Classify sentiment as positive/negative/neutral: {{ $json.review }}\"\n\n// Data Extraction\n\"Extract name, email, company from: {{ $json.text }}\nReturn as JSON.\"\n\n// Translation\n\"Translate to Spanish: {{ $json.english_text }}\"\n\n// Content Generation\n\"Write a professional email response to: {{ $json.customer_message }}\"\n\n// Classification\n\"Categorize this support ticket as: bug/feature/question\n{{ $json.ticket }}\"\n\n// Validation\n\"Is this a valid business email? Yes/No: {{ $json.email }}\""
+        },
+        {
+          "type": "text",
+          "value": "<h3>Best Practices</h3><ul><li><strong>Be specific</strong> — Clear prompts get better results</li><li><strong>Use examples</strong> — Show the AI what you want: \"Like: positive, negative\"</li><li><strong>Set temperature low</strong> — Use 0-0.3 for consistent, predictable outputs</li><li><strong>Handle errors</strong> — APIs can fail, rate limit, or timeout. Use Continue on Fail.</li><li><strong>Test with real data</strong> — AI behaves differently on real vs sample data</li><li><strong>Version your prompts</strong> — Track what works, iterate based on results</li></ul>"
+        }
+      ]
     }
   ]
 }
