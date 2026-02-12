@@ -196,6 +196,8 @@ function renderContentBlock(block) {
             return renderImageBlock(block);
         case 'code':
             return renderCodeBlock(block);
+        case 'tabs':
+            return renderTabsBlock(block);
         default:
             console.warn('Unknown content block type:', block.type);
             return null;
@@ -241,6 +243,82 @@ function renderCodeBlock(block) {
     pre.appendChild(code);
     div.appendChild(pre);
     return div;
+}
+
+// Render tabs block
+function renderTabsBlock(block) {
+    const container = document.createElement('div');
+    container.className = 'content-tabs';
+
+    // Create tab buttons container
+    const tabButtons = document.createElement('div');
+    tabButtons.className = 'tab-buttons';
+    tabButtons.setAttribute('role', 'tablist');
+
+    // Create tab panels container
+    const tabPanels = document.createElement('div');
+    tabPanels.className = 'tab-panels';
+
+    // Generate unique ID for this tab group
+    const tabGroupId = `tabs-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+    block.tabs.forEach((tab, index) => {
+        const isActive = index === 0;
+
+        // Create tab button
+        const button = document.createElement('button');
+        button.className = `tab-button ${isActive ? 'active' : ''}`;
+        button.textContent = tab.label;
+        button.setAttribute('role', 'tab');
+        button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        button.setAttribute('aria-controls', `${tabGroupId}-panel-${tab.id}`);
+        button.setAttribute('id', `${tabGroupId}-tab-${tab.id}`);
+
+        // Create tab panel
+        const panel = document.createElement('div');
+        panel.className = `tab-panel ${isActive ? 'active' : ''}`;
+        panel.setAttribute('role', 'tabpanel');
+        panel.setAttribute('aria-labelledby', `${tabGroupId}-tab-${tab.id}`);
+        panel.setAttribute('id', `${tabGroupId}-panel-${tab.id}`);
+
+        // Render content blocks inside the panel
+        tab.content.forEach(contentBlock => {
+            const blockElement = renderContentBlock(contentBlock);
+            if (blockElement) {
+                panel.appendChild(blockElement);
+            }
+        });
+
+        // Add click handler to switch tabs
+        button.addEventListener('click', () => {
+            // Deactivate all tabs in this group
+            tabButtons.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-selected', 'false');
+            });
+            tabPanels.querySelectorAll('.tab-panel').forEach(pnl => {
+                pnl.classList.remove('active');
+            });
+
+            // Activate clicked tab
+            button.classList.add('active');
+            button.setAttribute('aria-selected', 'true');
+            panel.classList.add('active');
+
+            // Re-highlight code if switching to a code tab
+            if (window.Prism) {
+                Prism.highlightAllUnder(panel);
+            }
+        });
+
+        tabButtons.appendChild(button);
+        tabPanels.appendChild(panel);
+    });
+
+    container.appendChild(tabButtons);
+    container.appendChild(tabPanels);
+
+    return container;
 }
 
 // Update progress indicators

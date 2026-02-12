@@ -1,0 +1,131 @@
+{
+  "name": "User Processing Pipeline",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "trigger-1",
+      "name": "When clicking 'Execute workflow'"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "user-array",
+              "name": "users",
+              "value": "={{ [{\"name\": \"Alice\", \"email\": \"alice@test.com\", \"role\": \"admin\"}, {\"name\": \"Bob\", \"email\": \"bob@test.com\", \"role\": \"user\"}] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ],
+      "id": "create-users",
+      "name": "Create Sample Users"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "users",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        440,
+        0
+      ],
+      "id": "split-items",
+      "name": "Split Into Items"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "email-domain",
+              "name": "emailDomain",
+              "value": "={{ $json.email.split('@')[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "display-name",
+              "name": "displayName",
+              "value": "={{ $json.name }} ({{ $json.role }})",
+              "type": "string"
+            },
+            {
+              "id": "welcome-msg",
+              "name": "welcomeMessage",
+              "value": "={{ 'Welcome ' + $json.name + '! Your email is ' + $json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {
+          "includeOtherFields": true
+        }
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        660,
+        0
+      ],
+      "id": "transform-data",
+      "name": "Transform Data"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking 'Execute workflow'": {
+      "main": [
+        [
+          {
+            "node": "Create Sample Users",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Sample Users": {
+      "main": [
+        [
+          {
+            "node": "Split Into Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Into Items": {
+      "main": [
+        [
+          {
+            "node": "Transform Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

@@ -1,0 +1,311 @@
+{
+  "name": "User Processing with Expressions",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "trigger-1",
+      "name": "When clicking 'Execute workflow'"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "user-array",
+              "name": "users",
+              "value": "={{ [{\"name\": \"Alice\", \"email\": \"alice@test.com\", \"role\": \"admin\", \"age\": 28, \"score\": 95.7}, {\"name\": \"Bob\", \"email\": \"bob@test.com\", \"role\": \"user\", \"age\": 35, \"score\": 87.3}] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ],
+      "id": "create-users",
+      "name": "Create Sample Users"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "users",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        440,
+        0
+      ],
+      "id": "split-items",
+      "name": "Split Into Items"
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "preserve-name",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-email",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-role",
+              "name": "role",
+              "value": "={{ $json.role }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-age",
+              "name": "age",
+              "value": "={{ $json.age }}",
+              "type": "number"
+            },
+            {
+              "id": "preserve-score",
+              "name": "score",
+              "value": "={{ $json.score }}",
+              "type": "number"
+            },
+            {
+              "id": "email-domain",
+              "name": "emailDomain",
+              "value": "={{ $json.email.split('@')[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "display-name",
+              "name": "displayName",
+              "value": "={{ $json.name }} ({{ $json.role }})",
+              "type": "string"
+            },
+            {
+              "id": "welcome-msg",
+              "name": "welcomeMessage",
+              "value": "={{ 'Welcome ' + $json.name + '! Your email is ' + $json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        660,
+        0
+      ],
+      "id": "transform-data",
+      "name": "Transform Data"
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "preserve-name",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-email",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-role",
+              "name": "role",
+              "value": "={{ $json.role }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-age",
+              "name": "age",
+              "value": "={{ $json.age }}",
+              "type": "number"
+            },
+            {
+              "id": "preserve-score",
+              "name": "score",
+              "value": "={{ $json.score }}",
+              "type": "number"
+            },
+            {
+              "id": "preserve-emailDomain",
+              "name": "emailDomain",
+              "value": "={{ $json.emailDomain }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-displayName",
+              "name": "displayName",
+              "value": "={{ $json.displayName }}",
+              "type": "string"
+            },
+            {
+              "id": "preserve-welcomeMessage",
+              "name": "welcomeMessage",
+              "value": "={{ $json.welcomeMessage }}",
+              "type": "string"
+            },
+            {
+              "id": "user-count",
+              "name": "totalUsers",
+              "value": "={{ $('Create Sample Users').item.json.users.length }}",
+              "type": "number"
+            },
+            {
+              "id": "processed-at",
+              "name": "processedAt",
+              "value": "={{ $now.format('YYYY-MM-DD HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "processed-date",
+              "name": "processedDate",
+              "value": "={{ $today.format('dddd, MMMM D, YYYY') }}",
+              "type": "string"
+            },
+            {
+              "id": "role-badge",
+              "name": "roleBadge",
+              "value": "={{ $json.role === 'admin' ? '👑 Admin' : '👤 User' }}",
+              "type": "string"
+            },
+            {
+              "id": "age-category",
+              "name": "ageCategory",
+              "value": "={{ $json.age >= 30 ? 'Senior' : 'Junior' }}",
+              "type": "string"
+            },
+            {
+              "id": "username",
+              "name": "username",
+              "value": "={{ $json.email.split('@')[0].toUpperCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "email-length",
+              "name": "emailLength",
+              "value": "={{ $json.email.length }}",
+              "type": "number"
+            },
+            {
+              "id": "rounded-score",
+              "name": "roundedScore",
+              "value": "={{ Math.round($json.score) }}",
+              "type": "number"
+            },
+            {
+              "id": "is-test-user",
+              "name": "isTestUser",
+              "value": "={{ $json.email.includes('test.com') ? 'Test User' : 'Real User' }}",
+              "type": "string"
+            },
+            {
+              "id": "access-level",
+              "name": "accessLevel",
+              "value": "={{ $json.role === 'admin' ? 'Full Access' : 'Limited Access' }}",
+              "type": "string"
+            },
+            {
+              "id": "account-age-days",
+              "name": "accountAgeDays",
+              "value": "={{ Math.floor(Math.random() * 365) + 1 }}",
+              "type": "number"
+            },
+            {
+              "id": "expiry-date",
+              "name": "expiryDate",
+              "value": "={{ $now.plus(1, 'year').format('YYYY-MM-DD') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        880,
+        0
+      ],
+      "id": "add-metadata",
+      "name": "Add Metadata"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking 'Execute workflow'": {
+      "main": [
+        [
+          {
+            "node": "Create Sample Users",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Sample Users": {
+      "main": [
+        [
+          {
+            "node": "Split Into Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Into Items": {
+      "main": [
+        [
+          {
+            "node": "Transform Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transform Data": {
+      "main": [
+        [
+          {
+            "node": "Add Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": []
+}

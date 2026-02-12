@@ -33,14 +33,32 @@
           "value": "<h3>What is a Workflow?</h3><p>A workflow in n8n is a sequence of connected nodes that process data. Each node performs a specific action, and data flows between nodes.</p><p>Let's look at a simple \"Hello World\" workflow:</p>"
         },
         {
-          "type": "code",
-          "language": "json",
-          "value": "{\n  \"name\": \"Hello World\",\n  \"nodes\": [\n    {\n      \"name\": \"When clicking 'Execute workflow'\",\n      \"type\": \"n8n-nodes-base.manualTrigger\",\n      \"position\": [0, 0]\n    },\n    {\n      \"name\": \"Edit Fields\",\n      \"type\": \"n8n-nodes-base.set\",\n      \"position\": [208, 0],\n      \"parameters\": {\n        \"assignments\": {\n          \"assignments\": [\n            {\n              \"name\": \"message\",\n              \"value\": \"Hello from n8n!\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"connections\": {\n    \"When clicking 'Execute workflow'\": {\n      \"main\": [[{\n        \"node\": \"Edit Fields\",\n        \"type\": \"main\",\n        \"index\": 0\n      }]]\n    }\n  }\n}"
-        },
-        {
-          "type": "image",
-          "src": "assets/images/hello-world-workflow.png",
-          "alt": "Hello World workflow in n8n visual editor showing two connected nodes"
+          "type": "tabs",
+          "title": "Hello World Workflow Example",
+          "tabs": [
+            {
+              "id": "visual",
+              "label": "Visual",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/hello-world-workflow.png",
+                  "alt": "Hello World workflow in n8n visual editor showing two connected nodes"
+                }
+              ]
+            },
+            {
+              "id": "code",
+              "label": "Code",
+              "content": [
+                {
+                  "type": "code",
+                  "language": "json",
+                  "value": "{\n  \"name\": \"Hello World\",\n  \"nodes\": [\n    {\n      \"name\": \"When clicking 'Execute workflow'\",\n      \"type\": \"n8n-nodes-base.manualTrigger\",\n      \"position\": [0, 0]\n    },\n    {\n      \"name\": \"Edit Fields\",\n      \"type\": \"n8n-nodes-base.set\",\n      \"position\": [208, 0],\n      \"parameters\": {\n        \"assignments\": {\n          \"assignments\": [\n            {\n              \"name\": \"message\",\n              \"value\": \"Hello from n8n!\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"connections\": {\n    \"When clicking 'Execute workflow'\": {\n      \"main\": [[{\n        \"node\": \"Edit Fields\",\n        \"type\": \"main\",\n        \"index\": 0\n      }]]\n    }\n  }\n}"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "text",
@@ -65,18 +83,204 @@
           "value": "<h3>Example: Edit Fields Node</h3><p>Let's examine the Edit Fields node from our Hello World workflow:</p>"
         },
         {
-          "type": "code",
-          "language": "json",
-          "value": "{\n  \"name\": \"Edit Fields\",\n  \"type\": \"n8n-nodes-base.set\",\n  \"typeVersion\": 3.4,\n  \"position\": [208, 0],\n  \"parameters\": {\n    \"assignments\": {\n      \"assignments\": [\n        {\n          \"id\": \"564315a9-5416-4a45-bd7b-435a84da0678\",\n          \"name\": \"message\",\n          \"value\": \"Hello from n8n!\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    \"options\": {}\n  },\n  \"id\": \"988de886-ad18-4c83-9ee2-af62ad98c8c4\"\n}"
-        },
-        {
-          "type": "image",
-          "src": "assets/images/edit-fields-node.png",
-          "alt": "Edit Fields node configuration panel in n8n showing parameters and output"
+          "type": "tabs",
+          "title": "Edit Fields Node Configuration",
+          "tabs": [
+            {
+              "id": "visual",
+              "label": "Visual",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/edit-fields-node.png",
+                  "alt": "Edit Fields node configuration panel in n8n showing parameters and output"
+                }
+              ]
+            },
+            {
+              "id": "code",
+              "label": "Code",
+              "content": [
+                {
+                  "type": "code",
+                  "language": "json",
+                  "value": "{\n  \"name\": \"Edit Fields\",\n  \"type\": \"n8n-nodes-base.set\",\n  \"typeVersion\": 3.4,\n  \"position\": [208, 0],\n  \"parameters\": {\n    \"assignments\": {\n      \"assignments\": [\n        {\n          \"id\": \"564315a9-5416-4a45-bd7b-435a84da0678\",\n          \"name\": \"message\",\n          \"value\": \"Hello from n8n!\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    \"options\": {}\n  },\n  \"id\": \"988de886-ad18-4c83-9ee2-af62ad98c8c4\"\n}"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "text",
           "value": "<h3>Node Structure Explained</h3><ul><li><strong>name:</strong> Human-readable node name (\"Edit Fields\")</li><li><strong>type:</strong> Node type identifier (n8n-nodes-base.set)</li><li><strong>position:</strong> Visual placement on the canvas [x, y]</li><li><strong>parameters:</strong> Configuration settings for the node</li><li><strong>id:</strong> Unique identifier for the node</li></ul><p>In this example, the node creates a new field called \"message\" with the value \"Hello from n8n!\" The screenshot above shows how you configure this in the n8n interface - you can see the Parameters tab where the field is set, and the Output panel showing the resulting data.</p>"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Data Flow: How Nodes Talk",
+      "content": [
+        {
+          "type": "text",
+          "value": "<h3>How Nodes Talk</h3><p>Now that you understand nodes, let's see how data flows between them. <strong>The core concept:</strong> Every node passes JSON to the next node. Connect nodes together and you create a data pipeline.</p><p>This workflow demonstrates the complete journey—from creating data to transforming it:</p>"
+        },
+        {
+          "type": "tabs",
+          "title": "User Processing Workflow",
+          "tabs": [
+            {
+              "id": "visual",
+              "label": "Visual",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/user-processing-workflow.png",
+                  "alt": "User processing workflow showing data flow through multiple nodes"
+                }
+              ]
+            },
+            {
+              "id": "code",
+              "label": "Code",
+              "content": [
+                {
+                  "type": "code",
+                  "language": "json",
+                  "value": "{\n  \"name\": \"User Processing Pipeline\",\n  \"nodes\": [\n    {\n      \"name\": \"When clicking 'Execute workflow'\",\n      \"type\": \"n8n-nodes-base.manualTrigger\",\n      \"position\": [0, 0]\n    },\n    {\n      \"name\": \"Create Sample Users\",\n      \"type\": \"n8n-nodes-base.set\",\n      \"position\": [220, 0],\n      \"parameters\": {\n        \"assignments\": {\n          \"assignments\": [\n            {\n              \"name\": \"users\",\n              \"value\": \"={{ [{\\\"name\\\": \\\"Alice\\\", \\\"email\\\": \\\"alice@test.com\\\", \\\"role\\\": \\\"admin\\\"}, {\\\"name\\\": \\\"Bob\\\", \\\"email\\\": \\\"bob@test.com\\\", \\\"role\\\": \\\"user\\\"}] }}\",\n              \"type\": \"array\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"name\": \"Split Into Items\",\n      \"type\": \"n8n-nodes-base.splitOut\",\n      \"position\": [440, 0],\n      \"parameters\": {\n        \"fieldToSplitOut\": \"users\"\n      }\n    },\n    {\n      \"name\": \"Transform Data\",\n      \"type\": \"n8n-nodes-base.set\",\n      \"position\": [660, 0],\n      \"parameters\": {\n        \"assignments\": {\n          \"assignments\": [\n            {\n              \"name\": \"emailDomain\",\n              \"value\": \"={{ $json.email.split('@')[1] }}\",\n              \"type\": \"string\"\n            },\n            {\n              \"name\": \"displayName\",\n              \"value\": \"={{ $json.name }} ({{ $json.role }})\",\n              \"type\": \"string\"\n            },\n            {\n              \"name\": \"welcomeMessage\",\n              \"value\": \"={{ 'Welcome ' + $json.name + '! Your email is ' + $json.email }}\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"connections\": {\n    \"When clicking 'Execute workflow'\": {\n      \"main\": [[{\"node\": \"Create Sample Users\"}]]\n    },\n    \"Create Sample Users\": {\n      \"main\": [[{\"node\": \"Split Into Items\"}]]\n    },\n    \"Split Into Items\": {\n      \"main\": [[{\"node\": \"Transform Data\"}]]\n    }\n  }\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "<h3>The Data Journey</h3><p><strong>Create Sample Users</strong> → <strong>Split Into Items</strong> (1 array becomes 2 items) → <strong>Transform Data</strong> (add new fields to each item)</p><p>After splitting, each item flows through as a separate JSON object:</p>"
+        },
+        {
+          "type": "code",
+          "language": "json",
+          "value": "[\n  {\n    \"name\": \"Alice\",\n    \"email\": \"alice@test.com\",\n    \"role\": \"admin\"\n  },\n  {\n    \"name\": \"Bob\",\n    \"email\": \"bob@test.com\",\n    \"role\": \"user\"\n  }\n]"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Expressions in Action</h3><p>How the <strong>Transform Data</strong> node accesses and manipulates each item:</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Extract domain from email\n{{ $json.email.split('@')[1] }}\n// Result: \"test.com\"\n\n// Combine name and role\n{{ $json.name }} ({{ $json.role }})\n// Result for Alice: \"Alice (admin)\"\n// Result for Bob: \"Bob (user)\"\n\n// Build a welcome message\n{{ 'Welcome ' + $json.name + '! Your email is ' + $json.email }}\n// Result for Alice: \"Welcome Alice! Your email is alice@test.com\"\n// Result for Bob: \"Welcome Bob! Your email is bob@test.com\""
+        },
+        {
+          "type": "text",
+          "value": "<h3>3 Rules to Remember</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Rule</th><th style='padding: 12px; text-align: left;'>Explanation</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>1 item = 1 JSON object</strong></td><td style='padding: 12px;'>Each object is processed separately through the workflow. If you have 100 items, the workflow runs 100 times internally.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Array = batch processing</strong></td><td style='padding: 12px;'>n8n loops through items automatically—no extra code needed. The <strong>Split Into Items</strong> node converts an array into individual items.</td></tr><tr><td style='padding: 12px;'><strong>Access with expressions</strong></td><td style='padding: 12px;'>Use <code>{{ $json.email }}</code> to get \"alice@test.com\" for the first item. The <code>$json</code> variable always refers to the current item being processed.</td></tr></tbody></table>"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Expressions & Variables",
+      "content": [
+        {
+          "type": "text",
+          "value": "<h3>The Language of Data</h3><p>Expressions are how you talk to your data in n8n. Think of them like an <strong>address system</strong> to find the right room in a building of JSON.</p><p>Building (Workflow) → Floor (Node) → Room (Field) → Value</p><p>In step 4, you saw <code>{{ $json.email }}</code> in action. Now let's understand the full expression system.</p>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Expression Syntax</h3><p>Wrap any expression in double curly braces with a space:</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "{{ $json.fieldName }}       // Access a field\n{{ $json.age + 5 }}          // Do math\n{{ $json.name.toUpperCase() }} // Use JavaScript methods\n{{ $json.role === 'admin' ? 'Full Access' : 'Limited' }} // Conditionals"
+        },
+        {
+          "type": "text",
+          "value": "<p>Inside <code>{{ }}</code>, you write JavaScript. n8n evaluates it and inserts the result.</p>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>The 4 Variable Groups</h3><p>n8n provides 4 ways to access data. Each serves a different purpose:</p>"
+        },
+        {
+          "type": "text",
+          "value": "<table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Variable</th><th style='padding: 12px; text-align: left;'>What It Does</th><th style='padding: 12px; text-align: left;'>When to Use</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><code>$json</code></td><td style='padding: 12px;'>Data from the <strong>previous node</strong></td><td style='padding: 12px;'>Most common—use by default</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><code>$('Node Name')</code></td><td style='padding: 12px;'>Data from <strong>any specific node</strong></td><td style='padding: 12px;'>When you need data from a node that's not directly before</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><code>$input</code></td><td style='padding: 12px;'>Current node's <strong>input data</strong></td><td style='padding: 12px;'>Advanced—loops, multiple inputs</td></tr><tr><td style='padding: 12px;'><code>$now</code> / <code>$today</code></td><td style='padding: 12px;'>Current <strong>date/time</strong></td><td style='padding: 12px;'>Timestamps, date filtering, logging</td></tr></tbody></table>"
+        },
+        {
+          "type": "text",
+          "value": "<h3>1. Previous Node Data</h3><p>The most common variable. Access data from the node directly before the current one:</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Simple field access\n{{ $json.name }}           // \"Alice\"\n{{ $json.email }}          // \"alice@test.com\"\n\n// Nested objects\n{{ $json.user.address.city }}  // \"San Francisco\"\n\n// Array access\n{{ $json.items[0] }}       // First item\n{{ $json.items.length }}   // Array length"
+        },
+        {
+          "type": "text",
+          "value": "<h3>2. Specific Node Data</h3><p>Access data from any node by its name. Useful when you need data from multiple sources:</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Reference a specific node\n{{ $('Create Sample Users').item.json.users }}\n\n// Compare data from two nodes\n{{ $('Node A').item.json.price - $('Node B').item.json.price }}\n\n// Use in conditionals\n{{ $('API Call').item.json.status === 'success' ? 'Proceed' : 'Stop' }}"
+        },
+        {
+          "type": "text",
+          "value": "<h3>3. System Time</h3><p>Access current date and time for timestamps, filtering, or date calculations:</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Current timestamp\n{{ $now }}                 // 2026-02-12T13:45:30.123Z\n\n// Format dates\n{{ $now.format('YYYY-MM-DD') }}        // \"2026-02-12\"\n{{ $now.format('HH:mm:ss') }}          // \"13:45:30\"\n{{ $today.format('dddd, MMMM D') }}    // \"Wednesday, February 12\"\n\n// Date calculations\n{{ $now.minus(7, 'days').format('YYYY-MM-DD') }}  // 7 days ago\n{{ $now.plus(1, 'month').toISO() }}               // 1 month from now"
+        },
+        {
+          "type": "text",
+          "value": "<h3>4. Current Input Data</h3><p>Access the current node's input. More advanced—used in loops or when processing multiple inputs:</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Access all input items\n{{ $input.all() }}         // All items from input\n\n// Get specific item by index\n{{ $input.item.json }}     // Current item being processed\n\n// Count input items\n{{ $input.all().length }}  // Number of items"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Common Patterns</h3><p>Practical expression patterns you'll use frequently:</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// String operations\n{{ $json.email.split('@')[1] }}              // Extract domain: \"test.com\"\n{{ $json.name.toLowerCase() }}               // \"alice\"\n{{ $json.firstName + ' ' + $json.lastName }} // Concatenate\n\n// Conditionals (ternary operator)\n{{ $json.age >= 18 ? 'Adult' : 'Minor' }}\n{{ $json.status === 'active' ? '✓' : '✗' }}\n\n// Math operations\n{{ $json.price * 1.1 }}                      // Add 10%\n{{ Math.round($json.score) }}                // Round number\n{{ ($json.total / $json.count).toFixed(2) }} // Average with 2 decimals\n\n// Null/undefined checks\n{{ $json.email || 'no-email@example.com' }}  // Default value\n{{ $json.user?.address?.city }}              // Optional chaining"
+        },
+        {
+          "type": "text",
+          "value": "<h3>Expressions in Action: Live Demo</h3><p>Here's how all these expressions work together in a real workflow:</p>"
+        },
+        {
+          "type": "tabs",
+          "title": "User Processing with Expressions Demo",
+          "tabs": [
+            {
+              "id": "workflow",
+              "label": "Workflow Output",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/expressions-workflow-output.png",
+                  "alt": "Complete workflow showing all 5 nodes with expression outputs in the data table"
+                }
+              ]
+            },
+            {
+              "id": "detail",
+              "label": "Expression Details",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/expressions-add-metadata-detail.png",
+                  "alt": "Add Metadata node detail view showing input data, expression parameters, and output results"
+                }
+              ]
+            }
+          ]
         }
       ]
     }

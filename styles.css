@@ -333,6 +333,92 @@ body {
     cursor: not-allowed;
 }
 
+/* Tabs Component */
+.content-tabs {
+    margin: var(--spacing-md) 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background-color: white;
+}
+
+.tab-buttons {
+    display: flex;
+    border-bottom: 2px solid var(--color-border);
+    background-color: #fafafa;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    background-color: transparent;
+    color: var(--color-text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    opacity: 0.6;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-button:hover {
+    opacity: 0.9;
+    background-color: rgba(217, 119, 87, 0.05);
+}
+
+.tab-button.active {
+    opacity: 1;
+    color: var(--color-accent);
+    background-color: white;
+    border-bottom-color: var(--color-accent);
+}
+
+.tab-button:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--color-accent);
+}
+
+.tab-panels {
+    position: relative;
+}
+
+.tab-panel {
+    display: none;
+    padding: var(--spacing-md);
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tab-specific content styles */
+.tab-panel .content-text,
+.tab-panel .content-code,
+.tab-panel .content-image {
+    margin-top: 0;
+}
+
+.tab-panel .content-text:last-child,
+.tab-panel .content-code:last-child,
+.tab-panel .content-image:last-child {
+    margin-bottom: 0;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .sidebar {
@@ -390,6 +476,15 @@ body {
     .btn {
         width: 100%;
         padding: 14px 24px;
+    }
+
+    .tab-button {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+    }
+
+    .tab-panel {
+        padding: var(--spacing-sm);
     }
 }
 
