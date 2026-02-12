@@ -43,32 +43,46 @@
     },
     {
       "parameters": {
-        "operation": "text",
-        "resource": "text",
+        "resource": "chat",
+        "operation": "message",
+        "model": "gpt-3.5-turbo",
+        "messages": {
+          "values": [
+            {
+              "content": "={{ \"Analyze the sentiment of this email and respond with only one word (positive, negative, or neutral):\\n\\n\" + $json.body }}"
+            }
+          ]
+        },
         "options": {
           "temperature": 0.3,
           "maxTokens": 50
-        },
-        "prompt": "={{ \"Analyze the sentiment of this email and respond with only one word (positive, negative, or neutral):\\n\\n\" + $json.body }}"
+        }
       },
-      "type": "n8n-nodes-base.openAi",
-      "typeVersion": 1.3,
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
       "position": [440, 0],
       "id": "analyze-sentiment",
       "name": "Analyze Sentiment"
     },
     {
       "parameters": {
-        "operation": "text",
-        "resource": "text",
+        "resource": "chat",
+        "operation": "message",
+        "model": "gpt-3.5-turbo",
+        "messages": {
+          "values": [
+            {
+              "content": "={{ \"You are a helpful customer service representative. The customer's email has a \" + $('Analyze Sentiment').first().json.message.content + \" sentiment.\\n\\nWrite a professional, empathetic response to this email:\\n\\nFrom: \" + $('Sample Email').first().json.from + \"\\nSubject: \" + $('Sample Email').first().json.subject + \"\\nBody: \" + $('Sample Email').first().json.body + \"\\n\\nResponse:\" }}"
+            }
+          ]
+        },
         "options": {
           "temperature": 0.7,
           "maxTokens": 200
-        },
-        "prompt": "={{ \"You are a helpful customer service representative. The customer's email has a \" + $('Analyze Sentiment').item.json.message.content + \" sentiment.\\n\\nWrite a professional, empathetic response to this email:\\n\\nFrom: \" + $('Sample Email').item.json.from + \"\\nSubject: \" + $('Sample Email').item.json.subject + \"\\nBody: \" + $('Sample Email').item.json.body + \"\\n\\nResponse:\" }}"
+        }
       },
-      "type": "n8n-nodes-base.openAi",
-      "typeVersion": 1.3,
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
       "position": [660, 0],
       "id": "generate-response",
       "name": "Generate Response"
@@ -80,25 +94,25 @@
             {
               "id": "original-from",
               "name": "originalFrom",
-              "value": "={{ $('Sample Email').item.json.from }}",
+              "value": "={{ $('Sample Email').first().json.from }}",
               "type": "string"
             },
             {
               "id": "original-subject",
               "name": "originalSubject",
-              "value": "={{ $('Sample Email').item.json.subject }}",
+              "value": "={{ $('Sample Email').first().json.subject }}",
               "type": "string"
             },
             {
               "id": "original-body",
               "name": "originalBody",
-              "value": "={{ $('Sample Email').item.json.body }}",
+              "value": "={{ $('Sample Email').first().json.body }}",
               "type": "string"
             },
             {
               "id": "detected-sentiment",
               "name": "detectedSentiment",
-              "value": "={{ $('Analyze Sentiment').item.json.message.content }}",
+              "value": "={{ $('Analyze Sentiment').first().json.message.content }}",
               "type": "string"
             },
             {
