@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n8n Training Tutorial</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <h1 id="tutorial-title">Loading...</h1>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <p class="progress-text" id="progress-text">Step 0 of 0</p>
+        </header>
+
+        <main class="main-content">
+            <div id="content-container">
+                <h2 id="step-title">Loading...</h2>
+                <div id="step-content"></div>
+            </div>
+        </main>
+
+        <footer class="navigation-footer">
+            <button id="prev-btn" class="btn btn-secondary" disabled>Previous</button>
+            <span class="step-indicator" id="step-indicator">Step 0 of 0</span>
+            <button id="next-btn" class="btn btn-primary">Next</button>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
