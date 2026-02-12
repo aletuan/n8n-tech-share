@@ -426,6 +426,49 @@
         },
         {
           "type": "text",
+          "value": "<h3>Error Handling in Action: API Demo</h3><p>See how the workflow handles both success and failure scenarios:</p>"
+        },
+        {
+          "type": "tabs",
+          "title": "API Error Handling Demo",
+          "tabs": [
+            {
+              "id": "success",
+              "label": "Success Path",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/error-success-path.png",
+                  "alt": "Successful API call showing data flowing through the true branch with user data displayed in output table"
+                }
+              ]
+            },
+            {
+              "id": "error",
+              "label": "Error Path",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/error-error-path.png",
+                  "alt": "Failed API call showing error object flowing through the false branch with error details"
+                }
+              ]
+            },
+            {
+              "id": "alert",
+              "label": "Error Alert Email",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/error-email-alert.png",
+                  "alt": "Gmail inbox showing the automated error alert email with error details and timestamp"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
           "value": "<h3>Quick Reference</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 35%;'>Scenario</th><th style='padding: 12px; text-align: left;'>Solution</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Get notified when workflow fails</td><td style='padding: 12px;'>Add Error Trigger workflow</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Node fails but workflow should continue</td><td style='padding: 12px;'>Enable \"Continue On Fail\" on that node</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Validate data before processing</td><td style='padding: 12px;'>Use IF node with validation expression</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>API sometimes fails</td><td style='padding: 12px;'>Enable retry in HTTP Request settings</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>See what data looks like at each step</td><td style='padding: 12px;'>Click node → View output tab</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Test with sample data</td><td style='padding: 12px;'>Right-click node → Pin data</td></tr><tr><td style='padding: 12px;'>Missing field causes error</td><td style='padding: 12px;'>Use <code>{{ $json.field || 'default' }}</code></td></tr></tbody></table>"
         },
         {
