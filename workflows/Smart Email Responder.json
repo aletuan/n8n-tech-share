@@ -45,7 +45,9 @@
       "parameters": {
         "resource": "text",
         "operation": "message",
-        "model": "gpt-3.5-turbo",
+        "model": {
+          "value": "gpt-3.5-turbo"
+        },
         "options": {
           "temperature": 0.3,
           "maxTokens": 50
@@ -53,7 +55,7 @@
         "messages": {
           "values": [
             {
-              "message": "={{ \"Analyze the sentiment of this email and respond with only one word (positive, negative, or neutral):\\n\\n\" + $json.body }}",
+              "content": "={{ \"Analyze the sentiment of this email and respond with only one word (positive, negative, or neutral):\\n\\n\" + $json.body }}",
               "role": "user"
             }
           ]
@@ -70,7 +72,9 @@
       "parameters": {
         "resource": "text",
         "operation": "message",
-        "model": "gpt-3.5-turbo",
+        "model": {
+          "value": "gpt-3.5-turbo"
+        },
         "options": {
           "temperature": 0.7,
           "maxTokens": 250
@@ -78,11 +82,11 @@
         "messages": {
           "values": [
             {
-              "message": "You are a helpful customer service representative.",
+              "content": "You are a helpful customer service representative.",
               "role": "system"
             },
             {
-              "message": "={{ \"The customer's email has a \" + $('Analyze Sentiment').first().json.message.content + \" sentiment.\\n\\nWrite a professional, empathetic response to this email:\\n\\nFrom: \" + $('Sample Email').first().json.from + \"\\nSubject: \" + $('Sample Email').first().json.subject + \"\\nBody: \" + $('Sample Email').first().json.body }}",
+              "content": "={{ \"The customer's email has a \" + $('Analyze Sentiment').first().json.message.content + \" sentiment.\\n\\nWrite a professional, empathetic response to this email:\\n\\nFrom: \" + $('Sample Email').first().json.from + \"\\nSubject: \" + $('Sample Email').first().json.subject + \"\\nBody: \" + $('Sample Email').first().json.body }}",
               "role": "user"
             }
           ]
