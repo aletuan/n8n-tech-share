@@ -243,15 +243,6 @@
         },
         {
           "type": "text",
-          "value": "<h3>Common Patterns</h3><p>Practical expression patterns you'll use frequently:</p>"
-        },
-        {
-          "type": "code",
-          "language": "javascript",
-          "value": "// String operations\n{{ $json.email.split('@')[1] }}              // Extract domain: \"test.com\"\n{{ $json.name.toLowerCase() }}               // \"alice\"\n{{ $json.firstName + ' ' + $json.lastName }} // Concatenate\n\n// Conditionals (ternary operator)\n{{ $json.age >= 18 ? 'Adult' : 'Minor' }}\n{{ $json.status === 'active' ? '✓' : '✗' }}\n\n// Math operations\n{{ $json.price * 1.1 }}                      // Add 10%\n{{ Math.round($json.score) }}                // Round number\n{{ ($json.total / $json.count).toFixed(2) }} // Average with 2 decimals\n\n// Null/undefined checks\n{{ $json.email || 'no-email@example.com' }}  // Default value\n{{ $json.user?.address?.city }}              // Optional chaining"
-        },
-        {
-          "type": "text",
           "value": "<h3>Expressions in Action: Live Demo</h3><p>Here's how all these expressions work together in a real workflow:</p>"
         },
         {
