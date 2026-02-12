@@ -166,11 +166,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<p><strong>The Language of Data</strong></p><p>Expressions are how you talk to your data in n8n. Think of them like an <strong>address system</strong> to find the right room in a building of JSON.</p><p>Building (Workflow) → Floor (Node) → Room (Field) → Value</p><p>In step 4, you saw <code>{{ $json.email }}</code> in action. Now let's understand the full expression system.</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Expressions let you access and manipulate data.</strong> Wrap JavaScript in <code>{{ }}</code> to access fields, do math, use methods, or build logic.</div>"
         },
         {
           "type": "text",
-          "value": "<p><strong>Expression Syntax</strong></p><p>Wrap any expression in double curly braces with a space:</p>"
+          "value": "<p><strong>Expression Syntax</strong></p>"
         },
         {
           "type": "code",
@@ -179,11 +179,7 @@
         },
         {
           "type": "text",
-          "value": "<p>Inside <code>{{ }}</code>, you write JavaScript. n8n evaluates it and inserts the result.</p>"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>The 4 Variable Groups</strong></p><p>n8n provides 4 ways to access data. Each serves a different purpose:</p>"
+          "value": "<p><strong>Variable Types</strong></p>"
         },
         {
           "type": "text",
@@ -191,16 +187,12 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Quick Examples</strong></p><p>Here's how to use each variable type:</p>"
+          "value": "<p><strong>Examples</strong></p>"
         },
         {
           "type": "code",
           "language": "javascript",
           "value": "// $json - Previous node (most common)\n{{ $json.name }}                    // \"Alice\"\n{{ $json.email }}                   // \"alice@test.com\"\n{{ $json.items[0] }}                // Array access\n{{ $json.user.address.city }}       // Nested objects\n\n// $('Node Name') - Specific node\n{{ $('Create Sample Users').item.json.users }}\n{{ $('Node A').item.json.price - $('Node B').item.json.price }}\n{{ $('API Call').item.json.status === 'success' ? 'Proceed' : 'Stop' }}\n\n// $now / $today - System time\n{{ $now.format('YYYY-MM-DD') }}              // \"2026-02-12\"\n{{ $now.format('HH:mm:ss') }}                // \"13:45:30\"\n{{ $today.format('dddd, MMMM D') }}          // \"Wednesday, February 12\"\n{{ $now.minus(7, 'days').format('YYYY-MM-DD') }}  // 7 days ago\n{{ $now.plus(1, 'month').toISO() }}          // 1 month from now\n\n// $input - Current input (advanced)\n{{ $input.all() }}                  // All items from input\n{{ $input.item.json }}              // Current item being processed\n{{ $input.all().length }}           // Count items"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>Expressions in Action: Live Demo</strong></p><p>Here's how all these expressions work together in a real workflow:</p>"
         },
         {
           "type": "tabs",
