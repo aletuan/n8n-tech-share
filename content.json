@@ -230,11 +230,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<p><strong>Making Decisions</strong></p><p>Now that you can access and transform data, it's time to control where it goes. Logic nodes let your workflow make decisions and route items down different paths.</p><p><strong>The Key Question:</strong> Based on the data, which path should this item take?</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Logic nodes control where data flows.</strong> Route items down different paths based on conditions, then merge back together.</div>"
         },
         {
           "type": "text",
-          "value": "<p><strong>The IF Node</strong></p><p>Split your workflow into two paths: <strong>true</strong> or <strong>false</strong>. Use when you have a yes/no decision.</p>"
+          "value": "<p><strong>IF Node</strong> — Two paths: true or false</p>"
         },
         {
           "type": "code",
@@ -243,11 +243,7 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Result:</strong> Items flow down the <code>true</code> path or <code>false</code> path based on your condition.</p>"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>The Switch Node</strong></p><p>Route items to multiple paths based on a value. Use when you have 3+ possible outcomes.</p>"
+          "value": "<p><strong>Switch Node</strong> — Multiple paths based on value</p>"
         },
         {
           "type": "code",
@@ -256,19 +252,11 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Result:</strong> Each item goes to the matching output path. Unmatched items go to the default path.</p>"
+          "value": "<p><strong>Merge Node</strong> — Combine multiple paths back into one</p>"
         },
         {
           "type": "text",
-          "value": "<p><strong>The Merge Node</strong></p><p>Combine multiple paths back into one. Use after branching when you want to process all items together again.</p><p><strong>Example:</strong> Our demo workflow merges admin and user paths, then sends a single Gmail summary with all processed users.</p>"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>Quick Comparison</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node</th><th style='padding: 12px; text-align: left;'>Outputs</th><th style='padding: 12px; text-align: left;'>Use When</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>IF</strong></td><td style='padding: 12px;'>2 (true/false)</td><td style='padding: 12px;'>Binary decision — yes or no, include or exclude</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Switch</strong></td><td style='padding: 12px;'>Multiple</td><td style='padding: 12px;'>Route by value — status, category, type, etc.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Merge</strong></td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Combine paths back together after branching</td></tr><tr><td style='padding: 12px;'><strong>Filter</strong></td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Remove items that don't match condition</td></tr></tbody></table>"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>Logic in Action: User Role Router</strong></p><p>This workflow demonstrates the complete branching pattern: split paths based on conditions, process differently, merge back together, and send a unified result.</p>"
+          "value": "<p><strong>Comparison</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node</th><th style='padding: 12px; text-align: left;'>Outputs</th><th style='padding: 12px; text-align: left;'>Use When</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>IF</td><td style='padding: 12px;'>2 (true/false)</td><td style='padding: 12px;'>Binary decision — yes or no, include or exclude</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Switch</td><td style='padding: 12px;'>Multiple</td><td style='padding: 12px;'>Route by value — status, category, type, etc.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Merge</td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Combine paths back together after branching</td></tr><tr><td style='padding: 12px;'>Filter</td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Remove items that don't match condition</td></tr></tbody></table>"
         },
         {
           "type": "tabs",
