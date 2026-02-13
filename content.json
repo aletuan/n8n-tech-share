@@ -12,7 +12,7 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Key Features</strong></p><ul><li>Data = JSON — Every node receives and returns JSON objects</li><li>Open-source & Self-host — Run on your server, full data control</li><li>No-code + Code — Visual editor or write JavaScript/Python</li><li>400+ Integrations — Gmail, Slack, HTTP, databases, and more</li></ul>"
+          "value": "<p><strong>Key Features</strong></p><ul><li>Data = JSON \u2014 Every node receives and returns JSON objects</li><li>Open-source & Self-host \u2014 Run on your server, full data control</li><li>No-code + Code \u2014 Visual editor or write JavaScript/Python</li><li>400+ Integrations \u2014 Gmail, Slack, HTTP, databases, and more</li></ul>"
         }
       ]
     },
@@ -22,23 +22,12 @@
       "content": [
         {
           "type": "text",
-          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>A workflow is a sequence of connected nodes that process data.</strong> Trigger starts execution → Data flows through connections → Each node transforms data → Output.</div>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>A workflow is a sequence of connected nodes that process data.</strong> Trigger starts execution \u2192 Data flows through connections \u2192 Each node transforms data \u2192 Output.</div>"
         },
         {
           "type": "tabs",
           "title": "Hello World Workflow Example",
           "tabs": [
-            {
-              "id": "visual",
-              "label": "Visual",
-              "content": [
-                {
-                  "type": "image",
-                  "src": "assets/images/hello-world-workflow.png",
-                  "alt": "Hello World workflow in n8n visual editor showing two connected nodes"
-                }
-              ]
-            },
             {
               "id": "code",
               "label": "Code",
@@ -47,6 +36,17 @@
                   "type": "code",
                   "language": "json",
                   "value": "{\n  \"name\": \"Hello World\",\n  \"nodes\": [\n    {\n      \"name\": \"When clicking 'Execute workflow'\",\n      \"type\": \"n8n-nodes-base.manualTrigger\",\n      \"position\": [0, 0]\n    },\n    {\n      \"name\": \"Edit Fields\",\n      \"type\": \"n8n-nodes-base.set\",\n      \"position\": [208, 0],\n      \"parameters\": {\n        \"assignments\": {\n          \"assignments\": [\n            {\n              \"name\": \"message\",\n              \"value\": \"Hello from n8n!\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"connections\": {\n    \"When clicking 'Execute workflow'\": {\n      \"main\": [[{\n        \"node\": \"Edit Fields\",\n        \"type\": \"main\",\n        \"index\": 0\n      }]]\n    }\n  }\n}"
+                }
+              ]
+            },
+            {
+              "id": "visual",
+              "label": "Workflow",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/hello-world-workflow.png",
+                  "alt": "Hello World workflow in n8n visual editor showing two connected nodes"
                 }
               ]
             }
@@ -71,17 +71,6 @@
           "title": "Edit Fields Node Configuration",
           "tabs": [
             {
-              "id": "visual",
-              "label": "Visual",
-              "content": [
-                {
-                  "type": "image",
-                  "src": "assets/images/edit-fields-node.png",
-                  "alt": "Edit Fields node configuration panel in n8n showing parameters and output"
-                }
-              ]
-            },
-            {
               "id": "code",
               "label": "Code",
               "content": [
@@ -89,6 +78,17 @@
                   "type": "code",
                   "language": "json",
                   "value": "{\n  \"name\": \"Edit Fields\",\n  \"type\": \"n8n-nodes-base.set\",\n  \"typeVersion\": 3.4,\n  \"position\": [208, 0],\n  \"parameters\": {\n    \"assignments\": {\n      \"assignments\": [\n        {\n          \"id\": \"564315a9-5416-4a45-bd7b-435a84da0678\",\n          \"name\": \"message\",\n          \"value\": \"Hello from n8n!\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    \"options\": {}\n  },\n  \"id\": \"988de886-ad18-4c83-9ee2-af62ad98c8c4\"\n}"
+                }
+              ]
+            },
+            {
+              "id": "visual",
+              "label": "Edit Fields Node",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/edit-fields-node.png",
+                  "alt": "Edit Fields node configuration panel in n8n showing parameters and output"
                 }
               ]
             }
@@ -113,17 +113,6 @@
           "title": "User Processing Workflow",
           "tabs": [
             {
-              "id": "visual",
-              "label": "Visual",
-              "content": [
-                {
-                  "type": "image",
-                  "src": "assets/images/user-processing-workflow.png",
-                  "alt": "User processing workflow showing data flow through multiple nodes"
-                }
-              ]
-            },
-            {
               "id": "code",
               "label": "Code",
               "content": [
@@ -133,12 +122,23 @@
                   "value": "{\n  \"name\": \"User Processing Pipeline\",\n  \"nodes\": [\n    {\n      \"name\": \"When clicking 'Execute workflow'\",\n      \"type\": \"n8n-nodes-base.manualTrigger\",\n      \"position\": [0, 0]\n    },\n    {\n      \"name\": \"Create Sample Users\",\n      \"type\": \"n8n-nodes-base.set\",\n      \"position\": [220, 0],\n      \"parameters\": {\n        \"assignments\": {\n          \"assignments\": [\n            {\n              \"name\": \"users\",\n              \"value\": \"={{ [{\\\"name\\\": \\\"Alice\\\", \\\"email\\\": \\\"alice@test.com\\\", \\\"role\\\": \\\"admin\\\"}, {\\\"name\\\": \\\"Bob\\\", \\\"email\\\": \\\"bob@test.com\\\", \\\"role\\\": \\\"user\\\"}] }}\",\n              \"type\": \"array\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"name\": \"Split Into Items\",\n      \"type\": \"n8n-nodes-base.splitOut\",\n      \"position\": [440, 0],\n      \"parameters\": {\n        \"fieldToSplitOut\": \"users\"\n      }\n    },\n    {\n      \"name\": \"Transform Data\",\n      \"type\": \"n8n-nodes-base.set\",\n      \"position\": [660, 0],\n      \"parameters\": {\n        \"assignments\": {\n          \"assignments\": [\n            {\n              \"name\": \"emailDomain\",\n              \"value\": \"={{ $json.email.split('@')[1] }}\",\n              \"type\": \"string\"\n            },\n            {\n              \"name\": \"displayName\",\n              \"value\": \"={{ $json.name }} ({{ $json.role }})\",\n              \"type\": \"string\"\n            },\n            {\n              \"name\": \"welcomeMessage\",\n              \"value\": \"={{ 'Welcome ' + $json.name + '! Your email is ' + $json.email }}\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"connections\": {\n    \"When clicking 'Execute workflow'\": {\n      \"main\": [[{\"node\": \"Create Sample Users\"}]]\n    },\n    \"Create Sample Users\": {\n      \"main\": [[{\"node\": \"Split Into Items\"}]]\n    },\n    \"Split Into Items\": {\n      \"main\": [[{\"node\": \"Transform Data\"}]]\n    }\n  }\n}"
                 }
               ]
+            },
+            {
+              "id": "visual",
+              "label": "Workflow",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/user-processing-workflow.png",
+                  "alt": "User processing workflow showing data flow through multiple nodes"
+                }
+              ]
             }
           ]
         },
         {
           "type": "text",
-          "value": "<p><strong>The Data Journey:</strong> Create Sample Users → Split Into Items (1 array becomes 2 items) → Transform Data (add new fields to each item)</p>"
+          "value": "<p><strong>The Data Journey:</strong> Create Sample Users \u2192 Split Into Items (1 array becomes 2 items) \u2192 Transform Data (add new fields to each item)</p>"
         },
         {
           "type": "code",
@@ -156,7 +156,7 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>3 Rules to Remember</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Rule</th><th style='padding: 12px; text-align: left;'>Explanation</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>1 item = 1 JSON object</strong></td><td style='padding: 12px;'>Each object is processed separately through the workflow. If you have 100 items, the workflow runs 100 times internally.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Array = batch processing</strong></td><td style='padding: 12px;'>n8n loops through items automatically—no extra code needed. The <strong>Split Into Items</strong> node converts an array into individual items.</td></tr><tr><td style='padding: 12px;'><strong>Access with expressions</strong></td><td style='padding: 12px;'>Use <code>{{ $json.email }}</code> to get \"alice@test.com\" for the first item. The <code>$json</code> variable always refers to the current item being processed.</td></tr></tbody></table>"
+          "value": "<p><strong>3 Rules to Remember</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Rule</th><th style='padding: 12px; text-align: left;'>Explanation</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>1 item = 1 JSON object</strong></td><td style='padding: 12px;'>Each object is processed separately through the workflow. If you have 100 items, the workflow runs 100 times internally.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Array = batch processing</strong></td><td style='padding: 12px;'>n8n loops through items automatically\u2014no extra code needed. The <strong>Split Into Items</strong> node converts an array into individual items.</td></tr><tr><td style='padding: 12px;'><strong>Access with expressions</strong></td><td style='padding: 12px;'>Use <code>{{ $json.email }}</code> to get \"alice@test.com\" for the first item. The <code>$json</code> variable always refers to the current item being processed.</td></tr></tbody></table>"
         }
       ]
     },
@@ -183,7 +183,7 @@
         },
         {
           "type": "text",
-          "value": "<table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Variable</th><th style='padding: 12px; text-align: left;'>What It Does</th><th style='padding: 12px; text-align: left;'>When to Use</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><code>$json</code></td><td style='padding: 12px;'>Data from the <strong>previous node</strong></td><td style='padding: 12px;'>Most common—use by default</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><code>$('Node Name')</code></td><td style='padding: 12px;'>Data from <strong>any specific node</strong></td><td style='padding: 12px;'>When you need data from a node that's not directly before</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><code>$input</code></td><td style='padding: 12px;'>Current node's <strong>input data</strong></td><td style='padding: 12px;'>Advanced—loops, multiple inputs</td></tr><tr><td style='padding: 12px;'><code>$now</code> / <code>$today</code></td><td style='padding: 12px;'>Current <strong>date/time</strong></td><td style='padding: 12px;'>Timestamps, date filtering, logging</td></tr></tbody></table>"
+          "value": "<table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Variable</th><th style='padding: 12px; text-align: left;'>What It Does</th><th style='padding: 12px; text-align: left;'>When to Use</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><code>$json</code></td><td style='padding: 12px;'>Data from the <strong>previous node</strong></td><td style='padding: 12px;'>Most common\u2014use by default</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><code>$('Node Name')</code></td><td style='padding: 12px;'>Data from <strong>any specific node</strong></td><td style='padding: 12px;'>When you need data from a node that's not directly before</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><code>$input</code></td><td style='padding: 12px;'>Current node's <strong>input data</strong></td><td style='padding: 12px;'>Advanced\u2014loops, multiple inputs</td></tr><tr><td style='padding: 12px;'><code>$now</code> / <code>$today</code></td><td style='padding: 12px;'>Current <strong>date/time</strong></td><td style='padding: 12px;'>Timestamps, date filtering, logging</td></tr></tbody></table>"
         },
         {
           "type": "text",
@@ -234,7 +234,7 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>IF Node</strong> — Two paths: true or false</p>"
+          "value": "<p><strong>IF Node</strong> \u2014 Two paths: true or false</p>"
         },
         {
           "type": "code",
@@ -243,20 +243,20 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Switch Node</strong> — Multiple paths based on value</p>"
+          "value": "<p><strong>Switch Node</strong> \u2014 Multiple paths based on value</p>"
         },
         {
           "type": "code",
           "language": "javascript",
-          "value": "// Route by order status:\nswitch ($json.status) {\n  case 'pending':   // → Path 1: Send reminder\n  case 'shipped':   // → Path 2: Track package  \n  case 'delivered': // → Path 3: Request review\n  default:          // → Path 4: Log error\n}"
+          "value": "// Route by order status:\nswitch ($json.status) {\n  case 'pending':   // \u2192 Path 1: Send reminder\n  case 'shipped':   // \u2192 Path 2: Track package  \n  case 'delivered': // \u2192 Path 3: Request review\n  default:          // \u2192 Path 4: Log error\n}"
         },
         {
           "type": "text",
-          "value": "<p><strong>Merge Node</strong> — Combine multiple paths back into one</p>"
+          "value": "<p><strong>Merge Node</strong> \u2014 Combine multiple paths back into one</p>"
         },
         {
           "type": "text",
-          "value": "<p><strong>Comparison</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node</th><th style='padding: 12px; text-align: left;'>Outputs</th><th style='padding: 12px; text-align: left;'>Use When</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>IF</td><td style='padding: 12px;'>2 (true/false)</td><td style='padding: 12px;'>Binary decision — yes or no, include or exclude</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Switch</td><td style='padding: 12px;'>Multiple</td><td style='padding: 12px;'>Route by value — status, category, type, etc.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Merge</td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Combine paths back together after branching</td></tr><tr><td style='padding: 12px;'>Filter</td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Remove items that don't match condition</td></tr></tbody></table>"
+          "value": "<p><strong>Comparison</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node</th><th style='padding: 12px; text-align: left;'>Outputs</th><th style='padding: 12px; text-align: left;'>Use When</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>IF</td><td style='padding: 12px;'>2 (true/false)</td><td style='padding: 12px;'>Binary decision \u2014 yes or no, include or exclude</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Switch</td><td style='padding: 12px;'>Multiple</td><td style='padding: 12px;'>Route by value \u2014 status, category, type, etc.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Merge</td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Combine paths back together after branching</td></tr><tr><td style='padding: 12px;'>Filter</td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Remove items that don't match condition</td></tr></tbody></table>"
         },
         {
           "type": "tabs",
@@ -346,7 +346,7 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Error Trigger Node</strong> — Runs when any node fails</p>"
+          "value": "<p><strong>Error Trigger Node</strong> \u2014 Runs when any node fails</p>"
         },
         {
           "type": "code",
@@ -355,12 +355,12 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Continue on Fail</strong> — Node setting to prevent failure from stopping workflow</p>"
+          "value": "<p><strong>Continue on Fail</strong> \u2014 Node setting to prevent failure from stopping workflow</p>"
         },
         {
           "type": "code",
           "language": "javascript",
-          "value": "// Enable in Node Settings → Continue On Fail\n\n// Use cases:\n- Optional notifications (Slack message fails? Continue anyway)\n- Secondary data enrichment (Nice to have, not required)\n- Logging operations (Don't stop workflow if log fails)\n\n// Access error info in next node:\n{{ $json.error }}  // Error details if the node failed"
+          "value": "// Enable in Node Settings \u2192 Continue On Fail\n\n// Use cases:\n- Optional notifications (Slack message fails? Continue anyway)\n- Secondary data enrichment (Nice to have, not required)\n- Logging operations (Don't stop workflow if log fails)\n\n// Access error info in next node:\n{{ $json.error }}  // Error details if the node failed"
         },
         {
           "type": "text",
@@ -369,11 +369,11 @@
         {
           "type": "code",
           "language": "javascript",
-          "value": "// Validate email exists\n{{ $json.email !== undefined && $json.email !== '' }}\n\n// Validate email format\n{{ $json.email.includes('@') && $json.email.includes('.') }}\n\n// Validate number is positive\n{{ $json.price > 0 }}\n\n// Validate required fields\n{{ $json.name && $json.email && $json.role }}\n\n// True path = valid → Continue processing\n// False path = invalid → Send to error handler or skip"
+          "value": "// Validate email exists\n{{ $json.email !== undefined && $json.email !== '' }}\n\n// Validate email format\n{{ $json.email.includes('@') && $json.email.includes('.') }}\n\n// Validate number is positive\n{{ $json.price > 0 }}\n\n// Validate required fields\n{{ $json.name && $json.email && $json.role }}\n\n// True path = valid \u2192 Continue processing\n// False path = invalid \u2192 Send to error handler or skip"
         },
         {
           "type": "text",
-          "value": "<p><strong>Debugging Techniques</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Technique</th><th style='padding: 12px; text-align: left;'>How To</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Inspect Node Output</td><td style='padding: 12px;'>Click node → View output tab to see actual data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Pin Data</td><td style='padding: 12px;'>Right-click node → Pin data to test with sample data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Execute Single Node</td><td style='padding: 12px;'>Click node → Execute node to test in isolation</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Check Execution Log</td><td style='padding: 12px;'>View execution history to see what went wrong</td></tr><tr><td style='padding: 12px;'>Use Edit Fields to Log</td><td style='padding: 12px;'>Add debug fields to see intermediate values</td></tr></tbody></table>"
+          "value": "<p><strong>Debugging Techniques</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Technique</th><th style='padding: 12px; text-align: left;'>How To</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Inspect Node Output</td><td style='padding: 12px;'>Click node \u2192 View output tab to see actual data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Pin Data</td><td style='padding: 12px;'>Right-click node \u2192 Pin data to test with sample data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Execute Single Node</td><td style='padding: 12px;'>Click node \u2192 Execute node to test in isolation</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Check Execution Log</td><td style='padding: 12px;'>View execution history to see what went wrong</td></tr><tr><td style='padding: 12px;'>Use Edit Fields to Log</td><td style='padding: 12px;'>Add debug fields to see intermediate values</td></tr></tbody></table>"
         },
         {
           "type": "text",
@@ -382,7 +382,7 @@
         {
           "type": "code",
           "language": "javascript",
-          "value": "// Pattern: Validate → Try → Catch → Notify\n\n1. IF Node: Validate input\n   ├─ Valid → Continue to main workflow\n   └─ Invalid → Send to error handler\n\n2. Enable \"Continue On Fail\" on risky nodes\n   - API calls\n   - External integrations\n   - File operations\n\n3. Error Trigger workflow:\n   - Log error details\n   - Send notification (Slack/Email)\n   - Store failed items for retry\n\n4. IF Node: Check for errors\n   ├─ Success → Continue\n   └─ Failed → Fallback action or skip"
+          "value": "// Pattern: Validate \u2192 Try \u2192 Catch \u2192 Notify\n\n1. IF Node: Validate input\n   \u251c\u2500 Valid \u2192 Continue to main workflow\n   \u2514\u2500 Invalid \u2192 Send to error handler\n\n2. Enable \"Continue On Fail\" on risky nodes\n   - API calls\n   - External integrations\n   - File operations\n\n3. Error Trigger workflow:\n   - Log error details\n   - Send notification (Slack/Email)\n   - Store failed items for retry\n\n4. IF Node: Check for errors\n   \u251c\u2500 Success \u2192 Continue\n   \u2514\u2500 Failed \u2192 Fallback action or skip"
         },
         {
           "type": "tabs",
@@ -425,7 +425,7 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Best Practices</strong></p><ul><li><strong>Fail fast</strong> — Validate input early, before expensive operations</li><li><strong>Be specific</strong> — Check for exact error conditions rather than catching all errors</li><li><strong>Provide context</strong> — Include useful info in error messages (execution ID, failed node, input data)</li><li><strong>Test failure paths</strong> — Don't just test the happy path; simulate failures</li><li><strong>Monitor & alert</strong> — Set up Error Trigger workflows for critical workflows</li></ul>"
+          "value": "<p><strong>Best Practices</strong></p><ul><li><strong>Fail fast</strong> \u2014 Validate input early, before expensive operations</li><li><strong>Be specific</strong> \u2014 Check for exact error conditions rather than catching all errors</li><li><strong>Provide context</strong> \u2014 Include useful info in error messages (execution ID, failed node, input data)</li><li><strong>Test failure paths</strong> \u2014 Don't just test the happy path; simulate failures</li><li><strong>Monitor & alert</strong> \u2014 Set up Error Trigger workflows for critical workflows</li></ul>"
         }
       ]
     },
@@ -435,7 +435,7 @@
       "content": [
         {
           "type": "text",
-          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>AI APIs let you analyze, generate, and transform data using LLMs.</strong> Send text in → Get intelligent response back.</div>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>AI APIs let you analyze, generate, and transform data using LLMs.</strong> Send text in \u2192 Get intelligent response back.</div>"
         },
         {
           "type": "text",
@@ -452,7 +452,7 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Parameters</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Parameter</th><th style='padding: 12px; text-align: left;'>What It Does</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Model</td><td style='padding: 12px;'>Which AI to use (gpt-4 = smart but slow, gpt-3.5 = fast but cheaper)</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Temperature</td><td style='padding: 12px;'>Creativity (0 = consistent, 1 = creative). Use 0 for data extraction, 0.7 for writing.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Max Tokens</td><td style='padding: 12px;'>Response length limit. 1 token ≈ 0.75 words. Limits cost.</td></tr><tr><td style='padding: 12px;'>System Message</td><td style='padding: 12px;'>Sets AI behavior (\"You are a helpful customer service agent\")</td></tr></tbody></table>"
+          "value": "<p><strong>Parameters</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Parameter</th><th style='padding: 12px; text-align: left;'>What It Does</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Model</td><td style='padding: 12px;'>Which AI to use (gpt-4 = smart but slow, gpt-3.5 = fast but cheaper)</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Temperature</td><td style='padding: 12px;'>Creativity (0 = consistent, 1 = creative). Use 0 for data extraction, 0.7 for writing.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Max Tokens</td><td style='padding: 12px;'>Response length limit. 1 token \u2248 0.75 words. Limits cost.</td></tr><tr><td style='padding: 12px;'>System Message</td><td style='padding: 12px;'>Sets AI behavior (\"You are a helpful customer service agent\")</td></tr></tbody></table>"
         },
         {
           "type": "text",
@@ -528,20 +528,75 @@
         {
           "type": "code",
           "language": "javascript",
-          "value": "// Text → Embedding (vector)\n\"dog\" → [0.2, 0.8, 0.1, ...] (1536 dimensions)\n\"puppy\" → [0.3, 0.7, 0.2, ...] (similar vector)\n\"car\" → [-0.5, 0.1, 0.9, ...] (different vector)\n\n// Similarity measured by cosine distance\nsimilarity(\"dog\", \"puppy\") = 0.95  // Very similar\nsimilarity(\"dog\", \"car\") = 0.12     // Not similar\n\n// Use cases:\n- Semantic search: Find documents by meaning, not keywords\n- Similarity matching: Find similar products, articles, users\n- Clustering: Group related items automatically\n- Recommendation: Suggest based on semantic similarity"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>Vector Databases</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Database</th><th style='padding: 12px; text-align: left;'>Best For</th><th style='padding: 12px; text-align: left;'>Notes</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Pinecone</td><td style='padding: 12px;'>Production, managed service</td><td style='padding: 12px;'>Fast, scalable, fully managed</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Weaviate</td><td style='padding: 12px;'>Self-hosted, open source</td><td style='padding: 12px;'>GraphQL API, hybrid search</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Qdrant</td><td style='padding: 12px;'>High performance, filtering</td><td style='padding: 12px;'>Fast, good for metadata filters</td></tr><tr><td style='padding: 12px;'>Supabase Vector</td><td style='padding: 12px;'>PostgreSQL extension</td><td style='padding: 12px;'>pgvector, familiar SQL interface</td></tr></tbody></table>"
+          "value": "// Any text \u2192 Embedding (vector of 1536 numbers)\n\n// Single word:\n\"database\" \u2192 [0.12, -0.45, 0.78, ..., 0.23]\n\n// Sentence:\n\"How do I reset my password?\" \u2192 [-0.23, 0.56, -0.12, ..., 0.89]\n\n// Paragraph:\n\"Our API supports RESTful endpoints with JSON payloads.\nAuthentication uses OAuth 2.0 with JWT tokens.\nRate limits apply at 1000 requests per hour.\" \u2192 [0.45, -0.78, 0.34, ..., -0.12]\n\n// Similarity measured by cosine distance (0-1 scale):\nsimilarity(\n  \"I forgot my login credentials\",\n  \"How do I reset my password?\"\n) = 0.89  // High similarity - same intent, different words\n\nsimilarity(\n  \"How do I reset my password?\",\n  \"What is your shipping policy?\"\n) = 0.15  // Low similarity - unrelated topics\n\n// Use cases:\n- Semantic search: Find docs by meaning, not keywords\n- Deduplication: Find duplicate support tickets\n- Recommendation: Suggest similar articles/products\n- Clustering: Auto-group related content"
         },
         {
           "type": "text",
           "value": "<p><strong>Creating Embeddings</strong></p>"
         },
         {
-          "type": "code",
-          "language": "javascript",
-          "value": "// Using OpenAI Embeddings API\n{\n  \"model\": \"text-embedding-3-small\",\n  \"input\": \"Your text to embed\"\n}\n\n// Response:\n{\n  \"data\": [\n    {\n      \"embedding\": [0.2, 0.8, 0.1, ...],  // 1536 numbers\n      \"index\": 0\n    }\n  ]\n}\n\n// Access embedding:\n{{ $json.data[0].embedding }}\n\n// Cost: ~$0.02 per 1M tokens (very cheap)"
+          "type": "tabs",
+          "tabs": [
+            {
+              "id": "code",
+              "label": "Code",
+              "content": [
+                {
+                  "type": "code",
+                  "language": "javascript",
+                  "value": "// Using OpenAI Embeddings API\n{\n  \"model\": \"text-embedding-3-small\",\n  \"input\": \"The user is experiencing login issues with two-factor authentication\"\n}\n\n// Response:\n{\n  \"data\": [\n    {\n      \"embedding\": [0.12, -0.45, 0.78, ..., 0.23],  // Array of 1536 numbers\n      \"index\": 0\n    }\n  ]\n}\n\n// Access embedding in n8n:\n{{ $json.data[0].embedding }}\n\n// Can also batch multiple texts:\n{\n  \"model\": \"text-embedding-3-small\",\n  \"input\": [\n    \"First document text\",\n    \"Second document text\",\n    \"Third document text\"\n  ]\n}\n// Returns array with 3 embeddings\n\n// Cost: ~$0.02 per 1M tokens (very cheap)"
+                }
+              ]
+            },
+            {
+              "id": "single-text",
+              "label": "Single Text",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/embedding-single-text.png",
+                  "alt": "OpenAI Embeddings API single text request in Insomnia showing input text and embedding response"
+                }
+              ]
+            },
+            {
+              "id": "batch-processing",
+              "label": "Batch Processing",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/embedding-batch-text.png",
+                  "alt": "OpenAI Embeddings API batch request in Insomnia showing array of texts and embedding response"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tabs",
+          "tabs": [
+            {
+              "id": "comparison",
+              "label": "Comparison",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Vector Databases</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Database</th><th style='padding: 12px; text-align: left;'>Best For</th><th style='padding: 12px; text-align: left;'>Notes</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Pinecone</td><td style='padding: 12px;'>Production, managed service</td><td style='padding: 12px;'>Fast, scalable, fully managed</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Weaviate</td><td style='padding: 12px;'>Self-hosted, open source</td><td style='padding: 12px;'>GraphQL API, hybrid search</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Qdrant</td><td style='padding: 12px;'>High performance, filtering</td><td style='padding: 12px;'>Fast, good for metadata filters</td></tr><tr><td style='padding: 12px;'>Supabase Vector</td><td style='padding: 12px;'>PostgreSQL extension</td><td style='padding: 12px;'>pgvector, familiar SQL interface</td></tr></tbody></table>"
+                }
+              ]
+            },
+            {
+              "id": "qdrant-example",
+              "label": "Qdrant Example",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/qdrant-stored-embeddings.png",
+                  "alt": "Qdrant vector database UI showing stored embeddings with source text and vector dimensions"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "text",
@@ -550,20 +605,82 @@
         {
           "type": "code",
           "language": "javascript",
-          "value": "// 1. Index Phase (one time)\nDocument 1: \"How to reset password\" → embedding → store in vector DB\nDocument 2: \"Forgot login credentials\" → embedding → store in vector DB\nDocument 3: \"Shipping policy\" → embedding → store in vector DB\n\n// 2. Search Phase (every query)\nUser query: \"I can't log in\" → embedding → search vector DB\n\n// 3. Results (by similarity)\nTop match: Document 2 (0.87 similarity)\nSecond: Document 1 (0.79 similarity)\nNot matched: Document 3 (0.12 similarity)\n\n// Returns semantically similar results even with different words!"
+          "value": "// 1. Index Phase (one time - store your knowledge base)\nDoc 1: \"To reset your password, click Forgot Password on the login page.\nEnter your email and we'll send you a reset link within 5 minutes.\"\n  \u2192 embedding \u2192 store in vector DB with metadata {id: 1, category: \"auth\"}\n\nDoc 2: \"If you can't access your account, verify your email address first.\nCheck spam folder for verification emails. Contact support if issues persist.\"\n  \u2192 embedding \u2192 store in vector DB with metadata {id: 2, category: \"auth\"}\n\nDoc 3: \"We ship worldwide using DHL and FedEx. Delivery takes 3-7 business days.\nTracking numbers provided within 24 hours of shipment.\"\n  \u2192 embedding \u2192 store in vector DB with metadata {id: 3, category: \"shipping\"}\n\n// 2. Search Phase (every user query)\nUser query: \"I can't log in to my account\" \u2192 embedding \u2192 search vector DB\n\n// 3. Results ranked by semantic similarity\nTop match: Doc 2 (similarity: 0.87) - Best match!\nSecond:    Doc 1 (similarity: 0.79) - Also relevant\nIgnored:   Doc 3 (similarity: 0.11) - Not relevant\n\n// Key insight: Finds relevant docs even with completely different words!"
         },
         {
           "type": "text",
-          "value": "<p><strong>Workflow Example</strong></p>"
+          "value": "<p><strong>Key Concepts</strong></p><ul><li>Embedding dimension: Usually 1536 (OpenAI) or 768 (smaller models)</li><li>Metadata: Store additional fields (title, date, category) with vectors</li><li>Top-k search: Return k most similar results (typically 3-10)</li><li>Similarity threshold: Filter results below minimum similarity score</li><li>Batch processing: Can embed multiple texts in one API call for efficiency</li></ul>"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "RAG (Retrieval Augmented Generation)",
+      "content": [
+        {
+          "type": "text",
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>RAG combines vector search with LLMs to answer questions using your own data.</strong> Instead of relying on the LLM's training data, you retrieve relevant context from your knowledge base and inject it into the prompt.</div>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>How RAG Works</strong></p>"
         },
         {
           "type": "code",
           "language": "javascript",
-          "value": "// Document Indexer Workflow:\nManual Trigger\n  → Load Documents (from file/API/database)\n  → Split Into Chunks (max 8000 tokens per chunk)\n  → For each chunk:\n      → Create Embedding (OpenAI)\n      → Store in Vector DB (Pinecone/Weaviate)\n\n// Semantic Search Workflow:\nManual Trigger / Webhook\n  → Get User Query\n  → Create Query Embedding (OpenAI)\n  → Search Vector DB (top 5 similar)\n  → Return Results\n\n// Advanced: Add to LLM context for RAG (Step 10)"
+          "value": "// Traditional LLM (no RAG):\nUser: \"What's our password reset policy?\"\nLLM: \"I don't have access to your company's specific policies...\" \u274c\n\n// With RAG:\nUser: \"What's our password reset policy?\"\n  \u2192 1. Convert query to embedding\n  \u2192 2. Search vector DB for similar docs\n  \u2192 3. Retrieve top 3 matching chunks\n  \u2192 4. Inject chunks into LLM prompt as context\n  \u2192 5. LLM answers using YOUR data \u2705\n\nLLM Response: \"According to your policy, users can reset passwords\nby clicking 'Forgot Password' on the login page. A reset link is\nsent within 5 minutes. For security, links expire after 1 hour.\"\n\n// The LLM now has access to your specific knowledge!"
         },
         {
           "type": "text",
-          "value": "<p><strong>Key Concepts</strong></p><ul><li>Embedding dimension: Usually 1536 (OpenAI) or 768 (smaller models)</li><li>Chunking: Split large docs into smaller pieces before embedding</li><li>Metadata: Store additional fields (title, date, category) with vectors</li><li>Top-k search: Return k most similar results (typically 3-10)</li><li>Similarity threshold: Filter results below minimum similarity score</li></ul>"
+          "value": "<p><strong>Why Chunking is Required</strong></p>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Before creating embeddings, you must split large documents into smaller chunks. Three reasons:</p><ol><li><strong>Model token limits</strong> - Embedding models have max input size (e.g., 8191 tokens for text-embedding-ada-002)</li><li><strong>Retrieval precision</strong> - Smaller chunks = more precise semantic matches. A 50-page manual shouldn't be one embedding.</li><li><strong>Context window efficiency</strong> - Only inject relevant chunks into LLM, not entire documents</li></ol>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>How Chunking Works</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// IMPORTANT: 1 chunk = 1 embedding vector\n\n// Original document (2000 words)\nDocument: \"Complete guide to password management...\n[2000 words of content]\"\n\n// Step 1: Split into chunks (500 words each)\nChunk 1: \"Password reset process: Click Forgot Password...\n[500 words]\" \n  \u2192 embedding_1: [0.12, -0.45, 0.78, ..., 0.23]\n  \u2192 store in vector DB with metadata {doc_id: 123, chunk: 1}\n\nChunk 2: \"Account recovery procedures: Verify email first...\n[500 words]\"\n  \u2192 embedding_2: [-0.23, 0.56, -0.12, ..., 0.89]\n  \u2192 store in vector DB with metadata {doc_id: 123, chunk: 2}\n\nChunk 3: \"Two-factor authentication setup: Download app...\n[500 words]\"\n  \u2192 embedding_3: [0.45, -0.78, 0.34, ..., -0.12]\n  \u2192 store in vector DB with metadata {doc_id: 123, chunk: 3}\n\nChunk 4: \"Security best practices: Use strong passwords...\n[500 words]\"\n  \u2192 embedding_4: [-0.67, 0.23, 0.91, ..., 0.56]\n  \u2192 store in vector DB with metadata {doc_id: 123, chunk: 4}\n\n// \u2705 Each chunk becomes ONE embedding (NOT per sentence)\n// \u274c Don't embed each sentence separately within a chunk"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Chunking Best Practices</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Key considerations when chunking:\n\n1. Chunk Size\n   Too small (50 words):  \u274c Loses context, fragments meaning\n   Too large (2000 words): \u274c Less precise retrieval, wastes tokens\n   Sweet spot: 200-500 words \u2705\n   \n2. Overlap Between Chunks\n   No overlap:     \u274c Info at boundaries gets split, context lost\n   10-20% overlap: \u2705 Prevents boundary issues\n   \n   Example:\n   Chunk 1: [words 1-500]\n   Chunk 2: [words 450-950]  // 50 words overlap\n   Chunk 3: [words 900-1400] // 50 words overlap\n\n3. Semantic Boundaries\n   \u274c Don't split mid-sentence: \"The password must be at least 12 char\" | \"acters long\"\n   \u2705 Split at paragraphs or section breaks\n   \u2705 Keep related concepts together\n\n4. Content Type Matters\n   Code:       Use function/class boundaries\n   Markdown:   Split by ## headings\n   Tables:     Keep entire table in one chunk\n   JSON/YAML:  Keep complete objects together"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>RAG Workflow Pattern</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Phase 1: Index Your Knowledge Base (one-time setup)\n\nManual Trigger / Schedule\n  \u2192 Load Documents\n      (from files, URLs, databases, APIs)\n  \u2192 Split Into Chunks\n      (500 words, 20% overlap, respect boundaries)\n  \u2192 For each chunk:\n      \u2192 Create Embedding (OpenAI)\n      \u2192 Store in Vector DB (with metadata)\n\n// Phase 2: RAG Query (every user question)\n\nWebhook / Manual Trigger\n  \u2192 Get User Question\n  \u2192 Create Question Embedding (OpenAI)\n  \u2192 Search Vector DB\n      (top 3-5 most similar chunks)\n  \u2192 Build Context Prompt:\n      \"Answer based on this context:\\n\\n\"\n      + chunk_1 + \"\\n\\n\"\n      + chunk_2 + \"\\n\\n\"\n      + chunk_3 + \"\\n\\n\"\n      + \"Question: \" + user_question\n  \u2192 Send to LLM (OpenAI Message a Model)\n  \u2192 Return Answer\n\n// The LLM now has your specific knowledge injected as context!"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Example: Support Knowledge Base RAG</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Indexing Workflow:\n\n1. HTTP Request: GET /api/support-articles\n   Returns: [{id: 1, title: \"...\", content: \"...\"}, ...]\n\n2. Code: Split each article into chunks\n   Input: article.content (2000 words)\n   Output: [{text: \"chunk 1\", metadata: {...}}, ...]\n\n3. Loop over chunks:\n   a. OpenAI Embeddings: Create embedding\n   b. Pinecone: Upsert vector\n      {\n        id: \"article-1-chunk-0\",\n        values: [0.12, -0.45, ...],\n        metadata: {\n          article_id: 1,\n          title: \"Password Reset Guide\",\n          chunk_index: 0,\n          text: \"chunk content here\"\n        }\n      }\n\n// Query Workflow:\n\n1. Webhook: Receive {question: \"How do I reset my password?\"}\n\n2. OpenAI Embeddings: Create query embedding\n\n3. Pinecone Query:\n   {\n     vector: query_embedding,\n     topK: 3,\n     includeMetadata: true\n   }\n   Returns: 3 most similar chunks with their text\n\n4. Code: Build prompt\n   context = matches.map(m => m.metadata.text).join('\\n\\n')\n   prompt = `Answer based on this context:\\n\\n${context}\\n\\nQuestion: ${question}`\n\n5. OpenAI Message a Model:\n   {\n     messages: [{role: \"user\", content: prompt}],\n     model: \"gpt-4\",\n     simplifyOutput: true\n   }\n\n6. Return: {{ $json.message.content }}\n\n// Result: Accurate answer using your support docs!"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Common Patterns</strong></p><ul><li><strong>Hybrid search</strong>: Combine vector similarity + keyword filters (e.g., only search \"billing\" category)</li><li><strong>Re-ranking</strong>: Use a second model to re-order results for better relevance</li><li><strong>Citation</strong>: Include source metadata in response (article title, URL, page number)</li><li><strong>Fallback</strong>: If similarity score < 0.7, respond \"I don't have information about that\"</li><li><strong>Conversational RAG</strong>: Include chat history in embedding for context-aware answers</li></ul>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Key Metrics to Monitor</strong></p><ul><li>Retrieval accuracy: Are the right chunks being found?</li><li>Answer quality: Are LLM responses accurate and helpful?</li><li>Latency: Embedding + search + LLM should be < 3 seconds</li><li>Cost: Track embedding API calls + vector DB queries + LLM tokens</li></ul>"
         }
       ]
     }

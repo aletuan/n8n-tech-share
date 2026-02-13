@@ -8,3 +8,7 @@
 .vscode/
 .idea/
 node_modules/
+workflows/*
+
+# MCP configuration (user-specific)
+.mcp.json
