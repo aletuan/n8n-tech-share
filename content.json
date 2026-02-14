@@ -699,51 +699,20 @@
         {
           "type": "code",
           "language": "javascript",
-          "value": "// Traditional LLM (no RAG):\nUser: \"What's our password reset policy?\"\nLLM: \"I don't have access to your company's specific policies...\" ❌\n\n// With RAG:\nUser: \"What's our password reset policy?\"\n  → 1. Convert query to embedding\n  → 2. Search vector DB for similar docs\n  → 3. Retrieve top 3 matching chunks\n  → 4. Inject chunks into LLM prompt as context\n  → 5. LLM answers using YOUR data ✅\n\nLLM Response: \"According to your policy, users can reset passwords\nby clicking 'Forgot Password' on the login page. A reset link is\nsent within 5 minutes. For security, links expire after 1 hour.\"\n\n// The LLM now has access to your specific knowledge!"
+          "value": "Traditional LLM: \"I don't have access to your company data...\" ❌\n\nWith RAG:\n1. Convert question to embedding\n2. Find 3 most similar chunks in vector DB\n3. Inject chunks into LLM prompt as context\n4. LLM answers using YOUR data ✅\n\nResult: Accurate answers from your knowledge base!"
         },
         {
           "type": "text",
-          "value": "<p><strong>Semantic Search Pattern</strong></p><p>Before we build a full RAG system, let's understand how semantic search works - the foundation of RAG retrieval.</p>"
+          "value": "<p><strong>Chunking Essentials</strong></p>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Why chunk?</strong> Three reasons:</p><ol><li><strong>Model token limits</strong> - Embedding models have max input size (8191 tokens)</li><li><strong>Retrieval precision</strong> - Smaller chunks = more accurate semantic matches</li><li><strong>Context efficiency</strong> - Only inject relevant chunks into LLM, not entire documents</li></ol>"
         },
         {
           "type": "code",
           "language": "javascript",
-          "value": "// 1. Index Phase (one time - store your knowledge base)\nDoc 1: \"To reset your password, click Forgot Password on the login page.\nEnter your email and we'll send you a reset link within 5 minutes.\"\n  → embedding → store in vector DB with metadata {id: 1, category: \"auth\"}\n\nDoc 2: \"If you can't access your account, verify your email address first.\nCheck spam folder for verification emails. Contact support if issues persist.\"\n  → embedding → store in vector DB with metadata {id: 2, category: \"auth\"}\n\nDoc 3: \"We ship worldwide using DHL and FedEx. Delivery takes 3-7 business days.\nTracking numbers provided within 24 hours of shipment.\"\n  → embedding → store in vector DB with metadata {id: 3, category: \"shipping\"}\n\n// 2. Search Phase (every user query)\nUser query: \"I can't log in to my account\" → embedding → search vector DB\n\n// 3. Results ranked by semantic similarity\nTop match: Doc 2 (similarity: 0.87) - Best match!\nSecond:    Doc 1 (similarity: 0.79) - Also relevant\nIgnored:   Doc 3 (similarity: 0.11) - Not relevant\n\n// Key insight: Finds relevant docs even with completely different words!"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>Why Chunking is Required</strong></p>"
-        },
-        {
-          "type": "text",
-          "value": "<p>Before creating embeddings, you must split large documents into smaller chunks. Three reasons:</p><ol><li><strong>Model token limits</strong> - Embedding models have max input size (e.g., 8191 tokens for text-embedding-ada-002)</li><li><strong>Retrieval precision</strong> - Smaller chunks = more precise semantic matches. A 50-page manual shouldn't be one embedding.</li><li><strong>Context window efficiency</strong> - Only inject relevant chunks into LLM, not entire documents</li></ol>"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>How Chunking Works</strong></p>"
-        },
-        {
-          "type": "code",
-          "language": "javascript",
-          "value": "// IMPORTANT: 1 chunk = 1 embedding vector\n\n// Original document (2000 words)\nDocument: \"Complete guide to password management...\n[2000 words of content]\"\n\n// Step 1: Split into chunks (500 words each)\nChunk 1: \"Password reset process: Click Forgot Password...\n[500 words]\" \n  → embedding_1: [0.12, -0.45, 0.78, ..., 0.23]\n  → store in vector DB with metadata {doc_id: 123, chunk: 1}\n\nChunk 2: \"Account recovery procedures: Verify email first...\n[500 words]\"\n  → embedding_2: [-0.23, 0.56, -0.12, ..., 0.89]\n  → store in vector DB with metadata {doc_id: 123, chunk: 2}\n\nChunk 3: \"Two-factor authentication setup: Download app...\n[500 words]\"\n  → embedding_3: [0.45, -0.78, 0.34, ..., -0.12]\n  → store in vector DB with metadata {doc_id: 123, chunk: 3}\n\nChunk 4: \"Security best practices: Use strong passwords...\n[500 words]\"\n  → embedding_4: [-0.67, 0.23, 0.91, ..., 0.56]\n  → store in vector DB with metadata {doc_id: 123, chunk: 4}\n\n// ✅ Each chunk becomes ONE embedding (NOT per sentence)\n// ❌ Don't embed each sentence separately within a chunk"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>Chunking Best Practices</strong></p>"
-        },
-        {
-          "type": "code",
-          "language": "javascript",
-          "value": "// Key considerations when chunking:\n\n1. Chunk Size\n   Too small (50 words):  ❌ Loses context, fragments meaning\n   Too large (2000 words): ❌ Less precise retrieval, wastes tokens\n   Sweet spot: 200-500 words ✅\n   \n2. Overlap Between Chunks\n   No overlap:     ❌ Info at boundaries gets split, context lost\n   10-20% overlap: ✅ Prevents boundary issues\n   \n   Example:\n   Chunk 1: [words 1-500]\n   Chunk 2: [words 450-950]  // 50 words overlap\n   Chunk 3: [words 900-1400] // 50 words overlap\n\n3. Semantic Boundaries\n   ❌ Don't split mid-sentence: \"The password must be at least 12 char\" | \"acters long\"\n   ✅ Split at paragraphs or section breaks\n   ✅ Keep related concepts together\n\n4. Content Type Matters\n   Code:       Use function/class boundaries\n   Markdown:   Split by ## headings\n   Tables:     Keep entire table in one chunk\n   JSON/YAML:  Keep complete objects together"
-        },
-        {
-          "type": "text",
-          "value": "<p><strong>RAG Workflow Pattern</strong></p>"
-        },
-        {
-          "type": "code",
-          "language": "javascript",
-          "value": "// Phase 1: Index Your Knowledge Base (one-time setup)\n\nManual Trigger / Schedule\n  → Load Documents\n      (from files, URLs, databases, APIs)\n  → Split Into Chunks\n      (500 words, 20% overlap, respect boundaries)\n  → For each chunk:\n      → Create Embedding (OpenAI)\n      → Store in Vector DB (with metadata)\n\n// Phase 2: RAG Query (every user question)\n\nWebhook / Manual Trigger\n  → Get User Question\n  → Create Question Embedding (OpenAI)\n  → Search Vector DB\n      (top 3-5 most similar chunks)\n  → Build Context Prompt:\n      \"Answer based on this context:\\n\\n\"\n      + chunk_1 + \"\\n\\n\"\n      + chunk_2 + \"\\n\\n\"\n      + chunk_3 + \"\\n\\n\"\n      + \"Question: \" + user_question\n  → Send to LLM (OpenAI Message a Model)\n  → Return Answer\n\n// The LLM now has your specific knowledge injected as context!"
+          "value": "Best Practices:\n\n1. Size: 200-500 words (sweet spot)\n   Too small (50 words):   ❌ Loses context\n   Too large (2000 words): ❌ Less precise retrieval\n   \n2. Overlap: 10-20% (prevents boundary issues)\n   Example: 1000-character chunks with 200-char overlap\n   Chunk 1: [chars 0-1000]\n   Chunk 2: [chars 800-1800]    // 200 overlap\n   Chunk 3: [chars 1600-2600]   // 200 overlap\n\n3. Boundaries: Split at paragraphs, not mid-sentence\n   ❌ \"The password must be at least 12 char\" | \"acters long\"\n   ✅ Split at natural breaks\n\n4. Content-aware splitting:\n   Code:       Function/class boundaries\n   Markdown:   ## headings\n   Tables:     Keep entire table together\n   JSON/YAML:  Complete objects\n\nKey rule: 1 chunk = 1 embedding vector"
         },
         {
           "type": "text",
