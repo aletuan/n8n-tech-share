@@ -8,19 +8,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>Introduction</h3><p>Welcome to the n8n training tutorial! This comprehensive guide will teach you everything you need to know about building powerful automation workflows.</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>n8n is an open-source workflow automation platform.</strong> Build workflows by connecting nodes in a visual editor. Each node performs an action (call API, transform data, send message), and data flows between nodes as JSON.</div>"
         },
         {
           "type": "text",
-          "value": "<h3>What is n8n?</h3><p><strong>The Core Problem:</strong> How can applications automatically talk to each other without a human acting as the middleman?</p><p><strong>The Answer:</strong> n8n is a workflow automation platform with a visual drag-and-drop interface. Build workflows by connecting nodes together.</p>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>Key Features</h3><ul><li><strong>Open-source & Self-host</strong> — Run on your own server, full data control</li><li><strong>No-code + Code</strong> — Drag & drop or write JS/Python</li><li><strong>400+ Integrations</strong> — Gmail, Slack, Sheets, Telegram, and more</li><li><strong>Data = JSON</strong> — Every node receives and returns JSON</li></ul>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>What You'll Learn</h3><ul><li>Core n8n concepts and terminology</li><li>Creating and managing workflows</li><li>Working with nodes and connections</li><li>Handling data and expressions</li><li>Best practices for production workflows</li></ul>"
+          "value": "<p><strong>Key Features</strong></p><ul><li>Data = JSON — Every node receives and returns JSON objects</li><li>Open-source & Self-host — Run on your server, full data control</li><li>No-code + Code — Visual editor or write JavaScript/Python</li><li>400+ Integrations — Gmail, Slack, HTTP, databases, and more</li></ul>"
         }
       ]
     },
@@ -30,23 +22,12 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>What is a Workflow?</h3><p>A workflow in n8n is a sequence of connected nodes that process data. Each node performs a specific action, and data flows between nodes.</p><p>Let's look at a simple \"Hello World\" workflow:</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>A workflow is a sequence of connected nodes that process data.</strong> Trigger starts execution → Data flows through connections → Each node transforms data → Output.</div>"
         },
         {
           "type": "tabs",
           "title": "Hello World Workflow Example",
           "tabs": [
-            {
-              "id": "visual",
-              "label": "Visual",
-              "content": [
-                {
-                  "type": "image",
-                  "src": "assets/images/hello-world-workflow.png",
-                  "alt": "Hello World workflow in n8n visual editor showing two connected nodes"
-                }
-              ]
-            },
             {
               "id": "code",
               "label": "Code",
@@ -57,12 +38,19 @@
                   "value": "{\n  \"name\": \"Hello World\",\n  \"nodes\": [\n    {\n      \"name\": \"When clicking 'Execute workflow'\",\n      \"type\": \"n8n-nodes-base.manualTrigger\",\n      \"position\": [0, 0]\n    },\n    {\n      \"name\": \"Edit Fields\",\n      \"type\": \"n8n-nodes-base.set\",\n      \"position\": [208, 0],\n      \"parameters\": {\n        \"assignments\": {\n          \"assignments\": [\n            {\n              \"name\": \"message\",\n              \"value\": \"Hello from n8n!\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"connections\": {\n    \"When clicking 'Execute workflow'\": {\n      \"main\": [[{\n        \"node\": \"Edit Fields\",\n        \"type\": \"main\",\n        \"index\": 0\n      }]]\n    }\n  }\n}"
                 }
               ]
+            },
+            {
+              "id": "visual",
+              "label": "Workflow",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/hello-world-workflow.png",
+                  "alt": "Hello World workflow in n8n visual editor showing two connected nodes"
+                }
+              ]
             }
           ]
-        },
-        {
-          "type": "text",
-          "value": "<p>This workflow has two nodes connected together:</p><ul><li><strong>Manual Trigger:</strong> Starts the workflow when you click 'Execute'</li><li><strong>Edit Fields:</strong> Sets a message variable with the value \"Hello from n8n!\"</li></ul><p>The <code>connections</code> section defines how data flows from the trigger to the Edit Fields node. After execution, you can see the output shows \"Hello from n8n!\" in the results panel.</p>"
         }
       ]
     },
@@ -72,31 +60,16 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>Node Basics</h3><p>Nodes are the building blocks of n8n workflows. Each node has inputs, outputs, and configuration parameters.</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Nodes are the building blocks of n8n workflows.</strong> Each node has inputs, outputs, and configuration parameters.</div>"
         },
         {
           "type": "text",
-          "value": "<h3>Common Node Types</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node Type</th><th style='padding: 12px; text-align: left;'>Key Question</th><th style='padding: 12px; text-align: left;'>Examples</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Trigger Node</strong></td><td style='padding: 12px;'><em>When does the workflow run?</em></td><td style='padding: 12px;'>Webhook, Schedule, Gmail Trigger, Manual Trigger</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Action Node</strong></td><td style='padding: 12px;'><em>What to do with the data?</em></td><td style='padding: 12px;'>Google Sheets, Slack, HTTP Request, Gmail Send, Edit Fields</td></tr><tr><td style='padding: 12px;'><strong>Logic Node</strong></td><td style='padding: 12px;'><em>How does data flow?</em></td><td style='padding: 12px;'>IF (branching), Merge (combine), Code (JS/Python)</td></tr></tbody></table>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>Example: Edit Fields Node</h3><p>Let's examine the Edit Fields node from our Hello World workflow:</p>"
+          "value": "<p><strong>Common Node Types</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node Type</th><th style='padding: 12px; text-align: left;'>Key Question</th><th style='padding: 12px; text-align: left;'>Examples</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Trigger Node</td><td style='padding: 12px;'><em>When does the workflow run?</em></td><td style='padding: 12px;'>Webhook, Schedule, Gmail Trigger, Manual Trigger</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Action Node</td><td style='padding: 12px;'><em>What to do with the data?</em></td><td style='padding: 12px;'>Google Sheets, Slack, HTTP Request, Gmail Send, Edit Fields</td></tr><tr><td style='padding: 12px;'>Logic Node</td><td style='padding: 12px;'><em>How does data flow?</em></td><td style='padding: 12px;'>IF (branching), Merge (combine), Code (JS/Python)</td></tr></tbody></table>"
         },
         {
           "type": "tabs",
           "title": "Edit Fields Node Configuration",
           "tabs": [
-            {
-              "id": "visual",
-              "label": "Visual",
-              "content": [
-                {
-                  "type": "image",
-                  "src": "assets/images/edit-fields-node.png",
-                  "alt": "Edit Fields node configuration panel in n8n showing parameters and output"
-                }
-              ]
-            },
             {
               "id": "code",
               "label": "Code",
@@ -107,12 +80,23 @@
                   "value": "{\n  \"name\": \"Edit Fields\",\n  \"type\": \"n8n-nodes-base.set\",\n  \"typeVersion\": 3.4,\n  \"position\": [208, 0],\n  \"parameters\": {\n    \"assignments\": {\n      \"assignments\": [\n        {\n          \"id\": \"564315a9-5416-4a45-bd7b-435a84da0678\",\n          \"name\": \"message\",\n          \"value\": \"Hello from n8n!\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    \"options\": {}\n  },\n  \"id\": \"988de886-ad18-4c83-9ee2-af62ad98c8c4\"\n}"
                 }
               ]
+            },
+            {
+              "id": "visual",
+              "label": "Edit Fields Node",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/edit-fields-node.png",
+                  "alt": "Edit Fields node configuration panel in n8n showing parameters and output"
+                }
+              ]
             }
           ]
         },
         {
           "type": "text",
-          "value": "<h3>Node Structure Explained</h3><ul><li><strong>name:</strong> Human-readable node name (\"Edit Fields\")</li><li><strong>type:</strong> Node type identifier (n8n-nodes-base.set)</li><li><strong>position:</strong> Visual placement on the canvas [x, y]</li><li><strong>parameters:</strong> Configuration settings for the node</li><li><strong>id:</strong> Unique identifier for the node</li></ul><p>In this example, the node creates a new field called \"message\" with the value \"Hello from n8n!\" The screenshot above shows how you configure this in the n8n interface - you can see the Parameters tab where the field is set, and the Output panel showing the resulting data.</p>"
+          "value": "<p><strong>Node Structure</strong></p><ul><li>name: Human-readable node name</li><li>type: Node type identifier (n8n-nodes-base.set)</li><li>position: Visual placement on canvas [x, y]</li><li>parameters: Configuration settings</li><li>id: Unique identifier</li></ul>"
         }
       ]
     },
@@ -122,23 +106,12 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>How Nodes Talk</h3><p>Now that you understand nodes, let's see how data flows between them. <strong>The core concept:</strong> Every node passes JSON to the next node. Connect nodes together and you create a data pipeline.</p><p>This workflow demonstrates the complete journey—from creating data to transforming it:</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Every node passes JSON to the next node.</strong> Connect nodes together and you create a data pipeline.</div>"
         },
         {
           "type": "tabs",
           "title": "User Processing Workflow",
           "tabs": [
-            {
-              "id": "visual",
-              "label": "Visual",
-              "content": [
-                {
-                  "type": "image",
-                  "src": "assets/images/user-processing-workflow.png",
-                  "alt": "User processing workflow showing data flow through multiple nodes"
-                }
-              ]
-            },
             {
               "id": "code",
               "label": "Code",
@@ -149,12 +122,23 @@
                   "value": "{\n  \"name\": \"User Processing Pipeline\",\n  \"nodes\": [\n    {\n      \"name\": \"When clicking 'Execute workflow'\",\n      \"type\": \"n8n-nodes-base.manualTrigger\",\n      \"position\": [0, 0]\n    },\n    {\n      \"name\": \"Create Sample Users\",\n      \"type\": \"n8n-nodes-base.set\",\n      \"position\": [220, 0],\n      \"parameters\": {\n        \"assignments\": {\n          \"assignments\": [\n            {\n              \"name\": \"users\",\n              \"value\": \"={{ [{\\\"name\\\": \\\"Alice\\\", \\\"email\\\": \\\"alice@test.com\\\", \\\"role\\\": \\\"admin\\\"}, {\\\"name\\\": \\\"Bob\\\", \\\"email\\\": \\\"bob@test.com\\\", \\\"role\\\": \\\"user\\\"}] }}\",\n              \"type\": \"array\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"name\": \"Split Into Items\",\n      \"type\": \"n8n-nodes-base.splitOut\",\n      \"position\": [440, 0],\n      \"parameters\": {\n        \"fieldToSplitOut\": \"users\"\n      }\n    },\n    {\n      \"name\": \"Transform Data\",\n      \"type\": \"n8n-nodes-base.set\",\n      \"position\": [660, 0],\n      \"parameters\": {\n        \"assignments\": {\n          \"assignments\": [\n            {\n              \"name\": \"emailDomain\",\n              \"value\": \"={{ $json.email.split('@')[1] }}\",\n              \"type\": \"string\"\n            },\n            {\n              \"name\": \"displayName\",\n              \"value\": \"={{ $json.name }} ({{ $json.role }})\",\n              \"type\": \"string\"\n            },\n            {\n              \"name\": \"welcomeMessage\",\n              \"value\": \"={{ 'Welcome ' + $json.name + '! Your email is ' + $json.email }}\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"connections\": {\n    \"When clicking 'Execute workflow'\": {\n      \"main\": [[{\"node\": \"Create Sample Users\"}]]\n    },\n    \"Create Sample Users\": {\n      \"main\": [[{\"node\": \"Split Into Items\"}]]\n    },\n    \"Split Into Items\": {\n      \"main\": [[{\"node\": \"Transform Data\"}]]\n    }\n  }\n}"
                 }
               ]
+            },
+            {
+              "id": "visual",
+              "label": "Workflow",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/user-processing-workflow.png",
+                  "alt": "User processing workflow showing data flow through multiple nodes"
+                }
+              ]
             }
           ]
         },
         {
           "type": "text",
-          "value": "<h3>The Data Journey</h3><p><strong>Create Sample Users</strong> → <strong>Split Into Items</strong> (1 array becomes 2 items) → <strong>Transform Data</strong> (add new fields to each item)</p><p>After splitting, each item flows through as a separate JSON object:</p>"
+          "value": "<p><strong>The Data Journey:</strong> Create Sample Users → Split Into Items (1 array becomes 2 items) → Transform Data (add new fields to each item)</p>"
         },
         {
           "type": "code",
@@ -163,7 +147,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Expressions in Action</h3><p>How the <strong>Transform Data</strong> node accesses and manipulates each item:</p>"
+          "value": "<p><strong>Expressions in Action</strong></p>"
         },
         {
           "type": "code",
@@ -172,7 +156,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>3 Rules to Remember</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Rule</th><th style='padding: 12px; text-align: left;'>Explanation</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>1 item = 1 JSON object</strong></td><td style='padding: 12px;'>Each object is processed separately through the workflow. If you have 100 items, the workflow runs 100 times internally.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Array = batch processing</strong></td><td style='padding: 12px;'>n8n loops through items automatically—no extra code needed. The <strong>Split Into Items</strong> node converts an array into individual items.</td></tr><tr><td style='padding: 12px;'><strong>Access with expressions</strong></td><td style='padding: 12px;'>Use <code>{{ $json.email }}</code> to get \"alice@test.com\" for the first item. The <code>$json</code> variable always refers to the current item being processed.</td></tr></tbody></table>"
+          "value": "<p><strong>3 Rules to Remember</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Rule</th><th style='padding: 12px; text-align: left;'>Explanation</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>1 item = 1 JSON object</strong></td><td style='padding: 12px;'>Each object is processed separately through the workflow. If you have 100 items, the workflow runs 100 times internally.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Array = batch processing</strong></td><td style='padding: 12px;'>n8n loops through items automatically—no extra code needed. The <strong>Split Into Items</strong> node converts an array into individual items.</td></tr><tr><td style='padding: 12px;'><strong>Access with expressions</strong></td><td style='padding: 12px;'>Use <code>{{ $json.email }}</code> to get \"alice@test.com\" for the first item. The <code>$json</code> variable always refers to the current item being processed.</td></tr></tbody></table>"
         }
       ]
     },
@@ -182,11 +166,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>The Language of Data</h3><p>Expressions are how you talk to your data in n8n. Think of them like an <strong>address system</strong> to find the right room in a building of JSON.</p><p>Building (Workflow) → Floor (Node) → Room (Field) → Value</p><p>In step 4, you saw <code>{{ $json.email }}</code> in action. Now let's understand the full expression system.</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Expressions let you access and manipulate data.</strong> Wrap JavaScript in <code>{{ }}</code> to access fields, do math, use methods, or build logic.</div>"
         },
         {
           "type": "text",
-          "value": "<h3>Expression Syntax</h3><p>Wrap any expression in double curly braces with a space:</p>"
+          "value": "<p><strong>Expression Syntax</strong></p>"
         },
         {
           "type": "code",
@@ -195,11 +179,7 @@
         },
         {
           "type": "text",
-          "value": "<p>Inside <code>{{ }}</code>, you write JavaScript. n8n evaluates it and inserts the result.</p>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>The 4 Variable Groups</h3><p>n8n provides 4 ways to access data. Each serves a different purpose:</p>"
+          "value": "<p><strong>Variable Types</strong></p>"
         },
         {
           "type": "text",
@@ -207,16 +187,12 @@
         },
         {
           "type": "text",
-          "value": "<h3>Quick Examples</h3><p>Here's how to use each variable type:</p>"
+          "value": "<p><strong>Examples</strong></p>"
         },
         {
           "type": "code",
           "language": "javascript",
           "value": "// $json - Previous node (most common)\n{{ $json.name }}                    // \"Alice\"\n{{ $json.email }}                   // \"alice@test.com\"\n{{ $json.items[0] }}                // Array access\n{{ $json.user.address.city }}       // Nested objects\n\n// $('Node Name') - Specific node\n{{ $('Create Sample Users').item.json.users }}\n{{ $('Node A').item.json.price - $('Node B').item.json.price }}\n{{ $('API Call').item.json.status === 'success' ? 'Proceed' : 'Stop' }}\n\n// $now / $today - System time\n{{ $now.format('YYYY-MM-DD') }}              // \"2026-02-12\"\n{{ $now.format('HH:mm:ss') }}                // \"13:45:30\"\n{{ $today.format('dddd, MMMM D') }}          // \"Wednesday, February 12\"\n{{ $now.minus(7, 'days').format('YYYY-MM-DD') }}  // 7 days ago\n{{ $now.plus(1, 'month').toISO() }}          // 1 month from now\n\n// $input - Current input (advanced)\n{{ $input.all() }}                  // All items from input\n{{ $input.item.json }}              // Current item being processed\n{{ $input.all().length }}           // Count items"
-        },
-        {
-          "type": "text",
-          "value": "<h3>Expressions in Action: Live Demo</h3><p>Here's how all these expressions work together in a real workflow:</p>"
         },
         {
           "type": "tabs",
@@ -254,11 +230,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>Making Decisions</h3><p>Now that you can access and transform data, it's time to control where it goes. Logic nodes let your workflow make decisions and route items down different paths.</p><p><strong>The Key Question:</strong> Based on the data, which path should this item take?</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Logic nodes control where data flows.</strong> Route items down different paths based on conditions, then merge back together.</div>"
         },
         {
           "type": "text",
-          "value": "<h3>The IF Node</h3><p>Split your workflow into two paths: <strong>true</strong> or <strong>false</strong>. Use when you have a yes/no decision.</p>"
+          "value": "<p><strong>IF Node</strong> — Two paths: true or false</p>"
         },
         {
           "type": "code",
@@ -267,11 +243,7 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Result:</strong> Items flow down the <code>true</code> path or <code>false</code> path based on your condition.</p>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>The Switch Node</h3><p>Route items to multiple paths based on a value. Use when you have 3+ possible outcomes.</p>"
+          "value": "<p><strong>Switch Node</strong> — Multiple paths based on value</p>"
         },
         {
           "type": "code",
@@ -280,19 +252,11 @@
         },
         {
           "type": "text",
-          "value": "<p><strong>Result:</strong> Each item goes to the matching output path. Unmatched items go to the default path.</p>"
+          "value": "<p><strong>Merge Node</strong> — Combine multiple paths back into one</p>"
         },
         {
           "type": "text",
-          "value": "<h3>The Merge Node</h3><p>Combine multiple paths back into one. Use after branching when you want to process all items together again.</p><p><strong>Example:</strong> Our demo workflow merges admin and user paths, then sends a single Gmail summary with all processed users.</p>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>Quick Comparison</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node</th><th style='padding: 12px; text-align: left;'>Outputs</th><th style='padding: 12px; text-align: left;'>Use When</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>IF</strong></td><td style='padding: 12px;'>2 (true/false)</td><td style='padding: 12px;'>Binary decision — yes or no, include or exclude</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Switch</strong></td><td style='padding: 12px;'>Multiple</td><td style='padding: 12px;'>Route by value — status, category, type, etc.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Merge</strong></td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Combine paths back together after branching</td></tr><tr><td style='padding: 12px;'><strong>Filter</strong></td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Remove items that don't match condition</td></tr></tbody></table>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>Logic in Action: User Role Router</h3><p>This workflow demonstrates the complete branching pattern: split paths based on conditions, process differently, merge back together, and send a unified result.</p>"
+          "value": "<p><strong>Comparison</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Node</th><th style='padding: 12px; text-align: left;'>Outputs</th><th style='padding: 12px; text-align: left;'>Use When</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>IF</td><td style='padding: 12px;'>2 (true/false)</td><td style='padding: 12px;'>Binary decision — yes or no, include or exclude</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Switch</td><td style='padding: 12px;'>Multiple</td><td style='padding: 12px;'>Route by value — status, category, type, etc.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Merge</td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Combine paths back together after branching</td></tr><tr><td style='padding: 12px;'>Filter</td><td style='padding: 12px;'>1</td><td style='padding: 12px;'>Remove items that don't match condition</td></tr></tbody></table>"
         },
         {
           "type": "tabs",
@@ -365,10 +329,6 @@
               ]
             }
           ]
-        },
-        {
-          "type": "text",
-          "value": "<h3>How It Works</h3><ol><li><strong>Create Sample Users</strong> — Generates 3 users (2 admins, 1 regular user)</li><li><strong>Split Into Items</strong> — Each user becomes a separate item</li><li><strong>IF: Is Admin?</strong> — Checks if <code>{{ $json.role === 'admin' }}</code></li><li><strong>True Path → Admin Actions</strong> — Admins get \"Full Access\" + 👑 badge</li><li><strong>False Path → User Actions</strong> — Regular users get \"Limited Access\" + 👤 badge</li><li><strong>Merge</strong> — Combines both paths back into one stream (3 items total)</li><li><strong>Gmail Send Summary</strong> — Sends one email with all users listed</li></ol><p><strong>Result:</strong> Alice and Charlie (admins) + Bob (user) all appear in a single summary email showing their access levels and badges.</p><p><strong>Note:</strong> To run this workflow, you'll need to configure Gmail credentials in n8n. Update the email address in the Gmail node to your own.</p>"
         }
       ]
     },
@@ -378,15 +338,15 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>When Things Go Wrong</h3><p>Real workflows encounter errors: APIs fail, data is missing, network timeouts occur. The difference between a fragile workflow and a production-ready one is how it handles failures.</p><p><strong>Key Principle:</strong> Expect failures, handle them gracefully, and provide visibility when they happen.</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Production workflows handle errors gracefully.</strong> Use Continue on Fail, Error Triggers, and validation to catch failures and provide visibility.</div>"
         },
         {
           "type": "text",
-          "value": "<h3>Types of Errors</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Error Type</th><th style='padding: 12px; text-align: left;'>Example</th><th style='padding: 12px; text-align: left;'>Solution</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>API Failure</strong></td><td style='padding: 12px;'>External service returns 500 error</td><td style='padding: 12px;'>Retry logic, fallback data source</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Missing Data</strong></td><td style='padding: 12px;'>Expected field is undefined</td><td style='padding: 12px;'>Default values, validation checks</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Invalid Input</strong></td><td style='padding: 12px;'>Email format is incorrect</td><td style='padding: 12px;'>Validation before processing</td></tr><tr><td style='padding: 12px;'><strong>Timeout</strong></td><td style='padding: 12px;'>Request takes too long</td><td style='padding: 12px;'>Increase timeout, optimize query</td></tr></tbody></table>"
+          "value": "<p><strong>Error Types</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Error Type</th><th style='padding: 12px; text-align: left;'>Example</th><th style='padding: 12px; text-align: left;'>Solution</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>API Failure</td><td style='padding: 12px;'>External service returns 500 error</td><td style='padding: 12px;'>Retry logic, fallback data source</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Missing Data</td><td style='padding: 12px;'>Expected field is undefined</td><td style='padding: 12px;'>Default values, validation checks</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Invalid Input</td><td style='padding: 12px;'>Email format is incorrect</td><td style='padding: 12px;'>Validation before processing</td></tr><tr><td style='padding: 12px;'>Timeout</td><td style='padding: 12px;'>Request takes too long</td><td style='padding: 12px;'>Increase timeout, optimize query</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<h3>Error Trigger Node</h3><p>Automatically runs when any node in your workflow fails. Perfect for notifications and cleanup.</p>"
+          "value": "<p><strong>Error Trigger Node</strong> — Runs when any node fails</p>"
         },
         {
           "type": "code",
@@ -395,7 +355,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Continue on Fail</h3><p>Node-level setting that prevents one failure from stopping the entire workflow.</p><p><strong>When to use:</strong> Non-critical operations where you want the workflow to continue even if this step fails.</p>"
+          "value": "<p><strong>Continue on Fail</strong> — Node setting to prevent failure from stopping workflow</p>"
         },
         {
           "type": "code",
@@ -404,7 +364,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>IF Node for Validation</h3><p>Validate data before processing to catch issues early.</p>"
+          "value": "<p><strong>Validation with IF Node</strong></p>"
         },
         {
           "type": "code",
@@ -413,20 +373,16 @@
         },
         {
           "type": "text",
-          "value": "<h3>Debugging Techniques</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Technique</th><th style='padding: 12px; text-align: left;'>How To</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Inspect Node Output</strong></td><td style='padding: 12px;'>Click node → View output tab to see actual data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Pin Data</strong></td><td style='padding: 12px;'>Right-click node → Pin data to test with sample data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Execute Single Node</strong></td><td style='padding: 12px;'>Click node → Execute node to test in isolation</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Check Execution Log</strong></td><td style='padding: 12px;'>View execution history to see what went wrong</td></tr><tr><td style='padding: 12px;'><strong>Use Edit Fields to Log</strong></td><td style='padding: 12px;'>Add debug fields to see intermediate values</td></tr></tbody></table>"
+          "value": "<p><strong>Debugging Techniques</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Technique</th><th style='padding: 12px; text-align: left;'>How To</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Inspect Node Output</td><td style='padding: 12px;'>Click node → View output tab to see actual data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Pin Data</td><td style='padding: 12px;'>Right-click node → Pin data to test with sample data</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Execute Single Node</td><td style='padding: 12px;'>Click node → Execute node to test in isolation</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Check Execution Log</td><td style='padding: 12px;'>View execution history to see what went wrong</td></tr><tr><td style='padding: 12px;'>Use Edit Fields to Log</td><td style='padding: 12px;'>Add debug fields to see intermediate values</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<h3>Error Handling Pattern</h3><p>A common pattern for production workflows:</p>"
+          "value": "<p><strong>Common Pattern</strong></p>"
         },
         {
           "type": "code",
           "language": "javascript",
           "value": "// Pattern: Validate → Try → Catch → Notify\n\n1. IF Node: Validate input\n   ├─ Valid → Continue to main workflow\n   └─ Invalid → Send to error handler\n\n2. Enable \"Continue On Fail\" on risky nodes\n   - API calls\n   - External integrations\n   - File operations\n\n3. Error Trigger workflow:\n   - Log error details\n   - Send notification (Slack/Email)\n   - Store failed items for retry\n\n4. IF Node: Check for errors\n   ├─ Success → Continue\n   └─ Failed → Fallback action or skip"
-        },
-        {
-          "type": "text",
-          "value": "<h3>Error Handling in Action: API Demo</h3><p>See how the workflow handles both success and failure scenarios:</p>"
         },
         {
           "type": "tabs",
@@ -469,7 +425,7 @@
         },
         {
           "type": "text",
-          "value": "<h3>Best Practices</h3><ul><li><strong>Fail fast</strong> — Validate input early, before expensive operations</li><li><strong>Be specific</strong> — Check for exact error conditions rather than catching all errors</li><li><strong>Provide context</strong> — Include useful info in error messages (execution ID, failed node, input data)</li><li><strong>Test failure paths</strong> — Don't just test the happy path; simulate failures</li><li><strong>Monitor & alert</strong> — Set up Error Trigger workflows for critical workflows</li></ul>"
+          "value": "<p><strong>Best Practices</strong></p><ul><li><strong>Fail fast</strong> — Validate input early, before expensive operations</li><li><strong>Be specific</strong> — Check for exact error conditions rather than catching all errors</li><li><strong>Provide context</strong> — Include useful info in error messages (execution ID, failed node, input data)</li><li><strong>Test failure paths</strong> — Don't just test the happy path; simulate failures</li><li><strong>Monitor & alert</strong> — Set up Error Trigger workflows for critical workflows</li></ul>"
         }
       ]
     },
@@ -479,19 +435,15 @@
       "content": [
         {
           "type": "text",
-          "value": "<h3>Working with AI</h3><p>Now that you can build reliable workflows, let's add intelligence. AI APIs let you analyze, generate, and transform data using large language models (LLMs).</p><p><strong>The Key Concept:</strong> Send text in → Get intelligent response back. LLMs understand context, generate content, analyze sentiment, extract data, and more.</p>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>AI APIs let you analyze, generate, and transform data using LLMs.</strong> Send text in → Get intelligent response back.</div>"
         },
         {
           "type": "text",
-          "value": "<h3>Popular AI Providers</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Provider</th><th style='padding: 12px; text-align: left;'>Models</th><th style='padding: 12px; text-align: left;'>Best For</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>OpenAI</strong></td><td style='padding: 12px;'>GPT-4, GPT-3.5</td><td style='padding: 12px;'>General purpose, JSON mode, function calling</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Anthropic</strong></td><td style='padding: 12px;'>Claude 4</td><td style='padding: 12px;'>Long context, analysis, reasoning</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Google</strong></td><td style='padding: 12px;'>Gemini</td><td style='padding: 12px;'>Multimodal (text + images), fast</td></tr><tr><td style='padding: 12px;'><strong>Open Source</strong></td><td style='padding: 12px;'>Llama, Mistral</td><td style='padding: 12px;'>Self-hosted, cost control</td></tr></tbody></table>"
+          "value": "<p><strong>AI Providers</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Provider</th><th style='padding: 12px; text-align: left;'>Models</th><th style='padding: 12px; text-align: left;'>Best For</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>OpenAI</td><td style='padding: 12px;'>GPT-4, GPT-3.5</td><td style='padding: 12px;'>General purpose, JSON mode, function calling</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Anthropic</td><td style='padding: 12px;'>Claude 4</td><td style='padding: 12px;'>Long context, analysis, reasoning</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Google</td><td style='padding: 12px;'>Gemini</td><td style='padding: 12px;'>Multimodal (text + images), fast</td></tr><tr><td style='padding: 12px;'>Open Source</td><td style='padding: 12px;'>Llama, Mistral</td><td style='padding: 12px;'>Self-hosted, cost control</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<h3>Setting Up in n8n</h3><p>n8n has dedicated AI nodes for major providers:</p><ul><li><strong>OpenAI node</strong> — Built-in, easy setup</li><li><strong>HTTP Request node</strong> — For any AI API (Claude, Gemini, custom)</li><li><strong>Credentials</strong> — Store API keys securely in n8n</li></ul>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>Basic Text Generation</h3><p>The simplest AI workflow: send a prompt, get a response.</p>"
+          "value": "<p><strong>Text Generation</strong></p>"
         },
         {
           "type": "code",
@@ -500,11 +452,11 @@
         },
         {
           "type": "text",
-          "value": "<h3>Key Parameters</h3><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Parameter</th><th style='padding: 12px; text-align: left;'>What It Does</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Model</strong></td><td style='padding: 12px;'>Which AI to use (gpt-4 = smart but slow, gpt-3.5 = fast but cheaper)</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Temperature</strong></td><td style='padding: 12px;'>Creativity (0 = consistent, 1 = creative). Use 0 for data extraction, 0.7 for writing.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'><strong>Max Tokens</strong></td><td style='padding: 12px;'>Response length limit. 1 token ≈ 0.75 words. Limits cost.</td></tr><tr><td style='padding: 12px;'><strong>System Message</strong></td><td style='padding: 12px;'>Sets AI behavior (\"You are a helpful customer service agent\")</td></tr></tbody></table>"
+          "value": "<p><strong>Parameters</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left; width: 30%;'>Parameter</th><th style='padding: 12px; text-align: left;'>What It Does</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Model</td><td style='padding: 12px;'>Which AI to use (gpt-4 = smart but slow, gpt-3.5 = fast but cheaper)</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Temperature</td><td style='padding: 12px;'>Creativity (0 = consistent, 1 = creative). Use 0 for data extraction, 0.7 for writing.</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Max Tokens</td><td style='padding: 12px;'>Response length limit. 1 token ≈ 0.75 words. Limits cost.</td></tr><tr><td style='padding: 12px;'>System Message</td><td style='padding: 12px;'>Sets AI behavior (\"You are a helpful customer service agent\")</td></tr></tbody></table>"
         },
         {
           "type": "text",
-          "value": "<h3>Chat vs Completion</h3><p>Two ways to interact with AI:</p>"
+          "value": "<p><strong>Chat vs Completion</strong></p>"
         },
         {
           "type": "code",
@@ -513,16 +465,12 @@
         },
         {
           "type": "text",
-          "value": "<h3>Response Handling</h3><p>AI responses are JSON. Extract what you need:</p>"
+          "value": "<p><strong>Response Handling</strong></p>"
         },
         {
           "type": "code",
           "language": "javascript",
-          "value": "// OpenAI Response Structure\n{\n  \"choices\": [\n    {\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"This is the AI's response\"\n      }\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 20,\n    \"completion_tokens\": 50,\n    \"total_tokens\": 70\n  }\n}\n\n// Access the response:\n{{ $json.choices[0].message.content }}\n\n// Access token usage (for cost tracking):\n{{ $json.usage.total_tokens }}\n\n// With JSON mode (structured output):\nPrompt: \"Extract: name, email, phone from this text\"\nResponse: {\"name\": \"John\", \"email\": \"john@test.com\", \"phone\": \"555-1234\"}"
-        },
-        {
-          "type": "text",
-          "value": "<h3>Smart Email Responder Demo</h3><p>A practical workflow showing AI in action:</p>"
+          "value": "// OpenAI Response (with simplifyOutput: true)\n{\n  \"message\": {\n    \"role\": \"assistant\",\n    \"content\": \"This is the AI's response\"\n  }\n}\n\n// Access the response:\n{{ $json.message.content }}\n\n// Example from workflow:\n{{ $('Analyze Sentiment').first().json.message.content }}  // \"Negative\"\n{{ $('Generate Response').first().json.message.content }}  // Full email response"
         },
         {
           "type": "tabs",
@@ -562,23 +510,350 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Embeddings & Vector Databases",
+      "content": [
+        {
+          "type": "text",
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Embeddings convert text into numbers (vectors) that capture meaning.</strong> Similar concepts have similar vectors, enabling semantic search beyond keyword matching.</div>"
         },
         {
           "type": "text",
-          "value": "<h3>Cost Management</h3><p>AI APIs charge per token. Control costs:</p><ul><li><strong>Choose the right model</strong> — GPT-3.5 is 10x cheaper than GPT-4 for simple tasks</li><li><strong>Set max_tokens</strong> — Prevent runaway costs with response limits</li><li><strong>Use system messages</strong> — Guide AI to be concise: \"Answer in one sentence\"</li><li><strong>Cache when possible</strong> — Don't re-generate the same content</li><li><strong>Monitor usage</strong> — Track tokens in responses: <code>{{ $json.usage.total_tokens }}</code></li></ul>"
-        },
-        {
-          "type": "text",
-          "value": "<h3>Common Patterns</h3>"
+          "value": "<p><strong>How It Works</strong></p>"
         },
         {
           "type": "code",
           "language": "javascript",
-          "value": "// Text Summarization\n\"Summarize this in 2 sentences: {{ $json.article }}\"\n\n// Sentiment Analysis\n\"Classify sentiment as positive/negative/neutral: {{ $json.review }}\"\n\n// Data Extraction\n\"Extract name, email, company from: {{ $json.text }}\nReturn as JSON.\"\n\n// Translation\n\"Translate to Spanish: {{ $json.english_text }}\"\n\n// Content Generation\n\"Write a professional email response to: {{ $json.customer_message }}\"\n\n// Classification\n\"Categorize this support ticket as: bug/feature/question\n{{ $json.ticket }}\"\n\n// Validation\n\"Is this a valid business email? Yes/No: {{ $json.email }}\""
+          "value": "// Any text → Embedding (vector of 1536 numbers)\n\n// Single word:\n\"database\" → [0.12, -0.45, 0.78, ..., 0.23]\n\n// Sentence:\n\"How do I reset my password?\" → [-0.23, 0.56, -0.12, ..., 0.89]\n\n// Paragraph:\n\"Our API supports RESTful endpoints with JSON payloads.\nAuthentication uses OAuth 2.0 with JWT tokens.\nRate limits apply at 1000 requests per hour.\" → [0.45, -0.78, 0.34, ..., -0.12]\n\n// Similarity measured by cosine distance (0-1 scale):\nsimilarity(\n  \"I forgot my login credentials\",\n  \"How do I reset my password?\"\n) = 0.89  // High similarity - same intent, different words\n\nsimilarity(\n  \"How do I reset my password?\",\n  \"What is your shipping policy?\"\n) = 0.15  // Low similarity - unrelated topics\n\n// Use cases:\n- Semantic search: Find docs by meaning, not keywords\n- Deduplication: Find duplicate support tickets\n- Recommendation: Suggest similar articles/products\n- Clustering: Auto-group related content"
         },
         {
           "type": "text",
-          "value": "<h3>Best Practices</h3><ul><li><strong>Be specific</strong> — Clear prompts get better results</li><li><strong>Use examples</strong> — Show the AI what you want: \"Like: positive, negative\"</li><li><strong>Set temperature low</strong> — Use 0-0.3 for consistent, predictable outputs</li><li><strong>Handle errors</strong> — APIs can fail, rate limit, or timeout. Use Continue on Fail.</li><li><strong>Test with real data</strong> — AI behaves differently on real vs sample data</li><li><strong>Version your prompts</strong> — Track what works, iterate based on results</li></ul>"
+          "value": "<p><strong>Creating Embeddings</strong></p>"
+        },
+        {
+          "type": "tabs",
+          "tabs": [
+            {
+              "id": "code",
+              "label": "Code",
+              "content": [
+                {
+                  "type": "code",
+                  "language": "javascript",
+                  "value": "// Using OpenAI Embeddings API\n{\n  \"model\": \"text-embedding-3-small\",\n  \"input\": \"The user is experiencing login issues with two-factor authentication\"\n}\n\n// Response:\n{\n  \"data\": [\n    {\n      \"embedding\": [0.12, -0.45, 0.78, ..., 0.23],  // Array of 1536 numbers\n      \"index\": 0\n    }\n  ]\n}\n\n// Access embedding in n8n:\n{{ $json.data[0].embedding }}\n\n// Can also batch multiple texts:\n{\n  \"model\": \"text-embedding-3-small\",\n  \"input\": [\n    \"First document text\",\n    \"Second document text\",\n    \"Third document text\"\n  ]\n}\n// Returns array with 3 embeddings\n\n// Cost: ~$0.02 per 1M tokens (very cheap)"
+                }
+              ]
+            },
+            {
+              "id": "single-text",
+              "label": "Single Text",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/embedding-single-text.png",
+                  "alt": "OpenAI Embeddings API single text request in Insomnia showing input text and embedding response"
+                }
+              ]
+            },
+            {
+              "id": "batch-processing",
+              "label": "Batch Processing",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/embedding-batch-text.png",
+                  "alt": "OpenAI Embeddings API batch request in Insomnia showing array of texts and embedding response"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Vector Databases</strong></p><table style='width: 100%; border-collapse: collapse; margin: 20px 0;'><thead><tr style='border-bottom: 2px solid #e0e0e0;'><th style='padding: 12px; text-align: left;'>Database</th><th style='padding: 12px; text-align: left;'>Best For</th><th style='padding: 12px; text-align: left;'>Notes</th></tr></thead><tbody><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Pinecone</td><td style='padding: 12px;'>Production, managed service</td><td style='padding: 12px;'>Fast, scalable, fully managed</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Weaviate</td><td style='padding: 12px;'>Self-hosted, open source</td><td style='padding: 12px;'>GraphQL API, hybrid search</td></tr><tr style='border-bottom: 1px solid #e0e0e0;'><td style='padding: 12px;'>Qdrant</td><td style='padding: 12px;'>High performance, filtering</td><td style='padding: 12px;'>Fast, good for metadata filters</td></tr><tr><td style='padding: 12px;'>Supabase Vector</td><td style='padding: 12px;'>PostgreSQL extension</td><td style='padding: 12px;'>pgvector, familiar SQL interface</td></tr></tbody></table>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Measuring Similarity with Cosine Distance</strong></p><p>Let's see how embeddings capture meaning by comparing two different ways of describing the same login issue and calculating their similarity.</p>"
+        },
+        {
+          "type": "tabs",
+          "title": "Semantic Search Demo",
+          "tabs": [
+            {
+              "id": "embedding1",
+              "label": "Embedding 1",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/semantic-search-embedding1.png",
+                  "alt": "Insomnia showing Embedding 1 request with input text: The user is experiencing login issues with two-factor authentication"
+                },
+                {
+                  "type": "code",
+                  "language": "json",
+                  "value": "{\n  \"model\": \"text-embedding-3-small\",\n  \"input\": \"The user is experiencing login issues with two-factor authentication\"\n}"
+                }
+              ]
+            },
+            {
+              "id": "embedding2",
+              "label": "Embedding 2",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/semantic-search-embedding2.png",
+                  "alt": "Insomnia showing Embedding 2 request with input text: The customer cannot sign in because of two-step verification problem"
+                },
+                {
+                  "type": "code",
+                  "language": "json",
+                  "value": "{\n  \"model\": \"text-embedding-3-small\",\n  \"input\": \"The customer cannot sign in because of two-step verification problem\"\n}"
+                }
+              ]
+            },
+            {
+              "id": "results",
+              "label": "Similarity Result",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/semantic-search-results.png",
+                  "alt": "Claude Code showing cosine similarity calculation result: 0.648507 (64.85%) - moderate similarity with semantic overlap"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Cosine Similarity: 0.648507 (64.85%)</strong></p><p><strong>Interpretation:</strong> Moderate similarity - The two inputs share semantic overlap despite using completely different words:</p><ul><li>\"user\" vs \"customer\" - different terms for the same concept</li><li>\"login issues\" vs \"cannot sign in\" - same meaning, different phrasing</li><li>\"two-factor authentication\" vs \"two-step verification\" - technical synonyms</li></ul><p>This demonstrates how embeddings capture <em>meaning</em> rather than just matching keywords. A traditional keyword search would miss this connection!</p>"
+                }
+              ]
+            },
+            {
+              "id": "qdrant-storage",
+              "label": "Store in Qdrant",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/semantic-search-qdrant-storage.png",
+                  "alt": "Qdrant UI showing both embeddings stored as Point 1 and Point 2 with their source metadata and input text, each with 1536-dimension vectors"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Storing in Vector Database (Qdrant)</strong></p><p>After calculating similarity, we can store these embeddings in a vector database for future semantic search:</p>"
+                }
+              ]
+            },
+            {
+              "id": "sample-vectors",
+              "label": "Sample Vectors",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/semantic-search-generation-process.png",
+                  "alt": "Claude Code showing the execution plan for generating 20 diverse embeddings with expected similarity patterns"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>How We Generated 20 Diverse Embeddings</strong></p><p>Using Claude and Insomnia MCP, we created a rich dataset to visualize semantic similarity:</p><ol><li><strong>Claude generated diverse sentences</strong> across 7 categories:<ul><li>Authentication & Login: 3 texts</li><li>Payment & Billing: 3 texts</li><li>Shipping & Delivery: 3 texts</li><li>Product Features: 3 texts</li><li>Technical Support: 3 texts</li><li>Account Management: 3 texts</li><li>General Inquiries: 2 texts</li></ul></li><li><strong>Insomnia MCP executed</strong> OpenAI embedding requests for each text</li><li><strong>All vectors saved to Qdrant</strong> with metadata (source, input_text, category)</li></ol><p>This diverse dataset demonstrates how embeddings capture semantic meaning across different topics and categories.</p>"
+                }
+              ]
+            },
+            {
+              "id": "hnsw-graph",
+              "label": "HNSW Graph",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/semantic-search-qdrant-graph.png",
+                  "alt": "Qdrant HNSW graph showing 20 embeddings as colored dots with connections, demonstrating semantic clustering by category"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>HNSW Graph Visualization</strong></p><p>After uploading 20 diverse embeddings to Qdrant, we can visualize them in the HNSW (Hierarchical Navigable Small World) graph. Each dot represents one embedding, and the connections show semantic relationships:</p><ul><li><strong>Colors represent categories:</strong> Cyan (shipping, features, general), Orange (auth, payment, tech, account)</li><li><strong>Distance = Similarity:</strong> Closer dots have more similar meanings</li><li><strong>Connections:</strong> Lines show the nearest neighbors in the vector space</li><li><strong>Selected point (Point 10):</strong> \"How do I export my data to CSV format\" (feature category)</li></ul>"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Key Concepts</strong></p><ul><li><strong>Embedding dimension:</strong> Usually 1536 (OpenAI text-embedding-3-small) or 768 (smaller models)</li><li><strong>Top-k search:</strong> Return k most similar results (typically 3-10) based on vector distance</li><li><strong>HNSW:</strong> Graph structure for fast approximate nearest neighbor search, visualizes semantic relationships</li><li><strong>Vector distance:</strong> Cosine distance measures angle between vectors; closer = more similar meaning</li></ul>"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "RAG (Retrieval Augmented Generation)",
+      "content": [
+        {
+          "type": "text",
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>RAG combines vector search with LLMs to answer questions using your own data.</strong> Instead of relying on the LLM's training data, you retrieve relevant context from your knowledge base and inject it into the prompt.</div>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>How RAG Works</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "Traditional LLM: \"I don't have access to your company data...\" ❌\n\nWith RAG:\n1. Convert question to embedding\n2. Find 3 most similar chunks in vector DB\n3. Inject chunks into LLM prompt as context\n4. LLM answers using YOUR data ✅\n\nResult: Accurate answers from your knowledge base!"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Chunking Essentials</strong></p>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Why chunk?</strong> Three reasons:</p><ol><li><strong>Model token limits</strong> - Embedding models have max input size (8191 tokens)</li><li><strong>Retrieval precision</strong> - Smaller chunks = more accurate semantic matches</li><li><strong>Context efficiency</strong> - Only inject relevant chunks into LLM, not entire documents</li></ol>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "Best Practices:\n\n1. Size: 200-500 words (sweet spot)\n   Too small (50 words):   ❌ Loses context\n   Too large (2000 words): ❌ Less precise retrieval\n   \n2. Overlap: 10-20% (prevents boundary issues)\n   Example: 1000-character chunks with 200-char overlap\n   Chunk 1: [chars 0-1000]\n   Chunk 2: [chars 800-1800]    // 200 overlap\n   Chunk 3: [chars 1600-2600]   // 200 overlap\n\n3. Boundaries: Split at paragraphs, not mid-sentence\n   ❌ \"The password must be at least 12 char\" | \"acters long\"\n   ✅ Split at natural breaks\n\n4. Content-aware splitting:\n   Code:       Function/class boundaries\n   Markdown:   ## headings\n   Tables:     Keep entire table together\n   JSON/YAML:  Complete objects\n\nKey rule: 1 chunk = 1 embedding vector"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Example: Building a RAG System with Shakespeare Text</strong></p><p>Let's build a complete RAG system using the Tiny Shakespeare dataset. We'll index ~1MB of Shakespeare's works and enable semantic search.</p>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Indexing Workflow</strong></p>"
+        },
+        {
+          "type": "tabs",
+          "title": "RAG Indexing Implementation",
+          "tabs": [
+            {
+              "id": "overview",
+              "label": "Overview",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Workflow Steps:</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "javascript",
+                  "value": "1. 01 - Manual Trigger\n   Click to start the workflow\n\n2. 02 - Fetch Source Text (TinyShakespeare)\n   GET https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt\n   Returns: ~1MB plain text\n\n3. 03 - Chunk Text (1000/200 overlap)\n   Input: Full text (~1MB)\n   Chunk size: 1000 characters\n   Overlap: 200 characters (20%)\n   Output: ~1200 chunks\n\n4. 04 - Create Embedding Batches (50)\n   Input: 1200 chunks\n   Batch size: 50 chunks per batch\n   Output: ~24 batches\n   Why? OpenAI embeddings API accepts multiple inputs\n\n5. 05 - Generate Embeddings (text-embedding-3-small)\n   POST https://api.openai.com/v1/embeddings\n   Model: text-embedding-3-small\n   Input: Array of 50 texts\n   Output: Array of 50 embeddings (1536 dimensions each)\n   Runs 24 times (one per batch)\n\n6. 06 - Map Embeddings → Qdrant Points\n   Combine chunks with their embeddings\n   Create point structure for Qdrant\n   Format: { id, vector, payload: { chunk_index, text } }\n\n7. 07 - Upsert Points → Qdrant (tinyshakespeare)\n   PUT https://[qdrant-url]/collections/tinyshakespeare/points\n   Stores 50 points per request\n   Runs 24 times (one per batch)\n   Total: ~1200 searchable chunks\n\nResult: Shakespeare text fully indexed and ready for semantic search!"
+                }
+              ]
+            },
+            {
+              "id": "workflow",
+              "label": "Workflow",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/rag-indexing-workflow.png",
+                  "alt": "RAG indexing workflow showing 7 nodes: Manual Trigger, HTTP Request to fetch Shakespeare text, Code to split into chunks, Code to create batches, HTTP Request to OpenAI embeddings, Code to prepare Qdrant points, and HTTP Request to store in Qdrant"
+                }
+              ]
+            },
+            {
+              "id": "result",
+              "label": "Qdrant Storage",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/rag-qdrant-storage.png",
+                  "alt": "Qdrant UI showing tinyshakespeare collection with stored points, displaying Point 1 and Point 2 with their chunk_index and Shakespeare text payloads"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Stored Points in Qdrant:</strong></p><ul><li><strong>Collection:</strong> tinyshakespeare</li><li><strong>Vector size:</strong> 1536 dimensions (text-embedding-3-small)</li><li><strong>Distance:</strong> Cosine similarity</li><li><strong>Total points:</strong> ~1200 chunks</li><li><strong>Payload:</strong> chunk_index (number) + text (string)</li></ul>"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Query Workflow</strong></p>"
+        },
+        {
+          "type": "tabs",
+          "title": "RAG Query Implementation",
+          "tabs": [
+            {
+              "id": "overview",
+              "label": "Overview",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Workflow Steps:</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "javascript",
+                  "value": "1. Webhook - Receive Question\n   POST /rag-query\n   Body: { \"question\": \"Who is Marcius?\" }\n   Waits for response before returning\n\n2. HTTP Request - Generate Query Embedding\n   POST https://api.openai.com/v1/embeddings\n   Model: text-embedding-3-small\n   Input: {{ $json.body.question }}\n   Output: { data: [{ embedding: [0.12, -0.45, ...] }] }\n\n3. HTTP Request - Vector Search (Qdrant)\n   POST https://[qdrant-url]/collections/tinyshakespeare/points/search\n   Body:\n     vector: {{ $json.data[0].embedding }}\n     limit: 5\n     with_payload: true\n   Returns: Top 5 most similar chunks with their text\n\n4. Code - Build RAG Prompt\n   Extract context from search results\n   Combine context with original question\n   Create structured prompt for LLM\n\n5. OpenAI Chat Model - Generate Answer\n   Model: chatgpt-4o-latest\n   Input: RAG prompt with context\n   Output: Answer based on Shakespeare text\n\n6. Respond to Webhook - Return Response\n   Extract answer text from LLM output\n   Return as plain text response\n\nResult: User gets accurate answer from indexed Shakespeare text!"
+                }
+              ]
+            },
+            {
+              "id": "workflow",
+              "label": "Workflow",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/rag-query-workflow.png",
+                  "alt": "RAG query workflow showing 6 nodes: Webhook to receive question, HTTP Request to generate embedding, HTTP Request to search Qdrant, Code to build RAG prompt, OpenAI Chat to generate answer, and Respond to Webhook"
+                }
+              ]
+            },
+            {
+              "id": "demo",
+              "label": "Demo",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Testing the RAG System</strong></p><p>Using Insomnia to send a question about Shakespeare's text:</p>"
+                },
+                {
+                  "type": "image",
+                  "src": "assets/images/rag-query-insomnia-request.png",
+                  "alt": "Insomnia showing POST request to RAG query endpoint with question: Who is Marcius?"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Request:</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "json",
+                  "value": "POST http://localhost:5678/webhook/rag-query\nContent-Type: application/json\n\n{\n  \"question\": \"Who is Marcius?\"\n}"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Response:</strong></p>"
+                },
+                {
+                  "type": "image",
+                  "src": "assets/images/rag-query-response.png",
+                  "alt": "Insomnia showing the RAG response: Marcius is a noble Roman soldier known for his valor and leadership in battle"
+                },
+                {
+                  "type": "code",
+                  "language": "text",
+                  "value": "Marcius is a noble Roman soldier, renowned for his valor and leadership in battle. He is depicted as a courageous warrior who plays a significant role in the conflicts between Rome and its enemies."
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>How It Works:</strong></p><ol><li>Question \"Who is Marcius?\" → Converted to embedding</li><li>Vector search finds 5 most similar Shakespeare text chunks</li><li>LLM generates answer using ONLY those chunks</li><li>Result: Accurate answer about character from Coriolanus</li></ol><p>✅ The system correctly identified Marcius from Shakespeare's play using semantic search, not keyword matching!</p>"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Common Patterns</strong></p><ul><li><strong>Hybrid search</strong>: Combine vector similarity + keyword filters (e.g., only search \"billing\" category)</li><li><strong>Re-ranking</strong>: Use a second model to re-order results for better relevance</li><li><strong>Citation</strong>: Include source metadata in response (article title, URL, page number)</li><li><strong>Fallback</strong>: If similarity score < 0.7, respond \"I don't have information about that\"</li><li><strong>Conversational RAG</strong>: Include chat history in embedding for context-aware answers</li></ul>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Key Metrics to Monitor</strong></p><ul><li>Retrieval accuracy: Are the right chunks being found?</li><li>Answer quality: Are LLM responses accurate and helpful?</li><li>Latency: Embedding + search + LLM should be < 3 seconds</li><li>Cost: Track embedding API calls + vector DB queries + LLM tokens</li></ul>"
         }
       ]
     }

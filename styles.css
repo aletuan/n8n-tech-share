@@ -167,7 +167,7 @@ body {
     flex: 1;
     padding: var(--spacing-xl) var(--spacing-xl);
     max-width: 1200px;
-    width: 100%;
+    margin: 0 auto;
 }
 
 #step-title {

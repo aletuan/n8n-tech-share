@@ -1,0 +1,105 @@
+{
+  "total_count": 20,
+  "inputs": [
+    {
+      "id": 1,
+      "source": "auth_2fa",
+      "text": "The user is experiencing login issues with two-factor authentication"
+    },
+    {
+      "id": 2,
+      "source": "auth_password",
+      "text": "I forgot my password and cannot access my account"
+    },
+    {
+      "id": 3,
+      "source": "auth_locked",
+      "text": "My account is locked after too many failed login attempts"
+    },
+    {
+      "id": 4,
+      "source": "payment_declined",
+      "text": "My credit card payment was declined during checkout"
+    },
+    {
+      "id": 5,
+      "source": "payment_duplicate",
+      "text": "I was charged twice for the same order"
+    },
+    {
+      "id": 6,
+      "source": "billing_update",
+      "text": "How do I update my billing information and payment method"
+    },
+    {
+      "id": 7,
+      "source": "shipping_tracking",
+      "text": "When will my order arrive and how can I track it"
+    },
+    {
+      "id": 8,
+      "source": "shipping_wrong",
+      "text": "The package was delivered to the wrong address"
+    },
+    {
+      "id": 9,
+      "source": "shipping_change",
+      "text": "I need to change my shipping address before delivery"
+    },
+    {
+      "id": 10,
+      "source": "feature_export",
+      "text": "How do I export my data to CSV format"
+    },
+    {
+      "id": 11,
+      "source": "feature_plans",
+      "text": "What are the differences between the premium and basic plans"
+    },
+    {
+      "id": 12,
+      "source": "feature_integration",
+      "text": "Can I integrate this with Zapier or other automation tools"
+    },
+    {
+      "id": 13,
+      "source": "tech_crash",
+      "text": "The application keeps crashing when I upload large files"
+    },
+    {
+      "id": 14,
+      "source": "tech_error",
+      "text": "I'm getting a 500 error when trying to save my work"
+    },
+    {
+      "id": 15,
+      "source": "tech_sync",
+      "text": "The mobile app is not syncing with the web version"
+    },
+    {
+      "id": 16,
+      "source": "account_cancel",
+      "text": "How do I cancel my subscription and delete my account"
+    },
+    {
+      "id": 17,
+      "source": "account_team",
+      "text": "I need to add more team members to my workspace"
+    },
+    {
+      "id": 18,
+      "source": "account_transfer",
+      "text": "Can I transfer ownership of this project to another user"
+    },
+    {
+      "id": 19,
+      "source": "general_hours",
+      "text": "What are your business hours and support channels"
+    },
+    {
+      "id": 20,
+      "source": "general_discount",
+      "text": "Do you offer student discounts or educational pricing"
+    }
+  ]
+}
