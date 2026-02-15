@@ -804,25 +804,6 @@
               ]
             },
             {
-              "id": "code-details",
-              "label": "Build RAG Prompt",
-              "content": [
-                {
-                  "type": "text",
-                  "value": "<p><strong>Node 4: Build RAG Prompt Code</strong></p>"
-                },
-                {
-                  "type": "code",
-                  "language": "javascript",
-                  "value": "const results = $json.result;\n\n// Extract text from top 5 search results\nconst context = results\n  .map(r => r.payload.text)\n  .join(\"\\n\\n---\\n\\n\");\n\n// Get original question from webhook\nconst question = $node[\"01 - Inbound Question\"].json.body.question;\n\n// Build structured RAG prompt\nconst prompt = `\nAnswer the question based only on the context below.\n\nContext:\n${context}\n\nQuestion:\n${question}\n`;\n\nreturn [{\n  json: { prompt }\n}];"
-                },
-                {
-                  "type": "text",
-                  "value": "<p><strong>Key Points:</strong></p><ul><li>Retrieves top 5 results from Qdrant search</li><li>Joins text chunks with separator (---)</li><li>Instructs LLM to answer \"based only on context\"</li><li>Prevents hallucination by constraining to provided context</li></ul>"
-                }
-              ]
-            },
-            {
               "id": "demo",
               "label": "Demo",
               "content": [
