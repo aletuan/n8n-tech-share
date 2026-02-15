@@ -774,9 +774,97 @@
           "value": "<p><strong>Query Workflow</strong></p>"
         },
         {
-          "type": "code",
-          "language": "javascript",
-          "value": "// Coming soon: Query workflow implementation"
+          "type": "tabs",
+          "title": "RAG Query Implementation",
+          "tabs": [
+            {
+              "id": "overview",
+              "label": "Overview",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Workflow Steps:</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "javascript",
+                  "value": "1. Webhook - Receive Question\n   POST /rag-query\n   Body: { \"question\": \"Who is Marcius?\" }\n   Waits for response before returning\n\n2. HTTP Request - Generate Query Embedding\n   POST https://api.openai.com/v1/embeddings\n   Model: text-embedding-3-small\n   Input: {{ $json.body.question }}\n   Output: { data: [{ embedding: [0.12, -0.45, ...] }] }\n\n3. HTTP Request - Vector Search (Qdrant)\n   POST https://[qdrant-url]/collections/tinyshakespeare/points/search\n   Body:\n     vector: {{ $json.data[0].embedding }}\n     limit: 5\n     with_payload: true\n   Returns: Top 5 most similar chunks with their text\n\n4. Code - Build RAG Prompt\n   Extract context from search results\n   Combine context with original question\n   Create structured prompt for LLM\n\n5. OpenAI Chat Model - Generate Answer\n   Model: chatgpt-4o-latest\n   Input: RAG prompt with context\n   Output: Answer based on Shakespeare text\n\n6. Respond to Webhook - Return Response\n   Extract answer text from LLM output\n   Return as plain text response\n\nResult: User gets accurate answer from indexed Shakespeare text!"
+                }
+              ]
+            },
+            {
+              "id": "workflow",
+              "label": "Workflow",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/rag-query-workflow.png",
+                  "alt": "RAG query workflow showing 6 nodes: Webhook to receive question, HTTP Request to generate embedding, HTTP Request to search Qdrant, Code to build RAG prompt, OpenAI Chat to generate answer, and Respond to Webhook"
+                }
+              ]
+            },
+            {
+              "id": "code-details",
+              "label": "Build RAG Prompt",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Node 4: Build RAG Prompt Code</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "javascript",
+                  "value": "const results = $json.result;\n\n// Extract text from top 5 search results\nconst context = results\n  .map(r => r.payload.text)\n  .join(\"\\n\\n---\\n\\n\");\n\n// Get original question from webhook\nconst question = $node[\"01 - Inbound Question\"].json.body.question;\n\n// Build structured RAG prompt\nconst prompt = `\nAnswer the question based only on the context below.\n\nContext:\n${context}\n\nQuestion:\n${question}\n`;\n\nreturn [{\n  json: { prompt }\n}];"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Key Points:</strong></p><ul><li>Retrieves top 5 results from Qdrant search</li><li>Joins text chunks with separator (---)</li><li>Instructs LLM to answer \"based only on context\"</li><li>Prevents hallucination by constraining to provided context</li></ul>"
+                }
+              ]
+            },
+            {
+              "id": "demo",
+              "label": "Demo",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Testing the RAG System</strong></p><p>Using Insomnia to send a question about Shakespeare's text:</p>"
+                },
+                {
+                  "type": "image",
+                  "src": "assets/images/rag-query-insomnia-request.png",
+                  "alt": "Insomnia showing POST request to RAG query endpoint with question: Who is Marcius?"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Request:</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "json",
+                  "value": "POST http://localhost:5678/webhook/rag-query\nContent-Type: application/json\n\n{\n  \"question\": \"Who is Marcius?\"\n}"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Response:</strong></p>"
+                },
+                {
+                  "type": "image",
+                  "src": "assets/images/rag-query-response.png",
+                  "alt": "Insomnia showing the RAG response: Marcius is a noble Roman soldier known for his valor and leadership in battle"
+                },
+                {
+                  "type": "code",
+                  "language": "text",
+                  "value": "Marcius is a noble Roman soldier, renowned for his valor and leadership in battle. He is depicted as a courageous warrior who plays a significant role in the conflicts between Rome and its enemies."
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>How It Works:</strong></p><ol><li>Question \"Who is Marcius?\" → Converted to embedding</li><li>Vector search finds 5 most similar Shakespeare text chunks</li><li>LLM generates answer using ONLY those chunks</li><li>Result: Accurate answer about character from Coriolanus</li></ol><p>✅ The system correctly identified Marcius from Shakespeare's play using semantic search, not keyword matching!</p>"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "text",
