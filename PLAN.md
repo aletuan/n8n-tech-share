@@ -5,11 +5,11 @@ Building a comprehensive n8n training tutorial covering fundamentals through adv
 
 **Target Audience:** Beginners to intermediate users
 **Format:** Interactive web tutorial with step-by-step content, code examples, and visual demos
-**Current Status:** 8 of 12 steps completed
+**Current Status:** 10 of 12 steps completed (83%)
 
 ---
 
-## ✅ Completed Steps (1-8)
+## ✅ Completed Steps (1-10)
 
 ### Step 1: Getting Started
 - Introduction to n8n
@@ -65,81 +65,27 @@ Building a comprehensive n8n training tutorial covering fundamentals through adv
 - ✅ Screenshots: 3 tabs (workflow, analyze sentiment, generate response)
 - ✅ Guide: AI-Email-Responder-Guide.md
 
----
-
-## 🚧 Remaining Steps (9-12)
-
 ### Step 9: Embeddings & Vector Databases
-**Status:** Not started
-**Priority:** High
+- What are embeddings (text → vectors)
+- Semantic similarity vs keyword search
+- OpenAI embeddings API integration
+- Qdrant vector database storage
+- HNSW graph visualization
+- ✅ Demo: Semantic search with 20 diverse embeddings
+- ✅ Screenshots: 6 tabs (single text, batch processing, similarity results, Qdrant storage, sample vectors, HNSW graph)
 
-**Topics to Cover:**
-- What are embeddings? (text → numbers)
-- Vector similarity and semantic search
-- Popular vector databases (Pinecone, Weaviate, Qdrant, Supabase)
-- Creating embeddings with OpenAI/Cohere
-- Storing and querying vectors
-- Use cases: semantic search, similarity matching, clustering
-
-**Workflow Demo Ideas:**
-- **Option A:** "Document Indexer"
-  - Manual Trigger → Sample Documents → Create Embeddings → Store in Vector DB
-  - Shows: splitting text, generating embeddings, upserting to Pinecone
-
-- **Option B:** "Semantic Search"
-  - Manual Trigger → Query Input → Create Query Embedding → Search Vector DB → Return Results
-  - Shows: query embedding, similarity search, result ranking
-
-**Recommended:** Create both workflows to show full cycle (index + search)
-
-**Screenshots Needed:**
-- Workflow overview
-- OpenAI Embeddings node configuration
-- Vector database node (Pinecone/Weaviate) configuration
-- Search results output
-
-**Files to Create:**
-- workflows/Document Indexer.json
-- workflows/Semantic Search.json
-- workflows/Embeddings-Demo-Guide.md
+### Step 10: RAG (Retrieval Augmented Generation)
+- RAG architecture (Retrieve → Augment → Generate)
+- Chunking strategies and best practices
+- Vector search + LLM integration
+- ✅ Demo: Tiny Shakespeare indexing workflow (~1200 chunks)
+- ✅ Demo: RAG query workflow with webhook
+- ✅ Screenshots: 6 tabs (indexing overview, workflow, Qdrant storage, query overview, workflow, demo with Insomnia)
+- ✅ Files: RAG-Query-Shakespeare.json, RAG-Support-Articles-Indexing.json, RAG-Support-Articles-Query.json
 
 ---
 
-### Step 10: RAG - Retrieval Augmented Generation
-**Status:** Not started
-**Priority:** High
-
-**Topics to Cover:**
-- What is RAG? (Retrieve → Augment → Generate)
-- Why RAG? (reduce hallucinations, add knowledge, stay current)
-- RAG architecture: Index → Retrieve → Context → Generate
-- Chunking strategies (size, overlap, semantic)
-- Prompt engineering for RAG
-- Context window management
-
-**Workflow Demo Ideas:**
-- **"Knowledge Base Q&A System"**
-  - Manual Trigger → User Question → Create Embedding → Search Docs → Build Context → Ask LLM → Return Answer
-  - Shows: full RAG pipeline from question to answer
-  - Use case: company knowledge base, documentation assistant
-
-**Key Nodes:**
-- Embeddings node (query)
-- Vector DB search
-- Code node (format context)
-- OpenAI/Claude node (answer with context)
-- Optional: citation extraction
-
-**Screenshots Needed:**
-- Complete RAG workflow
-- Context assembly (showing retrieved chunks)
-- Prompt with injected context
-- Final answer with citations
-
-**Files to Create:**
-- workflows/Knowledge Base QA.json
-- workflows/RAG-Demo-Guide.md
-- Sample documents (sample-docs/company-policies.txt, faq.txt, etc.)
+## 🚧 Remaining Steps (11-12)
 
 ---
 
@@ -239,47 +185,55 @@ Building a comprehensive n8n training tutorial covering fundamentals through adv
 
 **When resuming work:**
 
-1. **Start with Step 9: Embeddings & Vector Databases**
-   - Research vector DB options (Pinecone vs Weaviate vs Supabase)
-   - Create Document Indexer workflow
-   - Create Semantic Search workflow
-   - Capture screenshots
-   - Write guide document
+### Option 1: Complete the Tutorial (Steps 11-12)
 
-2. **Then Step 10: RAG**
-   - Build on Step 9's vector DB setup
-   - Create Knowledge Base Q&A workflow
-   - Prepare sample documents
-   - Demonstrate full RAG pipeline
+**Step 11: AI Agents & Tool Use**
+- Research n8n's Agent node and LangChain integration
+- Design tool ecosystem (web search, calculator, API calls)
+- Build Research Assistant or Task Automation agent
+- Capture workflow screenshots
+- Document agent decision-making process
 
-3. **Then Step 11: Agents**
-   - Research n8n agent capabilities
-   - Design tool ecosystem
-   - Build Research Assistant workflow
+**Step 12: Advanced AI Patterns**
+- Compile best practices from Steps 8-11
+- Create comparison tables (fine-tuning vs RAG vs prompting)
+- Add cost optimization strategies
+- Production monitoring tips
+- Optional: Example workflows for advanced patterns
 
-4. **Finally Step 12: Advanced Patterns**
-   - Compile best practices from previous steps
-   - Create reference examples
-   - Add production tips
+**Estimated Time:** 4-6 hours
+
+### Option 2: Polish & Deploy
+
+If Steps 11-12 are optional/bonus content:
+- Review all content for consistency and clarity
+- Test complete tutorial flow (Step 1 → 10)
+- Verify all images load correctly
+- Update README with deployment instructions
+- Create Getting Started guide
+- Add troubleshooting section
+- Deploy to GitHub Pages or Netlify
+
+**Estimated Time:** 2-3 hours
 
 ---
 
 ## 📊 Progress Tracking
 
-**Completion:** 8/12 steps (67%)
+**Completion:** 10/12 steps (83%)
 
-| Step | Status | Workflow | Screenshots | Guide |
-|------|--------|----------|-------------|-------|
-| 1. Getting Started | ✅ | ✅ | ✅ | - |
-| 2. Understanding Nodes | ✅ | ✅ | ✅ | - |
-| 3. Core Concepts | ✅ | - | ✅ | - |
-| 4. Data Flow | ✅ | ✅ | ✅ | - |
-| 5. Expressions | ✅ | ✅ | ✅ | - |
-| 6. Logic & Branching | ✅ | ✅ | ✅ | - |
+| Step | Status | Workflow | Screenshots | Content |
+|------|--------|----------|-------------|---------|
+| 1. Getting Started | ✅ | ✅ | ✅ | ✅ |
+| 2. Understanding Nodes | ✅ | ✅ | ✅ | ✅ |
+| 3. Core Concepts | ✅ | - | ✅ | ✅ |
+| 4. Data Flow | ✅ | ✅ | ✅ | ✅ |
+| 5. Expressions | ✅ | ✅ | ✅ | ✅ |
+| 6. Logic & Branching | ✅ | ✅ | ✅ | ✅ |
 | 7. Error Handling | ✅ | ✅ | ✅ | ✅ |
 | 8. AI APIs | ✅ | ✅ | ✅ | ✅ |
-| 9. Embeddings | 🚧 | ⬜ | ⬜ | ⬜ |
-| 10. RAG | 🚧 | ⬜ | ⬜ | ⬜ |
+| 9. Embeddings | ✅ | ✅ | ✅ | ✅ |
+| 10. RAG | ✅ | ✅ | ✅ | ✅ |
 | 11. Agents | 🚧 | ⬜ | ⬜ | ⬜ |
 | 12. Advanced Patterns | 🚧 | ⬜ | ⬜ | ⬜ |
 
@@ -316,6 +270,6 @@ Building a comprehensive n8n training tutorial covering fundamentals through adv
 
 ---
 
-**Last Updated:** 2026-02-12
-**Next Milestone:** Complete Steps 9-10 (Embeddings + RAG)
-**Estimated Time to Complete:** 6-8 hours for remaining steps
+**Last Updated:** 2026-02-15
+**Next Milestone:** Complete Steps 11-12 (Agents + Advanced Patterns) OR Polish & Deploy
+**Estimated Time to Complete:** 4-6 hours for Steps 11-12, or 2-3 hours for polish & deploy
