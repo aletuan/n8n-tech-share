@@ -802,8 +802,9 @@
                   "alt": "Qdrant UI showing tinyshakespeare collection with stored points, displaying Point 1 and Point 2 with their chunk_index and Shakespeare text payloads"
                 },
                 {
-                  "type": "text",
-                  "value": "<p><strong>Stored Points in Qdrant:</strong></p><ul><li><strong>Collection:</strong> tinyshakespeare</li><li><strong>Vector size:</strong> 1536 dimensions (text-embedding-3-small)</li><li><strong>Distance:</strong> Cosine similarity</li><li><strong>Total points:</strong> ~1200 chunks</li><li><strong>Payload:</strong> chunk_index (number) + text (string)</li></ul>"
+                  "type": "code",
+                  "language": "text",
+                  "value": "Stored Points in Qdrant:\n\n• Collection: tinyshakespeare\n• Vector size: 1536 dimensions (text-embedding-3-small)\n• Distance: Cosine similarity\n• Total points: ~1200 chunks\n• Payload: chunk_index (number) + text (string)"
                 }
               ]
             }
@@ -975,14 +976,14 @@
                   "value": "<p><strong>Multi-Turn Conversation Example</strong></p>"
                 },
                 {
-                  "type": "code",
-                  "language": "json",
-                  "value": "// Turn 1: Initial question\nPOST http://localhost:5678/webhook/shakespeare-chat\n{\n  \"question\": \"Who is Marcius?\",\n  \"session_id\": \"demo-session-1\"\n}\n\nResponse:\n\"Marcius is a noble Roman soldier, renowned for his valor and leadership in battle. He is depicted as a courageous warrior who plays a significant role in the conflicts between Rome and its enemies.\"\n\n// Turn 2: Follow-up (references previous context)\nPOST http://localhost:5678/webhook/shakespeare-chat\n{\n  \"question\": \"What are his key characteristics?\",\n  \"session_id\": \"demo-session-1\"\n}\n\nResponse:\n\"Based on our previous discussion about Marcius, his key characteristics include:\n- Exceptional bravery and military prowess\n- Strong sense of honor and duty to Rome\n- Pride in his achievements\n- Difficulty accepting criticism or compromise\n- Complex relationship with the common people\"\n\n// Turn 3: Related question\nPOST http://localhost:5678/webhook/shakespeare-chat\n{\n  \"question\": \"How does he interact with other characters?\",\n  \"session_id\": \"demo-session-1\"\n}\n\nResponse:\n\"Marcius interacts with other characters in nuanced ways. With fellow soldiers and nobility, he commands respect through his valor. However, his relationship with the common citizens is strained due to his pride and unwillingness to flatter them for political gain.\"\n\n// Note: The agent remembers \"he\" refers to Marcius from Turn 1!"
-                },
-                {
                   "type": "image",
                   "src": "assets/images/agent-conversation-demo.png",
                   "alt": "Insomnia showing a follow-up question 'What are his key characteristics?' with session_id 'test-1'. The response begins with 'Based on our previous discussion about Marcius...' demonstrating the agent's conversational memory - it remembers the previous question about who Marcius is and provides context-aware characteristics including bravery, honor, pride, and his complex relationships."
+                },
+                {
+                  "type": "code",
+                  "language": "json",
+                  "value": "// Turn 1: Initial question\nPOST http://localhost:5678/webhook/shakespeare-chat\n{\n  \"question\": \"Who is Marcius?\",\n  \"session_id\": \"demo-session-1\"\n}\n\nResponse:\n\"Marcius is a noble Roman soldier, renowned for his valor and leadership in battle. He is depicted as a courageous warrior who plays a significant role in the conflicts between Rome and its enemies.\"\n\n// Turn 2: Follow-up (references previous context)\nPOST http://localhost:5678/webhook/shakespeare-chat\n{\n  \"question\": \"What are his key characteristics?\",\n  \"session_id\": \"demo-session-1\"\n}\n\nResponse:\n\"Based on our previous discussion about Marcius, his key characteristics include:\n- Exceptional bravery and military prowess\n- Strong sense of honor and duty to Rome\n- Pride in his achievements\n- Difficulty accepting criticism or compromise\n- Complex relationship with the common people\"\n\n// Turn 3: Related question\nPOST http://localhost:5678/webhook/shakespeare-chat\n{\n  \"question\": \"How does he interact with other characters?\",\n  \"session_id\": \"demo-session-1\"\n}\n\nResponse:\n\"Marcius interacts with other characters in nuanced ways. With fellow soldiers and nobility, he commands respect through his valor. However, his relationship with the common citizens is strained due to his pride and unwillingness to flatter them for political gain.\"\n\n// Note: The agent remembers \"he\" refers to Marcius from Turn 1!"
                 }
               ]
             }
@@ -1135,6 +1136,117 @@
         {
           "type": "text",
           "value": "<p>Once you have this conversational foundation, you can extend the agent with:</p><ul><li>Conversation summarization - Condense long histories to manage token limits</li><li>Multi-turn clarification - Ask follow-up questions when user intent is unclear</li><li>Tool calling - Let the agent decide when to use RAG vs other capabilities</li><li>Multiple knowledge bases - Search different collections based on topic</li><li>Topic tracking - Detect when conversation shifts to new subjects</li><li>Sentiment analysis - Adjust tone based on user mood</li><li>Multi-language support - Translate questions and answers</li><li>Conversational UI - Build a chat interface for better user experience</li></ul>"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Conversational UI with Multi-Language Chat",
+      "content": [
+        {
+          "type": "text",
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Transform your conversational agent into a user-friendly chat interface with multi-language support.</strong></div>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Building on Step 11's conversational memory foundation, we'll add a native chat UI that makes interaction natural and intuitive - no more API testing tools required!</p>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>What's New in Step 12?</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "Step 11: Conversational Agent (Webhook-based)\nPOST /shakespeare-chat\n{ \"question\": \"Who is Marcius?\", \"session_id\": \"test-1\" }\n✅ Memory works\n❌ Requires API client (Insomnia/Postman)\n❌ Not user-friendly for non-technical users\n\nStep 12: Chat UI (Native n8n Chat)\n[Chat Interface] \"Who is Marcius?\" → Send\n✅ Memory works\n✅ Visual chat interface\n✅ Multi-language support (Vietnamese, English, etc.)\n✅ Real-time conversation experience\n✅ No API knowledge needed\n\nKey Improvements:\n1. Replace Webhook trigger with \"When chat message received\"\n2. Replace \"Respond to Webhook\" with \"Send message back to chat\"\n3. Automatic session management (no manual session_id)\n4. Multi-language conversation support"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Chat UI Workflow Architecture</strong></p>"
+        },
+        {
+          "type": "tabs",
+          "title": "Shakespeare Chat UI Implementation",
+          "tabs": [
+            {
+              "id": "overview",
+              "label": "Overview",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Workflow Steps:</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "javascript",
+                  "value": "1. When chat message received (Chat Trigger)\n   Type: @n8n/n8n-nodes-langchain.chatTrigger\n   Configuration:\n     - public: true (makes chat accessible)\n     - initialMessages: \"👋 Hello! I'm your Shakespeare expert...\"\n   Provides: chatInput (user message), sessionId (auto-generated)\n   No webhook URL needed!\n\n2. Prepare Session Data (Code)\n   Extract session ID and chat input from trigger:\n   const chatMessage = $input.first().json;\n   session_id = chatMessage.sessionId || 'default';\n   question = chatMessage.chatInput || '';\n\n3. Get Conversation History (Data table)\n   Operation: Get\n   Filter by session_id\n   Limit: 10 (last 10 messages)\n   alwaysOutputData: true\n\n4. Generate Query Embedding (HTTP Request)\n   POST https://api.openai.com/v1/embeddings\n   Model: text-embedding-3-small\n   Input: {{ $('02 - Prepare Session Data').first().json.question }}\n   Output: 1536-dimension vector\n\n5. Vector Search (Qdrant)\n   POST /collections/tinyshakespeare/points/search\n   Body: {\n     \"vector\": $json.data[0].embedding,\n     \"limit\": 3,\n     \"with_payload\": true\n   }\n\n6. Build RAG Prompt (Code)\n   Extract chat history: historyNode.reverse().map(...)\n   Extract RAG context: searchResults.map(item => item.payload.text)\n   Build prompt combining both contexts\n   Note: chatgpt-4o-latest handles multi-language naturally!\n\n7. OpenAI Chat Model\n   Type: @n8n/n8n-nodes-langchain.openAi\n   Model: chatgpt-4o-latest\n   Input: {{ $('06 - Build RAG Prompt').first().json.prompt }}\n\n8. Save User Message (Data table)\n   Operation: Insert\n   Columns:\n     - session_id: {{ $('06 - Build RAG Prompt').first().json.session_id }}\n     - role: user\n     - content: {{ $('06 - Build RAG Prompt').first().json.question }}\n\n9. Save Assistant Message (Data table)\n   Operation: Insert\n   Columns:\n     - session_id: {{ $('02 - Prepare Session Data').first().json.session_id }}\n     - role: assistant\n     - content: {{ $('07 - OpenAI Chat Model').first().json.output[0].content[0].text }}\n\n10. Respond to Webhook\n    Returns the assistant's answer to the chat UI\n    The chat trigger automatically displays the response\n\nResult: Beautiful chat interface with multi-language support!"
+                }
+              ]
+            },
+            {
+              "id": "workflow",
+              "label": "Workflow",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/chat-ui-workflow.png",
+                  "alt": "Shakespeare Conversation Agent with Chat UI workflow in n8n showing the chat interface on the left with a Vietnamese conversation 'Ai là Aufidius?' (Who is Aufidius?), and the workflow with 10 nodes: When chat message received, Prepare Session Data, Get Conversation History, Generate Query Embedding, Vector Search (Qdrant), Build RAG Prompt, OpenAI Chat Model, Save User Message, Save Assistant Message, and Respond to Webhook. The output panel shows the Vietnamese response about Aufidius being an enemy of the Volsci and Caius Marcius."
+                }
+              ]
+            },
+            {
+              "id": "multi-language",
+              "label": "Multi-Language Support",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>How Multi-Language Works</strong></p><p>The beauty of embeddings + LLMs: language translation happens naturally!</p>"
+                },
+                {
+                  "type": "code",
+                  "language": "javascript",
+                  "value": "// Vietnamese Question\nUser: \"Ai là Aufidius?\"\n       ↓ Embedding (captures semantic meaning)\n       [0.23, -0.45, 0.78, ...]\n       ↓ Vector Search (finds English Shakespeare text)\n       \"Aufidius, he is a lion that I am proud to hunt.\"\n       ↓ LLM Prompt (with instruction)\n       \"Answer in the same language as the question\"\n       ↓ Vietnamese Response\nAssistant: \"Dựa trên các đoạn trích từ vở kịch của Shakespeare, \n**Aufidius** là một nhân vật trong vở kịch *Coriolanus* của \nShakespeare, **Rome** là thành bang nổi diện ra phần lớn những \nxung đột...\"\n\n// English Question\nUser: \"Who is Aufidius?\"\n       ↓ Embedding (same semantic meaning!)\n       [0.22, -0.44, 0.79, ...] // Very similar to Vietnamese\n       ↓ Vector Search (same chunks found)\n       ↓ English Response\nAssistant: \"Based on the excerpts from Shakespeare's play, \nAufidius is a character in Shakespeare's *Coriolanus*, serving \nas the primary antagonist and a general of the Volscian army...\"\n\n// Key Points:\n1. Embeddings capture MEANING, not language\n2. Similar meanings → similar vectors (regardless of language)\n3. RAG finds relevant English text\n4. LLM translates naturally when instructed\n5. Works for ANY language (Vietnamese, Spanish, French, etc.)"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Build RAG Prompt Implementation</strong></p><p>The actual prompt from the workflow is simple and relies on chatgpt-4o-latest's natural multi-language capabilities:</p>"
+                },
+                {
+                  "type": "code",
+                  "language": "javascript",
+                  "value": "// Actual code from \"06 - Build RAG Prompt\" node:\n\n// Extract chat history from Data table\nconst historyNode = $('03 - Get Conversation History').all();\nconst chatHistory = historyNode && historyNode.length > 0\n  ? historyNode.reverse().map(item => `${item.json.role}: ${item.json.content}`).join('\\n')\n  : '';\n\n// Extract RAG context from vector search\nconst searchResults = $('05 - Vector Search (Qdrant)').first().json.result || [];\nconst ragContext = searchResults\n  .map(item => item.payload.text)\n  .join('\\n\\n---\\n\\n');\n\n// Get question and session from Prepare Session Data node\nconst question = $('02 - Prepare Session Data').first().json.question;\nconst session_id = $('02 - Prepare Session Data').first().json.session_id;\n\n// Build RAG prompt with chat history\nconst prompt = `You are a helpful assistant with expertise in Shakespeare's works.\n\n  Relevant excerpts from Shakespeare:\n  ${ragContext}\n\n  Conversation history:\n  ${chatHistory || 'No previous conversation'}\n\n  User question: ${question}\n\n  Answer based on the Shakespeare excerpts provided and the conversation history. If the answer isn't in the excerpts, say so.`;\n\nreturn {\n  json: {\n    prompt,\n    question,\n    session_id\n  }\n};\n\n// Note: No explicit multi-language instruction needed!\n// chatgpt-4o-latest naturally responds in the input language"
+                }
+              ]
+            },
+            {
+              "id": "demo",
+              "label": "Demo",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Multi-Language Conversation in Action</strong></p>"
+                },
+                {
+                  "type": "image",
+                  "src": "assets/images/chat-ui-demo.png",
+                  "alt": "Shakespeare Chat UI showing a Vietnamese conversation. The chat panel on the left displays the question 'Mối quan hệ của họ như thế nào?' (What is their relationship like?). The workflow is executing with the '06 - Build RAG Prompt' node highlighted. The output panel on the right shows the RAG prompt combining Shakespeare excerpts, conversation history, and the Vietnamese question with session ID 0e450a91286b494098042cc78d2955fb."
+                },
+                {
+                  "type": "code",
+                  "language": "text",
+                  "value": "What's Happening:\n\n• Chat Interface (Left): \n  User asks in Vietnamese: \"Mối quan hệ của họ như thế nào?\" \n  (What is their relationship like?)\n\n• Workflow (Center): \n  The workflow executes all 10 nodes automatically, \n  building the RAG prompt with context\n\n• Output (Right): \n  Shows the prompt combining Shakespeare excerpts, \n  conversation history, and the Vietnamese question\n\n• Result: \n  The agent responds in Vietnamese with context from \n  previous conversation about Coriolanus and Aufidius\n\n✅ Multi-language support works seamlessly\n✅ Conversation history is preserved\n✅ RAG retrieves relevant Shakespeare text regardless of input language"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Key Takeaways</strong></p>"
+        },
+        {
+          "type": "text",
+          "value": "<ul><li>Chat UI makes conversational AI accessible to everyone, not just developers</li><li>n8n's chat trigger handles session management automatically</li><li>Multi-language support is built-in with modern LLMs - just add prompt instructions</li><li>Same backend (Data table + RAG + memory) works for both Chat UI and Webhook</li><li>Embeddings capture meaning across languages - Vietnamese question finds English text</li><li>No extra infrastructure needed - everything runs in n8n Cloud</li><li>Chat UI is perfect for demos, testing, and user-facing applications</li></ul>"
         }
       ]
     }
