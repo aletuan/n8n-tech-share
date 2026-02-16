@@ -891,6 +891,252 @@
           "value": "<p><strong>Key Metrics to Monitor</strong></p><ul><li>Retrieval accuracy: Are the right chunks being found?</li><li>Answer quality: Are LLM responses accurate and helpful?</li><li>Latency: Embedding + search + LLM should be < 3 seconds</li><li>Cost: Track embedding API calls + vector DB queries + LLM tokens</li></ul>"
         }
       ]
+    },
+    {
+      "id": 11,
+      "title": "AI Agents & Conversational Memory",
+      "content": [
+        {
+          "type": "text",
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>AI Agents combine RAG with conversational memory to create interactive, context-aware assistants.</strong></div>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Building on Step 10's RAG foundation, we'll add conversation tracking so the agent remembers previous questions and builds on context.</p>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>What Makes an Agent?</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "Simple RAG (Step 10):\nQuestion → Vector Search → LLM → Answer\n❌ No memory of previous questions\n❌ Each query is isolated\n\nConversational Agent (Step 11):\nQuestion + Session ID → Load History → Vector Search → LLM → Answer\n✅ Remembers conversation context\n✅ Can reference previous questions\n✅ Builds on prior answers\n✅ More natural interaction\n\nExample:\nUser: \"Who is Marcius?\"\nAgent: \"Marcius is a noble Roman soldier...\"\n\nUser: \"What are his key characteristics?\"  // Agent knows \"his\" = Marcius\nAgent: \"Based on our previous discussion about Marcius, his key characteristics include...\""
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Shakespeare Conversational Agent</strong></p>"
+        },
+        {
+          "type": "tabs",
+          "title": "Conversational Agent Implementation",
+          "tabs": [
+            {
+              "id": "overview",
+              "label": "Overview",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Workflow Architecture:</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "javascript",
+                  "value": "1. Webhook - Receive Question + Session ID\n   POST /shakespeare-chat\n   Body: { \n     \"question\": \"Who is Marcius?\",\n     \"session_id\": \"test-1\"\n   }\n\n2. Prepare Session Data (Code)\n   Extract session_id and question from webhook\n   Prepare data for next nodes\n\n3. Get Conversation History (Data table)\n   Search conversations table\n   Filter by session_id = 'test-1'\n   Sort by created_at DESC, Limit 10\n   Returns: Last 10 messages for this session\n\n4. Generate Query Embedding (HTTP Request)\n   POST https://api.openai.com/v1/embeddings\n   Input: Current question\n   Output: 1536-dimension vector\n\n5. Vector Search (Qdrant)\n   POST /collections/tinyshakespeare/points/search\n   Search with query embedding\n   Find 3 most similar Shakespeare chunks\n   Returns: Text excerpts with relevance scores\n\n6. Build RAG Prompt (Code)\n   Combine:\n   - Chat history (from Data table)\n   - RAG results (from Qdrant)\n   - Current question\n   Create structured prompt for LLM\n\n7. OpenAI Chat Model (Message a model)\n   Model: chatgpt-4o-latest\n   Temperature: 0.7\n   Generate answer using combined context\n\n8. Save User Message (Data table)\n   Insert user's question into conversations table\n   Includes: session_id, role='user', content, created_at\n\n9. Save Assistant Message (Data table)\n   Insert AI's answer into conversations table\n   Includes: session_id, role='assistant', content, created_at\n\n10. Respond to Webhook\n    Return assistant's answer as text\n\nResult: Context-aware Shakespeare Q&A with persistent memory!"
+                }
+              ]
+            },
+            {
+              "id": "workflow",
+              "label": "Workflow",
+              "content": [
+                {
+                  "type": "image",
+                  "src": "assets/images/agent-conversation-workflow.png",
+                  "alt": "Shakespeare Conversational Agent workflow showing 10 nodes in n8n: Webhook, Prepare Session Data, Get Conversation History (Data table), Generate Query Embedding, Vector Search (Qdrant), Build RAG Prompt, OpenAI Chat Model, Save User Message, Save Assistant Message, and Respond to Webhook. The workflow successfully executed with a detailed response about Marcius displayed in the output panel."
+                }
+              ]
+            },
+            {
+              "id": "prompt-building",
+              "label": "Prompt Building",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Combining Chat History + RAG Context</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "javascript",
+                  "value": "// Build RAG Prompt node (Code node)\n\n// 1. Extract chat history from Data table\nconst historyNode = $('Get Conversation History').all();\nconst chatHistory = historyNode && historyNode.length > 0\n  ? historyNode.reverse().map(item => `${item.json.role}: ${item.json.content}`).join('\\n')\n  : '';\n\n// 2. Extract RAG context from vector search\nconst searchResults = $('Vector Search (Qdrant)').first().json.result || [];\nconst ragContext = searchResults\n  .map(item => item.payload.text)\n  .join('\\n\\n---\\n\\n');\n\n// 3. Get original question and session from Prepare Session Data\nconst question = $('Prepare Session Data').first().json.question;\nconst session_id = $('Prepare Session Data').first().json.session_id;\n\n// 4. Build structured prompt\nconst prompt = `You are a helpful assistant with expertise in Shakespeare's works.\n\nRelevant excerpts from Shakespeare:\n${ragContext}\n\nConversation history:\n${chatHistory || 'No previous conversation'}\n\nUser question: ${question}\n\nAnswer based on the Shakespeare excerpts provided and the conversation history. If the answer isn't in the excerpts, say so.`;\n\nreturn {\n  json: {\n    prompt,\n    question,\n    session_id\n  }\n};"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Why This Structure Works:</strong></p><ul><li><strong>RAG context first</strong> - Grounds the LLM in factual data</li><li><strong>Chat history second</strong> - Provides conversational context</li><li><strong>Current question last</strong> - Focuses the LLM on the task</li><li><strong>Clear instructions</strong> - Tells LLM how to use the context</li></ul>"
+                }
+              ]
+            },
+            {
+              "id": "demo",
+              "label": "Demo",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Multi-Turn Conversation Example</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "json",
+                  "value": "// Turn 1: Initial question\nPOST http://localhost:5678/webhook/shakespeare-chat\n{\n  \"question\": \"Who is Marcius?\",\n  \"session_id\": \"demo-session-1\"\n}\n\nResponse:\n\"Marcius is a noble Roman soldier, renowned for his valor and leadership in battle. He is depicted as a courageous warrior who plays a significant role in the conflicts between Rome and its enemies.\"\n\n// Turn 2: Follow-up (references previous context)\nPOST http://localhost:5678/webhook/shakespeare-chat\n{\n  \"question\": \"What are his key characteristics?\",\n  \"session_id\": \"demo-session-1\"\n}\n\nResponse:\n\"Based on our previous discussion about Marcius, his key characteristics include:\n- Exceptional bravery and military prowess\n- Strong sense of honor and duty to Rome\n- Pride in his achievements\n- Difficulty accepting criticism or compromise\n- Complex relationship with the common people\"\n\n// Turn 3: Related question\nPOST http://localhost:5678/webhook/shakespeare-chat\n{\n  \"question\": \"How does he interact with other characters?\",\n  \"session_id\": \"demo-session-1\"\n}\n\nResponse:\n\"Marcius interacts with other characters in nuanced ways. With fellow soldiers and nobility, he commands respect through his valor. However, his relationship with the common citizens is strained due to his pride and unwillingness to flatter them for political gain.\"\n\n// Note: The agent remembers \"he\" refers to Marcius from Turn 1!"
+                },
+                {
+                  "type": "image",
+                  "src": "assets/images/agent-conversation-demo.png",
+                  "alt": "Insomnia showing a follow-up question 'What are his key characteristics?' with session_id 'test-1'. The response begins with 'Based on our previous discussion about Marcius...' demonstrating the agent's conversational memory - it remembers the previous question about who Marcius is and provides context-aware characteristics including bravery, honor, pride, and his complex relationships."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Context Window Management</strong></p>"
+        },
+        {
+          "type": "text",
+          "value": "<p>LLMs have token limits. Manage conversation history to avoid hitting those limits.</p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Strategy 1: Sliding Window (Current Implementation)\n// Keep last N messages\nSELECT role, content FROM conversations\nWHERE session_id = ?\nORDER BY created_at DESC\nLIMIT 10  -- Last 10 messages (5 exchanges)\n\n// Strategy 2: Summarization\n// Condense old messages into summary\nif (messageCount > 20) {\n  const oldMessages = messages.slice(0, -10);\n  const summary = await summarizeConversation(oldMessages);\n  // Keep summary + recent 10 messages\n}\n\n// Strategy 3: Hybrid (Best for Production)\n// Summary of old + full recent messages\nconst context = [\n  conversationSummary,  // Condensed history\n  ...recentMessages     // Last 10 full messages\n].join('\\n');\n\n// Token estimation:\n// 1 token ≈ 4 characters\n// chatgpt-4o-latest: 128k context window\n// Aim for < 8k tokens for prompt (leaves room for response)\n\n// Example token budget:\n// - System message: ~100 tokens\n// - RAG context (3 chunks): ~1500 tokens\n// - Chat history (10 messages): ~2000 tokens\n// - Current question: ~50 tokens\n// Total: ~3650 tokens (safe!)"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Conversation Memory with Data Tables</strong></p>"
+        },
+        {
+          "type": "text",
+          "value": "<p>We use n8n's built-in Data table feature to store conversation history - perfect for n8n Cloud, no external database needed!</p>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Why session_id?</strong></p><ul><li>Isolate conversations - Different users or conversation threads remain separate</li><li>Multi-turn support - Track all messages within a single conversation</li><li>History retrieval - Load previous messages for context</li><li>Session management - Enable timeout, cleanup, and rate limiting</li></ul>"
+        },
+        {
+          "type": "tabs",
+          "title": "Data Table Integration",
+          "tabs": [
+            {
+              "id": "setup",
+              "label": "Table Setup",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Create Conversations Table</strong></p><p>In n8n, go to Data → Data tables and create a new table called 'conversations' with these columns:</p>"
+                },
+                {
+                  "type": "code",
+                  "language": "text",
+                  "value": "Table name: conversations\n\nColumns:\n- id (Number) - Auto-generated primary key\n- session_id (String) - Groups messages by conversation session\n- role (String) - Either 'user' or 'assistant'\n- content (String) - The actual message text\n- createdAt (Date) - Auto-generated timestamp\n- updatedAt (Date) - Auto-generated timestamp\n\nNote: id, createdAt, and updatedAt are created automatically.\nYou only need to add: session_id, role, and content."
+                },
+                {
+                  "type": "text",
+                  "value": "<p>The Data table feature in n8n Cloud stores data persistently without needing an external database. Perfect for conversation memory!</p>"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Example Data Structure:</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "text",
+                  "value": "id | session_id | role      | content                           | createdAt\n---|------------|-----------|-----------------------------------|-------------------\n1  | test-1     | user      | Who is Marcius?                   | 2026-02-16T11:10:10Z\n2  | test-1     | assistant | Based on the excerpts provided... | 2026-02-16T11:10:15Z\n3  | test-1     | user      | What are his key characteristics? | 2026-02-16T11:15:25Z\n4  | test-1     | assistant | Based on our previous discussion... | 2026-02-16T11:15:30Z\n\nNote: All rows with session_id='test-1' belong to the same conversation."
+                }
+              ]
+            },
+            {
+              "id": "save",
+              "label": "Save Messages",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Save User & Assistant Messages (2 nodes)</strong></p><p>We use two separate Data table Insert nodes to store messages.</p>"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Node 8: Save User Message</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "text",
+                  "value": "Operation: Insert\nTable: conversations\nData to Send: Define Below for Each Column\n\nFields to Send:\n  session_id: {{ $('Prepare Session Data').first().json.session_id }}\n  role: user\n  content: {{ $('Prepare Session Data').first().json.question }}"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Node 9: Save Assistant Message</strong></p>"
+                },
+                {
+                  "type": "code",
+                  "language": "text",
+                  "value": "Operation: Insert\nTable: conversations\nData to Send: Define Below for Each Column\n\nFields to Send:\n  session_id: {{ $('Prepare Session Data').first().json.session_id }}\n  role: assistant\n  content: {{ $('OpenAI Chat Model').first().json.content[0].text }}"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Important:</strong></p><ul><li>Two separate nodes ensure both messages are stored</li><li>createdAt timestamps are auto-generated by Data table</li><li>Use expressions to reference data from previous nodes</li><li>For \"Message a model\" node: use <code>.json.content[0].text</code> to get the response</li></ul>"
+                }
+              ]
+            },
+            {
+              "id": "view",
+              "label": "View Stored Data",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "<p><strong>Viewing Conversation History in Data Tables</strong></p><p>After the workflow executes, you can view all stored conversations in the n8n Data tables UI.</p>"
+                },
+                {
+                  "type": "image",
+                  "src": "assets/images/agent-data-table-view.png",
+                  "alt": "n8n Data tables view showing the conversations table with 15 rows of stored messages. All entries have session_id='test-1', alternating between role='user' and role='assistant'. The content column shows multi-turn conversations about Marcius, including questions like 'Who is Marcius?' and 'What are his key characteristics?' with detailed AI responses. Each row has auto-generated id, createdAt, and updatedAt timestamps."
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>How to Access:</strong></p><ol><li>In n8n, click <strong>Data</strong> in the left sidebar</li><li>Click <strong>Data tables</strong></li><li>Select the <strong>conversations</strong> table</li><li>View all stored messages with full conversation history</li></ol>"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>What You'll See:</strong></p><ul><li><strong>session_id</strong> - All messages with same session_id are part of one conversation</li><li><strong>role</strong> - Alternates between 'user' (questions) and 'assistant' (answers)</li><li><strong>content</strong> - Full message text, truncated in table view (click row to see full text)</li><li><strong>createdAt</strong> - Timestamp showing when each message was stored</li><li><strong>Multi-turn conversations</strong> - Notice how answers reference previous questions (e.g., \"Based on our previous discussion...\")</li></ul>"
+                },
+                {
+                  "type": "text",
+                  "value": "<p><strong>Verifying Memory Works:</strong></p><p>Look for assistant responses that start with phrases like:</p><ul><li>\"Based on our previous discussion about Marcius...\"</li><li>\"As mentioned earlier...\"</li><li>\"Following up on your question about...\"</li></ul><p>These phrases prove the agent is using conversation history from the Data table! ✅</p>"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Session Management Best Practices</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// 1. Session ID generation (client-side)\nconst sessionId = `user-${userId}-${Date.now()}`;\n// Or use UUID for better randomness\nconst sessionId = crypto.randomUUID();\n\n// 2. Session timeout (using Data table Delete operation)\n// Create a scheduled workflow that runs daily\n// Data table → Delete → Filter by:\n//   Column: createdAt\n//   Operator: Before\n//   Value: {{ $now.minus(7, 'days').toISO() }}\n\n// 3. Session limits (prevent abuse)\n// In your workflow, before saving messages:\n// Data table → Get row(s) → Count rows\n//   Filter: session_id = {{ $json.session_id }}\n//           AND createdAt > {{ $now.minus(1, 'hour').toISO() }}\n//   Then check count\n\nif ($('Count Messages').first().json.count > 100) {\n  return { error: 'Rate limit exceeded' };\n}\n\n// 4. Session clearing (user-initiated)\n// Data table → Delete operation\n//   Filter: session_id = {{ $json.session_id }}"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Common Patterns</strong></p>"
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "value": "// Pattern 1: Clarification Questions\nif (lowConfidenceScore) {\n  return \"I'm not sure I understood. Could you rephrase your question?\";\n}\n\n// Pattern 2: Fallback to General Knowledge\nif (ragResults.length === 0 || ragResults[0].score < 0.6) {\n  // No good RAG matches - use LLM general knowledge\n  prompt = `The user asked: \"${question}\"\n  \n  I couldn't find relevant information in the knowledge base. \n  Provide a helpful general answer, but mention that this is based on \n  general knowledge, not the specific knowledge base.`;\n}\n\n// Pattern 3: Multi-Source RAG\nconst shakespeareContext = await searchCollection('tinyshakespeare');\nconst modernContext = await searchCollection('modern-interpretations');\n\nprompt = `Shakespeare excerpts:\n${shakespeareContext}\n\nModern interpretations:\n${modernContext}\n\nQuestion: ${question}`;\n\n// Pattern 4: Conversation Summarization (after 20 messages)\nif (messageCount > 20) {\n  const summary = await summarize(oldMessages);\n  // Store summary, delete old messages\n  await storeConversationSummary(session_id, summary);\n  await deleteMessages(session_id, before: message_id);\n}"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Key Takeaways</strong></p><ul><li>Conversational memory enables multi-turn interactions</li><li>n8n Data table provides built-in, persistent storage (no external database needed)</li><li>Context management prevents token limit issues</li><li>RAG + Memory = powerful, context-aware agents</li><li>Session isolation keeps conversations separate</li><li>Structured prompts combine history + knowledge effectively</li><li>Cloud-friendly - works perfectly in n8n Cloud without infrastructure setup</li></ul>"
+        },
+        {
+          "type": "text",
+          "value": "<p><strong>Next Steps</strong></p>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Once you have this conversational foundation, you can extend the agent with:</p><ul><li>Conversation summarization - Condense long histories to manage token limits</li><li>Multi-turn clarification - Ask follow-up questions when user intent is unclear</li><li>Tool calling - Let the agent decide when to use RAG vs other capabilities</li><li>Multiple knowledge bases - Search different collections based on topic</li><li>Topic tracking - Detect when conversation shifts to new subjects</li><li>Sentiment analysis - Adjust tone based on user mood</li><li>Multi-language support - Translate questions and answers</li><li>Conversational UI - Build a chat interface for better user experience</li></ul>"
+        }
+      ]
     }
   ]
 }
