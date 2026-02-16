@@ -8,7 +8,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>n8n is an open-source workflow automation platform.</strong> Build workflows by connecting nodes in a visual editor. Each node performs an action (call API, transform data, send message), and data flows between nodes as JSON.</div>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>n8n is an open-source workflow automation platform.</strong></div>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Build workflows by connecting nodes in a visual editor. Each node performs an action (call API, transform data, send message), and data flows between nodes as JSON.</p>"
         },
         {
           "type": "text",
@@ -22,7 +26,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>A workflow is a sequence of connected nodes that process data.</strong> Trigger starts execution → Data flows through connections → Each node transforms data → Output.</div>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>A workflow is a sequence of connected nodes that process data.</strong></div>"
+        },
+        {
+          "type": "text",
+          "value": "<ul style='margin-left: 0; padding-left: 20px;'><li>Trigger starts execution</li><li>Data flows through connections</li><li>Each node transforms data</li><li>Output</li></ul>"
         },
         {
           "type": "tabs",
@@ -60,7 +68,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Nodes are the building blocks of n8n workflows.</strong> Each node has inputs, outputs, and configuration parameters.</div>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Nodes are the building blocks of n8n workflows.</strong></div>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Each node has inputs, outputs, and configuration parameters.</p>"
         },
         {
           "type": "text",
@@ -106,7 +118,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Every node passes JSON to the next node.</strong> Connect nodes together and you create a data pipeline.</div>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Every node passes JSON to the next node.</strong></div>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Connect nodes together and you create a data pipeline.</p>"
         },
         {
           "type": "tabs",
@@ -166,11 +182,15 @@
       "content": [
         {
           "type": "text",
-          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Expressions let you access and manipulate data.</strong> Wrap JavaScript in <code>{{ }}</code> to access fields, do math, use methods, or build logic.</div>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Expressions let you access and manipulate data.</strong></div>"
         },
         {
           "type": "text",
           "value": "<p><strong>Expression Syntax</strong></p>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Wrap JavaScript in <code>{{ }}</code> to access fields, do math, use methods, or build logic.</p>"
         },
         {
           "type": "code",
@@ -230,7 +250,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Logic nodes control where data flows.</strong> Route items down different paths based on conditions, then merge back together.</div>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Logic nodes control where data flows.</strong></div>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Route items down different paths based on conditions, then merge back together.</p>"
         },
         {
           "type": "text",
@@ -338,7 +362,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Production workflows handle errors gracefully.</strong> Use Continue on Fail, Error Triggers, and validation to catch failures and provide visibility.</div>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Reliable workflows handle errors gracefully.</strong></div>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Use Continue on Fail, Error Triggers, and validation to catch failures and provide visibility.</p>"
         },
         {
           "type": "text",
@@ -435,7 +463,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>AI APIs let you analyze, generate, and transform data using LLMs.</strong> Send text in → Get intelligent response back.</div>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>AI APIs let you analyze, generate, and transform data using LLMs.</strong></div>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Send text in → Get intelligent response back.</p>"
         },
         {
           "type": "text",
@@ -519,7 +551,11 @@
       "content": [
         {
           "type": "text",
-          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Embeddings convert text into numbers (vectors) that capture meaning.</strong> Similar concepts have similar vectors, enabling semantic search beyond keyword matching.</div>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Embeddings convert text into numbers (vectors) that capture meaning.</strong></div>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Similar concepts have similar vectors, enabling semantic search beyond keyword matching.</p>"
         },
         {
           "type": "text",
@@ -686,11 +722,15 @@
     },
     {
       "id": 10,
-      "title": "RAG (Retrieval Augmented Generation)",
+      "title": "Retrieval Augmented Generation",
       "content": [
         {
           "type": "text",
-          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>RAG combines vector search with LLMs to answer questions using your own data.</strong> Instead of relying on the LLM's training data, you retrieve relevant context from your knowledge base and inject it into the prompt.</div>"
+          "value": "<div style='border-left: 3px solid #666; padding-left: 20px; margin: 20px 0;'><strong>Retrieval Augmented Generation (RAG) combines vector search with LLMs to answer questions using your own data.</strong></div>"
+        },
+        {
+          "type": "text",
+          "value": "<p>Instead of relying on the LLM's training data, you retrieve relevant context from your knowledge base and inject it into the prompt.</p>"
         },
         {
           "type": "text",
@@ -828,11 +868,6 @@
                 {
                   "type": "text",
                   "value": "<p><strong>Response:</strong></p>"
-                },
-                {
-                  "type": "image",
-                  "src": "assets/images/rag-query-response.png",
-                  "alt": "Insomnia showing the RAG response: Marcius is a noble Roman soldier known for his valor and leadership in battle"
                 },
                 {
                   "type": "code",

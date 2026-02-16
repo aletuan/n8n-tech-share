@@ -35,6 +35,7 @@ body {
     color: var(--color-text-primary);
     line-height: 1.6;
     font-size: 16px;
+    overflow-y: scroll;
 }
 
 /* App Container */
@@ -153,9 +154,10 @@ body {
     line-height: 1.4;
 }
 
-/* Main Content Wrapper */
+/* Main Content Wrapper - full remaining width for consistent main content */
 .main-wrapper {
     flex: 1;
+    min-width: 0; /* Allow flex shrink on narrow viewports */
     margin-left: 260px;
     display: flex;
     flex-direction: column;
@@ -165,9 +167,16 @@ body {
 /* Main Content */
 .main-content {
     flex: 1;
+    width: 100%;
+    min-width: 0; /* Allow flex shrink */
     padding: var(--spacing-xl) var(--spacing-xl);
     max-width: 1200px;
     margin: 0 auto;
+}
+
+/* Ensure step content fills main content area with consistent width */
+#step-content {
+    width: 100%;
 }
 
 #step-title {
@@ -181,9 +190,27 @@ body {
     line-height: 1.8;
 }
 
-/* Content Block Styles */
+/* Content Block Styles - ensure full width across all steps */
+#step-content > .content-text,
+#step-content > .content-tabs,
+#step-content > .content-code,
+#step-content > .content-image {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .content-text {
     margin-bottom: var(--spacing-md);
+}
+
+.content-text > div,
+.content-text > ul,
+.content-text > ol,
+.content-text > p,
+.content-text table {
+    max-width: 100%;
+    width: 100%;
 }
 
 .content-text h1,
@@ -340,6 +367,7 @@ body {
     border-radius: var(--radius);
     overflow: hidden;
     background-color: white;
+    width: 100%;
 }
 
 .tab-buttons {
@@ -383,12 +411,16 @@ body {
 
 .tab-panels {
     position: relative;
+    min-height: 400px;
+    width: 100%;
 }
 
 .tab-panel {
     display: none;
+    width: 100%;
     padding: var(--spacing-md);
     animation: fadeIn 0.3s ease;
+    box-sizing: border-box;
 }
 
 .tab-panel.active {
