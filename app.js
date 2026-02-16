@@ -324,7 +324,8 @@ function renderTabsBlock(block) {
 // Update progress indicators
 function updateProgress() {
     const percentage = (currentStep / totalSteps) * 100;
-    elements.progressBar.style.width = `${percentage}%`;
+    // Use transform instead of width for better performance (compositor property)
+    elements.progressBar.style.transform = `scaleX(${percentage / 100})`;
 
     const progressText = `Step ${currentStep} of ${totalSteps}`;
     elements.progressText.textContent = progressText;
