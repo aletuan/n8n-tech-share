@@ -12,3 +12,4 @@ workflows/*
 
 # MCP configuration (user-specific)
 .mcp.json
+.playwright-mcp/
