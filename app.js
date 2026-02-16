@@ -420,3 +420,87 @@ function closeMobileMenu() {
         elements.mobileMenuToggle.classList.remove('active');
     }
 }
+
+// ============================================
+// Developer Features - Copy Buttons & Enhanced Keyboard Nav
+// ============================================
+
+// Copy Button for Code Blocks
+function addCopyButtons() {
+    const codeBlocks = document.querySelectorAll('.content-code');
+    
+    codeBlocks.forEach(block => {
+        // Skip if copy button already exists
+        if (block.querySelector('.copy-button')) {
+            return;
+        }
+        
+        // Wrap in a container for positioning
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        block.parentNode.insertBefore(wrapper, block);
+        wrapper.appendChild(block);
+        
+        // Create copy button
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+        button.setAttribute('aria-label', 'Copy code');
+        
+        button.addEventListener('click', () => {
+            const code = block.querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                button.classList.add('copied');
+                button.textContent = 'Copied';
+                
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.textContent = 'Copy';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        });
+        
+        wrapper.appendChild(button);
+    });
+}
+
+// Add copy buttons after rendering step content
+const originalRenderCurrentStep = renderCurrentStep;
+renderCurrentStep = function() {
+    originalRenderCurrentStep.call(this);
+    // Add copy buttons after content is rendered
+    setTimeout(addCopyButtons, 100);
+};
+
+// Enhanced Keyboard Navigation
+document.addEventListener('keydown', (e) => {
+    // Don't interfere with typing in inputs
+    if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+        return;
+    }
+    
+    // Home key - go to first step
+    if (e.key === 'Home') {
+        e.preventDefault();
+        if (currentStep !== 1) {
+            goToStep(1);
+        }
+    }
+    
+    // End key - go to last step
+    if (e.key === 'End') {
+        e.preventDefault();
+        if (currentStep !== totalSteps) {
+            goToStep(totalSteps);
+        }
+    }
+});
+
+// Log keyboard shortcuts on load
+console.log('n8n Training Tutorial - Developer Features Loaded');
+console.log('Keyboard Shortcuts:');
+console.log('  ← → : Navigate between steps');
+console.log('  Home : Go to first step');
+console.log('  End : Go to last step');

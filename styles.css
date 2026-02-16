@@ -6,17 +6,21 @@
 }
 
 :root {
-    /* Anthropic Brand Colors */
-    --color-bg-primary: #F4F1EA;
-    --color-text-primary: #1A1A1A;
-    --color-accent: #D97757;
-    --color-code-bg: #F5F5F5;
-    --color-border: #E0E0E0;
-    --color-shadow: rgba(0, 0, 0, 0.1);
+    /* Developer-Focused Colors - Clean & Technical */
+    --color-bg-primary: #F8FAFC;
+    --color-bg-secondary: #F1F5F9;
+    --color-text-primary: #1E293B;
+    --color-text-secondary: #475569;
+    --color-accent: #2563EB;
+    --color-accent-hover: #1D4ED8;
+    --color-code-bg: #F1F5F9;
+    --color-border: #E2E8F0;
+    --color-shadow: rgba(0, 0, 0, 0.08);
+    --color-success: #10B981;
 
-    /* Typography */
-    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    --font-mono: 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+    /* Typography - Code-First */
+    --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
 
     /* Spacing */
     --spacing-xs: 8px;
@@ -33,9 +37,11 @@ body {
     font-family: var(--font-sans);
     background-color: var(--color-bg-primary);
     color: var(--color-text-primary);
-    line-height: 1.6;
+    line-height: 1.7;
     font-size: 16px;
     overflow-y: scroll;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* App Container */
@@ -117,11 +123,11 @@ body {
 }
 
 .step-nav-item:hover {
-    background-color: rgba(217, 119, 87, 0.1);
+    background-color: rgba(37, 99, 235, 0.08);
 }
 
 .step-nav-item.active {
-    background-color: rgba(217, 119, 87, 0.15);
+    background-color: rgba(37, 99, 235, 0.12);
     border-left-color: var(--color-accent);
 }
 
@@ -260,11 +266,13 @@ body {
 .content-code pre {
     background-color: var(--color-code-bg);
     border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent);
     border-radius: var(--radius);
-    padding: var(--spacing-sm);
+    padding: 16px;
     overflow-x: auto;
     font-family: var(--font-mono);
-    font-size: 0.9rem;
+    font-size: 0.875rem;
+    line-height: 1.7;
 }
 
 .content-code code {
@@ -337,10 +345,12 @@ body {
 .btn-primary {
     background-color: var(--color-accent);
     color: white;
+    font-weight: 500;
+    transition: background-color 150ms ease, transform 150ms ease;
 }
 
 .btn-primary:hover:not(:disabled) {
-    opacity: 0.9;
+    background-color: var(--color-accent-hover);
     transform: translateY(-1px);
 }
 
@@ -348,6 +358,8 @@ body {
     background-color: transparent;
     color: var(--color-text-primary);
     border: 2px solid var(--color-border);
+    font-weight: 500;
+    transition: border-color 150ms ease, color 150ms ease;
 }
 
 .btn-secondary:hover:not(:disabled) {
@@ -531,5 +543,94 @@ body {
 
     .step-nav-item {
         padding: var(--spacing-sm);
+    }
+}
+
+/* ============================================
+   Developer Features - Copy Buttons
+   ============================================ */
+
+/* Code Block Copy Button */
+.code-block-wrapper {
+    position: relative;
+}
+
+.copy-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 6px 12px;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 150ms ease, background-color 150ms ease;
+    z-index: 10;
+}
+
+.code-block-wrapper:hover .copy-button {
+    opacity: 1;
+}
+
+.copy-button:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.copy-button.copied {
+    background-color: var(--color-success);
+}
+
+.copy-button.copied::after {
+    content: ' ✓';
+}
+
+/* Improved Typography Hierarchy */
+#step-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+}
+
+.content-text h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    color: var(--color-text-primary);
+}
+
+.content-text h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    color: var(--color-text-secondary);
+}
+
+/* Keyboard Shortcut Indicator */
+.keyboard-shortcut {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+/* Responsive adjustments for copy buttons */
+@media (max-width: 768px) {
+    .copy-button {
+        opacity: 1; /* Always visible on mobile */
     }
 }
