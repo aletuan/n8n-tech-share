@@ -22,7 +22,7 @@
     },
     {
       "id": 2,
-      "title": "Understanding Workflows",
+      "title": "Workflows",
       "content": [
         {
           "type": "text",
@@ -64,7 +64,7 @@
     },
     {
       "id": 3,
-      "title": "Working with Nodes",
+      "title": "Nodes",
       "content": [
         {
           "type": "text",
@@ -114,7 +114,7 @@
     },
     {
       "id": 4,
-      "title": "Data Flow: How Nodes Talk",
+      "title": "Data Flow",
       "content": [
         {
           "type": "text",
@@ -178,7 +178,7 @@
     },
     {
       "id": 5,
-      "title": "Expressions & Variables",
+      "title": "Expressions",
       "content": [
         {
           "type": "text",
@@ -358,7 +358,7 @@
     },
     {
       "id": 7,
-      "title": "Error Handling & Debugging",
+      "title": "Error Handling",
       "content": [
         {
           "type": "text",
@@ -459,7 +459,7 @@
     },
     {
       "id": 8,
-      "title": "AI APIs & Language Models",
+      "title": "AI APIs & LLMs",
       "content": [
         {
           "type": "text",
@@ -547,7 +547,7 @@
     },
     {
       "id": 9,
-      "title": "Embeddings & Vector Databases",
+      "title": "Embeddings",
       "content": [
         {
           "type": "text",
@@ -722,7 +722,7 @@
     },
     {
       "id": 10,
-      "title": "Retrieval Augmented Generation",
+      "title": "RAG",
       "content": [
         {
           "type": "text",
@@ -895,7 +895,7 @@
     },
     {
       "id": 11,
-      "title": "AI Agents & Conversational Memory",
+      "title": "Basic AI Agents",
       "content": [
         {
           "type": "text",
@@ -1141,7 +1141,7 @@
     },
     {
       "id": 12,
-      "title": "Conversational UI with Multi-Language Chat",
+      "title": "Multi-languages Chat",
       "content": [
         {
           "type": "text",
